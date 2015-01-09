@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickQuery", "QuickQuery\QuickQuery.csproj", "{3AE2713D-AD65-431B-A97C-1C683FBE3AC9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3AE2713D-AD65-431B-A97C-1C683FBE3AC9}.Debug|x86.ActiveCfg = Debug|x86
+		{3AE2713D-AD65-431B-A97C-1C683FBE3AC9}.Debug|x86.Build.0 = Debug|x86
+		{3AE2713D-AD65-431B-A97C-1C683FBE3AC9}.Release|x86.ActiveCfg = Release|x86
+		{3AE2713D-AD65-431B-A97C-1C683FBE3AC9}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
