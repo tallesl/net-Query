@@ -6,10 +6,10 @@ A simplistic ADO.NET wrapper that queries a SQL Server database.
 
 ## Usage
 
-Instantiating:
+Instantiating ([ConfigurationManager.ConnectionStrings](http://msdn.microsoft.com/library/system.configuration.configurationmanager.connectionstrings.aspx)):
 
 ```cs
-var qckQuery = new QuickQuery("Server=myServerAddress;Database=myDataBase;UserId=myUsername;Password=myPassword;");
+var qckQuery = new QuickQuery("YourConnectionStringName");
 ```
 
 Querying without return ([SqlCommand.ExecuteNonQuery](http://msdn.microsoft.com/library/system.data.sqlclient.sqlcommand.executenonquery.aspx)):
