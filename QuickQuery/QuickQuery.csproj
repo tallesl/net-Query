@@ -11,7 +11,8 @@
     <RootNamespace>QckQuery</RootNamespace>
     <AssemblyName>QuickQuery</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -37,6 +38,14 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -45,12 +54,22 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exception\EmptyConnectionStringException.cs" />
-    <Compile Include="Exception\MoreThanOneRowAffectedException.cs" />
-    <Compile Include="Exception\NoSuchConnectionStringException.cs" />
+    <Compile Include="DataAccess\DataTableFiller.cs" />
+    <Compile Include="Exception\Configuration\EmptyConnectionStringException.cs" />
+    <Compile Include="Exception\Configuration\EmptyProviderNameException.cs" />
+    <Compile Include="Exception\Querying\UnexpectedNumberOfRowsSelected.cs" />
+    <Compile Include="Exception\Querying\UnexpectedNumberOfRowsAffected.cs" />
+    <Compile Include="Exception\Configuration\NoSuchConnectionStringException.cs" />
     <Compile Include="Exception\QuickQueryException.cs" />
+    <Compile Include="DataAccess\DataAdapterProvider.cs" />
+    <Compile Include="DataAccess\ConnectionExtension.cs" />
+    <Compile Include="DataAccess\ConnectionProvider.cs" />
+    <Compile Include="Formatting\CommandFormatter.cs" />
+    <Compile Include="Exception\Querying\OddParametersException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuickQuery.cs" />
+    <Compile Include="WithoutReturn.cs" />
+    <Compile Include="WithReturn.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
