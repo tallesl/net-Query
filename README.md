@@ -9,7 +9,7 @@
 var qckQuery = new QuickQuery("YourConnectionStringName");
 ```
 
-It uses [ConfigurationManager.ConnectionStrings](http://msdn.microsoft.com/library/system.configuration.configurationmanager.connectionstrings.aspx) underlying. May throw [NoSuchConnectionStringException](/QuickQuery/Exception/NoSuchConnectionStringException.cs) or [EmptyConnectionStringException](/QuickQuery/Exception/EmptyConnectionStringException.cs).
+The constructor uses [ConfigurationManager.ConnectionStrings](http://msdn.microsoft.com/library/system.configuration.configurationmanager.connectionstrings.aspx) underneath. May throw [NoSuchConnectionStringException](/QuickQuery/Exception/NoSuchConnectionStringException.cs) or [EmptyConnectionStringException](/QuickQuery/Exception/EmptyConnectionStringException.cs).
 
 ## Querying without return
 
@@ -17,28 +17,31 @@ It uses [ConfigurationManager.ConnectionStrings](http://msdn.microsoft.com/libra
 qckQuery.WithoutReturn("DELETE FROM Users WHERE Name LIKE @NameToDelete", "NameToDelete", "John");
 ```
 
-It uses [SqlCommand.ExecuteNonQuery](http://msdn.microsoft.com/library/system.data.sqlclient.sqlcommand.executenonquery.aspx) underlying.
+You can also make sure how many rows will be affected with:
 
-## Querying without return and ensuring affected rows
+* `WithoutReturnAffectingExactlyOneRow(string sql, params string[] parameters)`;
+* `WithoutReturnAffectingOneRowOrLess(string sql, params string[] parameters)`;
+* `WithoutReturnAffectingExactlyNRows(string sql, int n, params string[] parameters)`;
+* `WithoutReturnAffectingNRowsOrLess(string sql, int n, params string[] parameters)`.
 
-```cs
-qckQuery.WithoutReturnEnsuringAffected("DELETE FROM Users WHERE Name = @NameToDelete", 1, "NameToDelete", "Joe Blows");
-```
+`UnexpectedNumberOfRowsAffected` is throw and the transaction is rolled back if the amount of affected rows is different from the expected.
 
-It uses [SqlCommand.ExecuteNonQuery](http://msdn.microsoft.com/library/system.data.sqlclient.sqlcommand.executenonquery.aspx) underlying. May throw [MoreThanOneRowAffectedException](/QuickQuery/Exception/MoreThanOneRowAffectedException.cs).
+`WithoutReturn` uses [SqlCommand.ExecuteNonQuery](http://msdn.microsoft.com/library/system.data.sqlclient.sqlcommand.executenonquery.aspx) underneath.
 
-## Querying a single value
+## Querying with return
 
 ```cs
 int userCount = qckQuery.SingleValue<int>("SELECT COUNT(0) FROM Users");
-```
-
-It uses [SqlCommand.ExecuteScalar](http://msdn.microsoft.com/library/system.data.sqlclient.sqlcommand.executescalar.aspx) underlying.
-
-## Querying with multiple value
-
-```cs
 DataTable user1337 = qckQuery.WithReturn("SELECT * FROM Users WHERE Id = @UserId", "UserId", "1337");
 ```
 
-It uses [DbDataAdapter.Fill](http://msdn.microsoft.com/library/system.data.common.dbdataadapter.fill.aspx) underlying.
+You can also make sure how many rows will be selected with:
+
+* `WithReturnSelectingExactlyOneRow(string sql, params string[] parameters)`;
+* `WithReturnSelectingOneRowOrLess(string sql, params string[] parameters)`;
+* `WithReturnSelectingExactlyNRows(string sql, int n, params string[] parameters)`;
+* `WithReturnSelectingNRowsOrLess(string sql, int n, params string[] parameters)`.
+
+`UnexpectedNumberOfRowsSelected` is throw if the amount of selected rows is different from the expected.
+
+`SingleValue` uses [SqlCommand.ExecuteScalar](http://msdn.microsoft.com/library/system.data.sqlclient.sqlcommand.executescalar.aspx) and `WithReturn` uses [DbDataAdapter.Fill](http://msdn.microsoft.com/library/system.data.common.dbdataadapter.fill.aspx) underneath.
