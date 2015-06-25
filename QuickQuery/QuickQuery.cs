@@ -28,12 +28,18 @@
         /// Ctor.
         /// </summary>
         /// <param name="connectionStringName">Connection string name to be read from the .config file</param>
-        public QuickQuery(string connectionStringName)
+        public QuickQuery(string connectionStringName) :
+            this(ConfigurationManager.ConnectionStrings[connectionStringName]) { }
+
+        /// <summary>
+        /// Ctor.
+        /// </summary>
+        /// <param name="connectionString">Connection string settings</param>
+        public QuickQuery(ConnectionStringSettings connectionString)
         {
-            var cs = ConfigurationManager.ConnectionStrings[connectionStringName];
-            CheckConnectionString(cs);
-            _connectionProvider = new ConnectionProvider(cs);
-            _dataAdapterProvider = new DataAdapterProvider(cs);
+            CheckConnectionString(connectionString);
+            _connectionProvider = new ConnectionProvider(connectionString);
+            _dataAdapterProvider = new DataAdapterProvider(connectionString);
             _dataTableFiller = new DataTableFiller(_dataAdapterProvider);
         }
 
