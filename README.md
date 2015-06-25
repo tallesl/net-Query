@@ -1,7 +1,13 @@
 # QuickQuery
 
-[![build](https://ci.appveyor.com/api/projects/status/github/tallesl/QuickQuery)](https://ci.appveyor.com/project/TallesL/QuickQuery)
-[![nuget package](https://badge.fury.io/nu/QuickQuery.png)](http://badge.fury.io/nu/QuickQuery)
+[![][build-img]][build]
+[![][nuget-img]][nuget]
+
+[build]:     https://ci.appveyor.com/project/TallesL/QuickQuery
+[build-img]: https://ci.appveyor.com/api/projects/status/github/tallesl/QuickQuery
+
+[nuget]:     http://badge.fury.io/nu/QuickQuery
+[nuget-img]: https://badge.fury.io/nu/QuickQuery.png
 
 ## Instantiating
 
@@ -9,7 +15,12 @@
 var qckQuery = new QuickQuery("YourConnectionStringName");
 ```
 
-The constructor uses [ConfigurationManager.ConnectionStrings](http://msdn.microsoft.com/library/system.configuration.configurationmanager.connectionstrings.aspx) underneath. May throw [NoSuchConnectionStringException](/QuickQuery/Exception/NoSuchConnectionStringException.cs) or [EmptyConnectionStringException](/QuickQuery/Exception/EmptyConnectionStringException.cs).
+The constructor uses [ConfigurationManager.ConnectionStrings][ConfigurationManager.ConnectionStrings] underneath. May throw [NoSuchConnectionStringException][NoSuchConnectionStringException] or [EmptyConnectionStringException][EmptyConnectionStringException].
+
+[ConfigurationManager.ConnectionStrings]: http://msdn.microsoft.com/library/system.configuration.configurationmanager.connectionstrings.aspx
+
+[NoSuchConnectionStringException]: QuickQuery/Exception/NoSuchConnectionStringException.cs
+[EmptyConnectionStringException]:  QuickQuery/Exception/EmptyConnectionStringException.cs
 
 ## Querying without return
 
@@ -26,7 +37,9 @@ You can also make sure how many rows will be affected with:
 
 `UnexpectedNumberOfRowsAffected` is throw and the transaction is rolled back if the amount of affected rows is different from the expected.
 
-`WithoutReturn` uses [SqlCommand.ExecuteNonQuery](http://msdn.microsoft.com/library/system.data.sqlclient.sqlcommand.executenonquery.aspx) underneath.
+`WithoutReturn` uses [SqlCommand.ExecuteNonQuery][SqlCommand.ExecuteNonQuery] underneath.
+
+[SqlCommand.ExecuteNonQuery]: http://msdn.microsoft.com/library/system.data.sqlclient.sqlcommand.executenonquery.aspx
 
 ## Querying with return
 
@@ -44,4 +57,7 @@ You can also make sure how many rows will be selected with:
 
 `UnexpectedNumberOfRowsSelected` is throw if the amount of selected rows is different from the expected.
 
-`SingleValue` uses [SqlCommand.ExecuteScalar](http://msdn.microsoft.com/library/system.data.sqlclient.sqlcommand.executescalar.aspx) and `WithReturn` uses [DbDataAdapter.Fill](http://msdn.microsoft.com/library/system.data.common.dbdataadapter.fill.aspx) underneath.
+`SingleValue` uses [SqlCommand.ExecuteScalar][SqlCommand.ExecuteScalar] and `WithReturn` uses [DbDataAdapter.Fill][DbDataAdapter.Fill] underneath.
+
+[SqlCommand.ExecuteScalar]: http://msdn.microsoft.com/library/system.data.sqlclient.sqlcommand.executescalar.aspx
+[DbDataAdapter.Fill]:       http://msdn.microsoft.com/library/system.data.common.dbdataadapter.fill.aspx
