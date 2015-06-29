@@ -79,16 +79,6 @@
             WithoutReturnAffectingNRows(sql, n, true, parameters);
         }
 
-        /// <summary>
-        /// Runs the given query giving no return.
-        /// Throws UnexpectedNumberOfRowsAffected if an unexpected number of rows is affected.
-        /// It uses DbCommand.ExecuteNonQuery underneath.
-        /// </summary>
-        /// <param name="sql">Query to run</param>
-        /// <param name="n">Maximum of affected rows to ensure</param>
-        /// <param name="acceptsLess">True if affecting less than the N is valid</param>
-        /// <param name="parameters">Parameters names and values pairs</param>
-        /// <exception cref="UnexpectedNumberOfRowsAffected">If an unexpected number of rows is affected</exception>
         private void WithoutReturnAffectingNRows(string sql, int n, bool acceptsLess, params string[] parameters)
         {
             using (var connection = _connectionProvider.GetOpenConnection())

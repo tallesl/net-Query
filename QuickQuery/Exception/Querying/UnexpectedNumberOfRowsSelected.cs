@@ -8,11 +8,6 @@
     /// </summary>
     public class UnexpectedNumberOfRowsSelected : QuickQueryException
     {
-        /// <summary>
-        /// Ctor.
-        /// </summary>
-        /// <param name="command">Command that selected an unexpected number of rows</param>
-        /// <param name="n">The unexpected number of rows that the command selected</param>
         internal UnexpectedNumberOfRowsSelected(DbCommand command, int n) :
             base("The following query selected an unexpected number of rows (" + n + "): " +
                 command.GetFormattedSql() + ".") { }

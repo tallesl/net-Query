@@ -8,11 +8,6 @@
     /// </summary>
     public class UnexpectedNumberOfRowsAffected : QuickQueryException
     {
-        /// <summary>
-        /// Ctor.
-        /// </summary>
-        /// <param name="command">Command that affected an unexpected number of rows</param>
-        /// <param name="n">The unexpected number of rows that the command affected</param>
         internal UnexpectedNumberOfRowsAffected(DbCommand command, int n) :
             base("The following query was rolled back because it affected " + n + " rows: " +
                 command.GetFormattedSql() + ".") { }

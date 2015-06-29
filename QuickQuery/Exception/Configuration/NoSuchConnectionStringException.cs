@@ -7,10 +7,6 @@
     /// </summary>
     public class NoSuchConnectionStringException : QuickQueryException
     {
-        /// <summary>
-        /// Ctor.
-        /// </summary>
-        /// <param name="cs">The unexisting connection string</param>
         internal NoSuchConnectionStringException(ConnectionStringSettings cs) :
             base("There's no \"" + cs.Name + "\" connection string.") { }
     }

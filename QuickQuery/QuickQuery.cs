@@ -9,19 +9,10 @@
     /// </summary>
     public partial class QuickQuery
     {
-        /// <summary>
-        /// Provides database connection.
-        /// </summary>
         private readonly ConnectionProvider _connectionProvider;
 
-        /// <summary>
-        /// Provides database data adapter.
-        /// </summary>
         private readonly DataAdapterProvider _dataAdapterProvider;
 
-        /// <summary>
-        /// Fills data table from command.
-        /// </summary>
         private readonly DataTableFiller _dataTableFiller;
 
         /// <summary>
@@ -43,13 +34,6 @@
             _dataTableFiller = new DataTableFiller(_dataAdapterProvider);
         }
 
-        /// <summary>
-        /// Checks if the given connection string is malformed.
-        /// </summary>
-        /// <param name="cs">Connection string settings</param>
-        /// <exception cref="NoSuchConnectionStringException">If didn't find the connection string</exception>
-        /// <exception cref="EmptyConnectionStringException">If the found connection string is empty</exception>
-        /// <exception cref="EmptyProviderNameException">If the found provider name is empty</exception>
         private void CheckConnectionString(ConnectionStringSettings cs)
         {
             if (cs == null) throw new NoSuchConnectionStringException(cs);

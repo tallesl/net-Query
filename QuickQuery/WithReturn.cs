@@ -105,16 +105,6 @@
             return WithReturnSelectingNRows(sql, n, true, parameters);
         }
 
-        /// <summary>
-        /// Runs the given query and returns the queried values.
-        /// Throws UnexpectedNumberOfRowsSelected if an unexpected number of rows is selected.
-        /// It uses DbCommand.ExecuteNonQuery underneath.
-        /// </summary>
-        /// <param name="sql">Query to run</param>
-        /// <param name="n">Maximum of selected rows to ensure</param>
-        /// <param name="acceptsLess">True if selecting less than the N is valid</param>
-        /// <param name="parameters">Parameters names and values pairs</param>
-        /// <exception cref="UnexpectedNumberOfRowsSelected">If an unexpected number of rows is selected</exception>
         private DataTable WithReturnSelectingNRows(string sql, int n, bool acceptsLess, params string[] parameters)
         {
             using (var connection = _connectionProvider.GetOpenConnection())
