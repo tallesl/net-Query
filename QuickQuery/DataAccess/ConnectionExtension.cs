@@ -6,7 +6,7 @@
 
     internal static class ConnectionExtension
     {
-        internal static DbCommand GetCommand(this DbConnection connection, string sql, string[] parameters)
+        internal static DbCommand GetCommand(this DbConnection connection, string sql, object[] parameters)
         {
             var command = connection.CreateCommand();
             command.CommandText = sql;
@@ -18,18 +18,22 @@
             return command;
         }
 
-        private static void CheckParameters(string[] parameters)
+        private static void CheckParameters(object[] parameters)
         {
             if (parameters.Length % 2 != 0) throw new OddParametersException(parameters.Length);
+            for (var i = 0; i < parameters.Length; i += 2)
+            {
+                if (!(parameters[i] is string)) throw new ParameterNameNotString(parameters[i]);
+            }
         }
 
-        private static void SetParameters(DbCommand command, string[] parameters)
+        private static void SetParameters(DbCommand command, object[] parameters)
         {
             for (var i = 0; i < parameters.Length; )
             {
                 var parameter = command.CreateParameter();
-                parameter.ParameterName = parameters[i++];
-                parameter.Value = (object)parameters[i++] ?? DBNull.Value;
+                parameter.ParameterName = (string)parameters[i++];
+                parameter.Value = parameters[i++] ?? DBNull.Value;
                 command.Parameters.Add(parameter);
             }
         }

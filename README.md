@@ -45,7 +45,7 @@ You can also make sure how many rows will be affected with:
 
 ```cs
 int userCount = qckQuery.SingleValue<int>("SELECT COUNT(0) FROM Users");
-DataTable user1337 = qckQuery.WithReturn("SELECT * FROM Users WHERE Id = @UserId", "UserId", "1337");
+DataTable user1337 = qckQuery.WithReturn("SELECT * FROM Users WHERE Id = @UserId", "UserId", 1337);
 ```
 
 You can also make sure how many rows will be selected with:

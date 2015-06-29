@@ -12,7 +12,7 @@
         /// </summary>
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
-        public void WithoutReturn(string sql, params string[] parameters)
+        public void WithoutReturn(string sql, params object[] parameters)
         {
             using (var connection = _connectionProvider.GetOpenConnection())
             using (var command = connection.GetCommand(sql, parameters))
@@ -29,7 +29,7 @@
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <exception cref="UnexpectedNumberOfRowsAffected">If none or more than one row was affected</exception>
-        public void WithoutReturnAffectingExactlyOneRow(string sql, params string[] parameters)
+        public void WithoutReturnAffectingExactlyOneRow(string sql, params object[] parameters)
         {
             WithoutReturnAffectingExactlyNRows(sql, 1, parameters);
         }
@@ -42,7 +42,7 @@
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <exception cref="UnexpectedNumberOfRowsAffected">If more than one row was affected</exception>
-        public void WithoutReturnAffectingOneRowOrLess(string sql, params string[] parameters)
+        public void WithoutReturnAffectingOneRowOrLess(string sql, params object[] parameters)
         {
             WithoutReturnAffectingNRowsOrLess(sql, 1, parameters);
         }
@@ -58,7 +58,7 @@
         /// <exception cref="UnexpectedNumberOfRowsAffected">
         /// If the number of affected rows is different from N
         /// </exception>
-        public void WithoutReturnAffectingExactlyNRows(string sql, int n, params string[] parameters)
+        public void WithoutReturnAffectingExactlyNRows(string sql, int n, params object[] parameters)
         {
             WithoutReturnAffectingNRows(sql, n, false, parameters);
         }
@@ -74,12 +74,12 @@
         /// <exception cref="UnexpectedNumberOfRowsAffected">
         /// If the number of affected rows is greater than N
         /// </exception>
-        public void WithoutReturnAffectingNRowsOrLess(string sql, int n, params string[] parameters)
+        public void WithoutReturnAffectingNRowsOrLess(string sql, int n, params object[] parameters)
         {
             WithoutReturnAffectingNRows(sql, n, true, parameters);
         }
 
-        private void WithoutReturnAffectingNRows(string sql, int n, bool acceptsLess, params string[] parameters)
+        private void WithoutReturnAffectingNRows(string sql, int n, bool acceptsLess, params object[] parameters)
         {
             using (var connection = _connectionProvider.GetOpenConnection())
             using (var transaction = new TransactionScope())

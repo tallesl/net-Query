@@ -15,7 +15,7 @@
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>The first column of the first row queried</returns>
-        public T SingleValue<T>(string sql, params string[] parameters)
+        public T SingleValue<T>(string sql, params object[] parameters)
         {
             using (var connection = _connectionProvider.GetOpenConnection())
             using (var command = connection.GetCommand(sql, parameters))
@@ -31,7 +31,7 @@
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>A DataTable with the queried values</returns>
-        public DataTable WithReturn(string sql, params string[] parameters)
+        public DataTable WithReturn(string sql, params object[] parameters)
         {
             using (var connection = _connectionProvider.GetOpenConnection())
             using (var command = connection.GetCommand(sql, parameters))
@@ -49,7 +49,7 @@
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>A DataTable with the queried values</returns>
         /// <exception cref="UnexpectedNumberOfRowsAffected">If none or more than one row was selected</exception>
-        public DataRow WithReturnSelectingExactlyOneRow(string sql, params string[] parameters)
+        public DataRow WithReturnSelectingExactlyOneRow(string sql, params object[] parameters)
         {
             var table = WithReturnSelectingNRows(sql, 1, false, parameters);
             return table.Rows[0];
@@ -64,7 +64,7 @@
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>A DataTable with the queried values</returns>
         /// <exception cref="UnexpectedNumberOfRowsAffected">If more than one row was selected</exception>
-        public DataRow WithReturnSelectingOneRowOrLess(string sql, params string[] parameters)
+        public DataRow WithReturnSelectingOneRowOrLess(string sql, params object[] parameters)
         {
             var table = WithReturnSelectingNRows(sql, 1, true, parameters);
             if (table.Rows.Count == 0) return null;
@@ -83,7 +83,7 @@
         /// <exception cref="UnexpectedNumberOfRowsAffected">
         /// If the number of selected rows is different from N
         /// </exception>
-        public DataTable WithReturnSelectingExactlyNRows(string sql, int n, params string[] parameters)
+        public DataTable WithReturnSelectingExactlyNRows(string sql, int n, params object[] parameters)
         {
             return WithReturnSelectingNRows(sql, n, false, parameters);
         }
@@ -100,12 +100,12 @@
         /// <exception cref="UnexpectedNumberOfRowsSelected">
         /// If the number of selected rows is greater than N
         /// </exception>
-        public DataTable WithReturnSelectingNRowsOrLess(string sql, int n, params string[] parameters)
+        public DataTable WithReturnSelectingNRowsOrLess(string sql, int n, params object[] parameters)
         {
             return WithReturnSelectingNRows(sql, n, true, parameters);
         }
 
-        private DataTable WithReturnSelectingNRows(string sql, int n, bool acceptsLess, params string[] parameters)
+        private DataTable WithReturnSelectingNRows(string sql, int n, bool acceptsLess, params object[] parameters)
         {
             using (var connection = _connectionProvider.GetOpenConnection())
             using (var command = connection.GetCommand(sql, parameters))
