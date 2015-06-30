@@ -9,6 +9,8 @@
 [nuget]:     http://badge.fury.io/nu/QuickQuery
 [nuget-img]: https://badge.fury.io/nu/QuickQuery.png
 
+A simplistic ADO.NET wrapper.
+
 ## Instantiating
 
 ```cs
@@ -61,3 +63,24 @@ You can also make sure how many rows will be selected with:
 
 [SqlCommand.ExecuteScalar]: http://msdn.microsoft.com/library/system.data.sqlclient.sqlcommand.executescalar.aspx
 [DbDataAdapter.Fill]:       http://msdn.microsoft.com/library/system.data.common.dbdataadapter.fill.aspx
+
+## `IN` clauses
+
+It automatically prepares collections ([IEnumerable][IEnumerable]) for [`IN`][IN] clauses ([taking that burden off you][so])
+
+So this:
+
+```cs
+var ids = new List<int> { 1, 123, 44 };
+qckQuery.WithoutReturn("SELECT * FROM Users WHERE Id = (@Ids)", "Ids", ids);
+```
+
+Becomes this:
+
+```sql
+SELECT * FROM Users WHERE Id = (@Ids0, @Ids1, @Ids2)
+```
+
+[IN]:          https://msdn.microsoft.com/library/ms177682.aspx
+[IEnumerable]: https://msdn.microsoft.com/library/system.collections.ienumerable.aspx
+[so]:          http://stackoverflow.com/q/337704/1316620
