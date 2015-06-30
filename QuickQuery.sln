@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickQuery", "QuickQuery\QuickQuery.csproj", "{3AE2713D-AD65-431B-A97C-1C683FBE3AC9}"
 EndProject
 Global
