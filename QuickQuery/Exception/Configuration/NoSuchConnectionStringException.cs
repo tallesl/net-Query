@@ -7,7 +7,7 @@
     /// </summary>
     public class NoSuchConnectionStringException : QuickQueryException
     {
-        internal NoSuchConnectionStringException(ConnectionStringSettings cs) :
-            base("There's no \"" + cs.Name + "\" connection string.") { }
+        internal NoSuchConnectionStringException(string name) :
+            base("There's no \"" + name + "\" connection string.") { }
     }
 }
