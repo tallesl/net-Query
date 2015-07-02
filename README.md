@@ -66,7 +66,7 @@ You can also make sure how many rows will be selected with:
 
 ## `IN` clauses
 
-It automatically prepares collections ([IEnumerable][IEnumerable]) for [`IN`][IN] clauses ([taking that burden off you][so])
+It automatically prepares collections ([IEnumerable][IEnumerable]) for [`IN`][IN] clauses ([taking that burden off you][so]).
 
 So this:
 
