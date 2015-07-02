@@ -36,7 +36,7 @@
                 var name = (string)parameters[i++];
                 var value = parameters[i++];
 
-                if (value is IEnumerable) SetCollectionParameter(command, name, (IEnumerable)value);
+                if (value is IEnumerable && !(value is string)) SetCollectionParameter(command, name, (IEnumerable)value);
                 else SetSingleParameter(command, name, value);
             }
         }
