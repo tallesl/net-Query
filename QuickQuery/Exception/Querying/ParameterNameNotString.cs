@@ -6,6 +6,6 @@
     public class ParameterNameNotString : QuickQueryException
     {
         internal ParameterNameNotString(object parameter)
-            : base("An parameter name that isn't a string was found: \"" + parameter + "\".") { }
+            : base(string.Format("An parameter name that isn't a string was found: \"{0}\".", parameter)) { }
     }
 }

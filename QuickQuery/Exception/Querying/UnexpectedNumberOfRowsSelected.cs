@@ -1,15 +1,15 @@
 ﻿namespace QckQuery.Exception.Querying
 {
-    using System.Data.Common;
     using QckQuery.Formatting;
+    using System.Data.Common;
 
     /// <summary>
     /// Exception thrown when a query selects an unexpected number of rows.
     /// </summary>
     public class UnexpectedNumberOfRowsSelected : QuickQueryException
     {
-        internal UnexpectedNumberOfRowsSelected(DbCommand command, int n) :
-            base("The following query selected an unexpected number of rows (" + n + "): " +
-                command.GetFormattedSql() + ".") { }
+        internal UnexpectedNumberOfRowsSelected(DbCommand command, int n)
+            : base(string.Format("The following query selected an unexpected number of rows ({0}): {1}.",
+                n, command.GetFormattedSql())) { }
     }
 }

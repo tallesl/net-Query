@@ -1,8 +1,8 @@
 ﻿namespace QckQuery
 {
-    using System.Transactions;
     using QckQuery.DataAccess;
     using QckQuery.Exception.Querying;
+    using System.Transactions;
 
     public partial class QuickQuery
     {

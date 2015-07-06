@@ -1,15 +1,15 @@
 ﻿namespace QckQuery.Exception.Querying
 {
-    using System.Data.Common;
     using QckQuery.Formatting;
+    using System.Data.Common;
 
     /// <summary>
     /// Exception thrown when a query affects an unexpected number of rows.
     /// </summary>
     public class UnexpectedNumberOfRowsAffected : QuickQueryException
     {
-        internal UnexpectedNumberOfRowsAffected(DbCommand command, int n) :
-            base("The following query was rolled back because it affected " + n + " rows: " +
-                command.GetFormattedSql() + ".") { }
+        internal UnexpectedNumberOfRowsAffected(DbCommand command, int n)
+            : base(string.Format("The following query was rolled back because it affected {0} rows: {1}.",
+                n, command.GetFormattedSql())) { }
     }
 }

@@ -7,7 +7,7 @@
     /// </summary>
     public class EmptyProviderNameException : QuickQueryException
     {
-        internal EmptyProviderNameException(ConnectionStringSettings cs) :
-            base("The provider name of the connection string \"" + cs.Name + "\" is empty.") { }
+        internal EmptyProviderNameException(ConnectionStringSettings cs)
+            : base(string.Format("The provider name of the connection string \"{0}\" is empty.", cs.Name)) { }
     }
 }

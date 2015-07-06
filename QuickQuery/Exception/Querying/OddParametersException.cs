@@ -5,6 +5,7 @@
     /// </summary>
     public class OddParametersException : QuickQueryException
     {
-        internal OddParametersException(int n) : base("And odd number of parameters (" + n + " ) was passed.") { }
+        internal OddParametersException(int n)
+            : base(string.Format("And odd number of parameters ({0}) was passed.", n)) { }
     }
 }

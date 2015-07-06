@@ -7,7 +7,7 @@
     /// </summary>
     public class EmptyConnectionStringException : QuickQueryException
     {
-        internal EmptyConnectionStringException(ConnectionStringSettings cs) :
-            base("The connection string \"" + cs.Name + "\" is empty.") { }
+        internal EmptyConnectionStringException(ConnectionStringSettings cs)
+            : base(string.Format("The connection string \"{0}\" is empty.", cs.Name)) { }
     }
 }
