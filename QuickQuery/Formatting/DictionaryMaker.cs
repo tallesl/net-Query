@@ -2,6 +2,8 @@
 {
     using QckQuery.Exception.Formatting;
     using System.Collections.Generic;
+    using System.Dynamic;
+    using System.Linq;
 
     internal static class DictionaryMaker
     {
@@ -15,11 +17,19 @@
                 {
                     var key = parameters[i++] as string;
                     var value = parameters[i++];
+
                     if (key == null) throw new ParameterNameNotString(parameters[i]);
                     else dictionary.Add(key, value);
                 }
             }
             return dictionary;
+        }
+
+        internal static IDictionary<string, object> ToParameterDictionary(this object parameters)
+        {
+            return parameters is ExpandoObject ?
+                (IDictionary<string, object>)parameters :
+                parameters.GetType().GetProperties().ToDictionary(p => p.Name, p => p.GetValue(parameters, null));
         }
     }
 }
