@@ -5,16 +5,16 @@
 
     internal class DataTableFiller
     {
-        private readonly DataAdapterProvider _provider;
+        private readonly DataAdapterProvider _dataAdapterProvider;
 
-        internal DataTableFiller(DataAdapterProvider provider)
+        internal DataTableFiller(DataAdapterProvider dataAdapterProvider)
         {
-            _provider = provider;
+            _dataAdapterProvider = dataAdapterProvider;
         }
 
         internal DataTable Fill(DbCommand command)
         {
-            using (var adapter = _provider.GetDataAdapter())
+            using (var adapter = _dataAdapterProvider.Provide())
             {
                 var dataTable = new DataTable();
                 adapter.SelectCommand = command;

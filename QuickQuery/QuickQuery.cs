@@ -1,7 +1,7 @@
 ﻿namespace QckQuery
 {
     using QckQuery.DataAccess;
-    using QckQuery.Exception.Configuration;
+    using QckQuery.Exceptions.Configuration;
     using System;
     using System.Configuration;
 

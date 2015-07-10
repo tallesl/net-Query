@@ -12,7 +12,7 @@
             _factory = DbProviderFactories.GetFactory(cs.ProviderName);
         }
 
-        internal DbDataAdapter GetDataAdapter()
+        internal DbDataAdapter Provide()
         {
             return _factory.CreateDataAdapter();
         }

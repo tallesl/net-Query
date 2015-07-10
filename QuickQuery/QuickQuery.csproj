@@ -53,28 +53,40 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\DataTableFiller.cs" />
-    <Compile Include="Exception\Configuration\EmptyConnectionStringException.cs" />
-    <Compile Include="Exception\Configuration\EmptyProviderNameException.cs" />
-    <Compile Include="Exception\Formatting\ParameterNameNotString.cs" />
-    <Compile Include="Exception\Querying\UnexpectedNumberOfRowsSelected.cs" />
-    <Compile Include="Exception\Querying\UnexpectedNumberOfRowsAffected.cs" />
-    <Compile Include="Exception\Configuration\NoSuchConnectionStringException.cs" />
-    <Compile Include="Exception\QuickQueryException.cs" />
+    <Compile Include="Exceptions\Configuration\EmptyConnectionStringException.cs" />
+    <Compile Include="Exceptions\Configuration\EmptyProviderNameException.cs" />
+    <Compile Include="Exceptions\Formatting\ParameterNameNotString.cs" />
+    <Compile Include="Exceptions\Querying\UnexpectedNumberOfRowsSelected.cs" />
+    <Compile Include="Exceptions\Querying\UnexpectedNumberOfRowsAffected.cs" />
+    <Compile Include="Exceptions\Configuration\NoSuchConnectionStringException.cs" />
+    <Compile Include="Exceptions\QuickQueryException.cs" />
     <Compile Include="DataAccess\DataAdapterProvider.cs" />
     <Compile Include="DataAccess\ParameterSetter.cs" />
     <Compile Include="DataAccess\ConnectionProvider.cs" />
-    <Compile Include="Formatting\CommandFormatter.cs" />
-    <Compile Include="Exception\Formatting\OddParametersException.cs" />
+    <Compile Include="Formatting\SqlFormatter.cs" />
+    <Compile Include="Exceptions\Formatting\OddParametersException.cs" />
     <Compile Include="Formatting\DictionaryMaker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuickQuery.cs" />
-    <Compile Include="WithoutReturn.cs" />
-    <Compile Include="WithReturn.cs" />
+    <Compile Include="WithoutReturn\WithoutReturnAffectingNRows.cs" />
+    <Compile Include="WithoutReturn\WithoutReturnAffectingNRowsOrLess.cs" />
+    <Compile Include="WithoutReturn\WithoutReturnAffectingExactlyNRows.cs" />
+    <Compile Include="WithoutReturn\WithoutReturnAffectingOneRowOrLess.cs" />
+    <Compile Include="WithoutReturn\WithoutReturnAffectingExactlyOneRow.cs" />
+    <Compile Include="WithoutReturn\WithoutReturn.cs" />
+    <Compile Include="WithReturn\WithReturnSelectingExactlyOneRow.cs" />
+    <Compile Include="WithReturn\WithReturnSelectingNRows.cs" />
+    <Compile Include="WithReturn\WithReturnSelectingNRowsOrLess.cs" />
+    <Compile Include="WithReturn\WithReturnSelectingExactlyNRows.cs" />
+    <Compile Include="WithReturn\WithReturnSelectingOneRowOrLess.cs" />
+    <Compile Include="WithReturn\WithReturn.cs" />
+    <Compile Include="WithReturn\SingleValue.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

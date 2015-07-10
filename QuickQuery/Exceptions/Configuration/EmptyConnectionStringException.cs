@@ -1,4 +1,4 @@
-﻿namespace QckQuery.Exception.Configuration
+﻿namespace QckQuery.Exceptions.Configuration
 {
     using System.Configuration;
 

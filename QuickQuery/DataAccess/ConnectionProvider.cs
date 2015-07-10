@@ -15,7 +15,7 @@
             _factory = DbProviderFactories.GetFactory(cs.ProviderName);
         }
 
-        internal DbConnection GetOpenConnection()
+        internal DbConnection Provide()
         {
             var connection = _factory.CreateConnection();
             connection.ConnectionString = _cs;

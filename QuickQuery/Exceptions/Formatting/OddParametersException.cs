@@ -1,4 +1,4 @@
-﻿namespace QckQuery.Exception.Formatting
+﻿namespace QckQuery.Exceptions.Formatting
 {
     /// <summary>
     /// Exception throw when an odd number of command parameters is found.

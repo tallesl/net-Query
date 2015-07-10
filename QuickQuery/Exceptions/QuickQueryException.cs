@@ -1,4 +1,4 @@
-﻿namespace QckQuery.Exception
+﻿namespace QckQuery.Exceptions
 {
     using System;
 
