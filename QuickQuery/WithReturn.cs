@@ -2,6 +2,7 @@
 {
     using QckQuery.DataAccess;
     using QckQuery.Exception.Querying;
+    using QckQuery.Formatting;
     using System.Data;
 
     public partial class QuickQuery
@@ -18,7 +19,7 @@
         public T SingleValue<T>(string sql, params object[] parameters)
         {
             using (var connection = _connectionProvider.GetOpenConnection())
-            using (var command = connection.GetCommand(sql, parameters))
+            using (var command = connection.GetCommandWithParametersSet(sql, parameters.ToParameterDictionary()))
             {
                 return (T)command.ExecuteScalar();
             }
@@ -34,7 +35,7 @@
         public DataTable WithReturn(string sql, params object[] parameters)
         {
             using (var connection = _connectionProvider.GetOpenConnection())
-            using (var command = connection.GetCommand(sql, parameters))
+            using (var command = connection.GetCommandWithParametersSet(sql, parameters.ToParameterDictionary()))
             {
                 return _dataTableFiller.Fill(command);
             }
@@ -108,7 +109,7 @@
         private DataTable WithReturnSelectingNRows(string sql, int n, bool acceptsLess, params object[] parameters)
         {
             using (var connection = _connectionProvider.GetOpenConnection())
-            using (var command = connection.GetCommand(sql, parameters))
+            using (var command = connection.GetCommandWithParametersSet(sql, parameters.ToParameterDictionary()))
             {
                 var dataTable = _dataTableFiller.Fill(command);
                 var rows = dataTable.Rows.Count;

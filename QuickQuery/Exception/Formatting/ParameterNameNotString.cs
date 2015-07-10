@@ -1,4 +1,4 @@
-﻿namespace QckQuery.Exception.Querying
+﻿namespace QckQuery.Exception.Formatting
 {
     /// <summary>
     /// Exception throw when an parameter name that isn't a string is found.

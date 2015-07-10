@@ -2,6 +2,7 @@
 {
     using QckQuery.DataAccess;
     using QckQuery.Exception.Querying;
+    using QckQuery.Formatting;
     using System.Transactions;
 
     public partial class QuickQuery
@@ -15,7 +16,7 @@
         public void WithoutReturn(string sql, params object[] parameters)
         {
             using (var connection = _connectionProvider.GetOpenConnection())
-            using (var command = connection.GetCommand(sql, parameters))
+            using (var command = connection.GetCommandWithParametersSet(sql, parameters.ToParameterDictionary()))
             {
                 command.ExecuteNonQuery();
             }
@@ -83,7 +84,7 @@
         {
             using (var connection = _connectionProvider.GetOpenConnection())
             using (var transaction = new TransactionScope())
-            using (var command = connection.GetCommand(sql, parameters))
+            using (var command = connection.GetCommandWithParametersSet(sql, parameters.ToParameterDictionary()))
             {
                 var affected = command.ExecuteNonQuery();
                 if (affected == n || (acceptsLess && affected < n)) transaction.Complete();

@@ -1,43 +1,36 @@
 ﻿namespace QckQuery.DataAccess
 {
-    using QckQuery.Exception.Querying;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Data.Common;
 
-    internal static class ConnectionExtension
+    internal static class ParameterSetter
     {
-        internal static DbCommand GetCommand(this DbConnection connection, string sql, object[] parameters)
+        internal static DbCommand GetCommandWithParametersSet(
+            this DbConnection connection, string sql, IDictionary<string, object> parameters)
         {
             var command = connection.CreateCommand();
             command.CommandText = sql;
-            if (parameters != null)
-            {
-                CheckParameters(parameters);
-                SetParameters(command, parameters);
-            }
+            SetParameters(command, parameters);
             return command;
         }
 
-        private static void CheckParameters(object[] parameters)
+        private static void SetParameters(DbCommand command, IDictionary<string, object> parameters)
         {
-            if (parameters.Length % 2 != 0) throw new OddParametersException(parameters.Length);
-            for (var i = 0; i < parameters.Length; i += 2)
+            foreach (var kvp in parameters)
             {
-                if (!(parameters[i] is string)) throw new ParameterNameNotString(parameters[i]);
-            }
-        }
+                var name = kvp.Key;
+                var value = kvp.Value;
 
-        private static void SetParameters(DbCommand command, object[] parameters)
-        {
-            for (var i = 0; i < parameters.Length; )
-            {
-                var name = (string)parameters[i++];
-                var value = parameters[i++];
-
-                if (value is IEnumerable && !(value is string)) SetCollectionParameter(command, name, (IEnumerable)value);
-                else SetSingleParameter(command, name, value);
+                if (value is IEnumerable && !(value is string))
+                {
+                    SetCollectionParameter(command, name, (IEnumerable)value);
+                }
+                else
+                {
+                    SetSingleParameter(command, name, value);
+                }
             }
         }
 
