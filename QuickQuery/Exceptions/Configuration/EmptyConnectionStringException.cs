@@ -1,10 +1,12 @@
 ﻿namespace QckQuery.Exceptions.Configuration
 {
+    using System;
     using System.Configuration;
 
     /// <summary>
     /// Exception thrown when an empty connection string is found.
     /// </summary>
+    [Serializable]
     public class EmptyConnectionStringException : QuickQueryException
     {
         internal EmptyConnectionStringException(ConnectionStringSettings cs)

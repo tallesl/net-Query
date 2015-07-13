@@ -1,5 +1,6 @@
 ﻿namespace QckQuery
 {
+    using QckQuery.Exceptions.Querying;
     using QckQuery.Formatting;
 
     public partial class QuickQuery

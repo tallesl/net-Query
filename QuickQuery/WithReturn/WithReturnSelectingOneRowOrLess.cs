@@ -1,6 +1,8 @@
 ﻿namespace QckQuery
 {
     using DataTableToObject;
+    using DataTableToObject.Exceptions;
+    using QckQuery.Exceptions.Querying;
     using QckQuery.Formatting;
     using System.Data;
     using System.Linq;
@@ -15,7 +17,6 @@
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>A DataTable with the queried values</returns>
-        /// <exception cref="UnexpectedNumberOfRowsAffected">If more than one row was selected</exception>
         public DataRow WithReturnSelectingOneRowOrLess(string sql, object parameters)
         {
             return WithReturnSelectingNRows(sql, 1, true, DictionaryMaker.Make(parameters))

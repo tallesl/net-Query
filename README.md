@@ -81,6 +81,10 @@ Becomes this:
 SELECT * FROM Users WHERE Id = (@Ids0, @Ids1, @Ids2)
 ```
 
+Note that to do this the library concatenates SQL on its own.
+**This gives opening for [SQL injection][injection], never use this with user input.**
+
 [IN]:          https://msdn.microsoft.com/library/ms177682.aspx
 [IEnumerable]: https://msdn.microsoft.com/library/system.collections.ienumerable.aspx
 [so]:          http://stackoverflow.com/q/337704/1316620
+[injection]:   https://en.wikipedia.org/wiki/SQL_injection

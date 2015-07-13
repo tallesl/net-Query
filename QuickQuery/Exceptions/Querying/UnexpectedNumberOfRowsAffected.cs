@@ -1,11 +1,13 @@
 ﻿namespace QckQuery.Exceptions.Querying
 {
     using QckQuery.Formatting;
+    using System;
     using System.Data.Common;
 
     /// <summary>
     /// Exception thrown when a query affects an unexpected number of rows.
     /// </summary>
+    [Serializable]
     public class UnexpectedNumberOfRowsAffected : QuickQueryException
     {
         internal UnexpectedNumberOfRowsAffected(DbCommand command, int n)
