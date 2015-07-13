@@ -50,6 +50,9 @@
     <DocumentationFile>bin\Release\QuickQuery.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataTableToObject">
+      <HintPath>..\packages\DataTableToObject.1.0.2\lib\DataTableToObject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -88,7 +91,9 @@
     <Compile Include="WithReturn\WithReturn.cs" />
     <Compile Include="WithReturn\SingleValue.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
