@@ -88,3 +88,13 @@ Note that to do this the library concatenates SQL on its own.
 [IEnumerable]: https://msdn.microsoft.com/library/system.collections.ienumerable.aspx
 [so]:          http://stackoverflow.com/q/337704/1316620
 [injection]:   https://en.wikipedia.org/wiki/SQL_injection
+
+## Automatically parsing the DataTable
+
+You can pass a type T to any of the library methods instead of parsing the DataTable on your own:
+
+```cs
+IEnumerable<User> users = qckQuery.WithReturn<User>("SELECT * FROM Users");
+```
+
+Note that the types and properties names should match between the DataTable and the type T.
