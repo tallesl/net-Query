@@ -14,16 +14,16 @@
         /// Throws UnexpectedNumberOfRowsSelected if the number of selected rows is different from N.
         /// It uses DbDataAdapter.Fill underneath.
         /// </summary>
-        /// <param name="sql">Query to run</param>
         /// <param name="n">Number of selected rows to ensure</param>
+        /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>A DataTable with the queried values</returns>
         /// <exception cref="UnexpectedNumberOfRowsAffected">
         /// If the number of selected rows is different from N
         /// </exception>
-        public DataTable WithReturnSelectingExactlyNRows(string sql, int n, object parameters)
+        public DataTable SelectExactly(int n, string sql, object parameters)
         {
-            return WithReturnSelectingNRows(sql, n, false, DictionaryMaker.Make(parameters));
+            return WithReturn(n, sql, false, DictionaryMaker.Make(parameters));
         }
 
         /// <summary>
@@ -31,8 +31,8 @@
         /// Throws UnexpectedNumberOfRowsSelected if the number of selected rows is different from N.
         /// It uses DbDataAdapter.Fill underneath.
         /// </summary>
-        /// <param name="sql">Query to run</param>
         /// <param name="n">Number of selected rows to ensure</param>
+        /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>A DataTable with the queried values</returns>
         /// <exception cref="UnexpectedNumberOfRowsAffected">
@@ -44,9 +44,9 @@
         /// <exception cref="PropertyNotFoundException">
         /// A column of the DataTable doesn't match any in the given class
         /// </exception>
-        public IEnumerable<T> WithReturnSelectingExactlyNRows<T>(string sql, int n, object parameters) where T : new()
+        public IEnumerable<T> SelectExactly<T>(int n, string sql, object parameters) where T : new()
         {
-            return WithReturnSelectingNRows(sql, n, false, DictionaryMaker.Make(parameters)).ToObject<T>();
+            return WithReturn(n, sql, false, DictionaryMaker.Make(parameters)).ToObject<T>();
         }
 
         /// <summary>
@@ -54,16 +54,16 @@
         /// Throws UnexpectedNumberOfRowsSelected if the number of selected rows is different from N.
         /// It uses DbDataAdapter.Fill underneath.
         /// </summary>
-        /// <param name="sql">Query to run</param>
         /// <param name="n">Number of selected rows to ensure</param>
+        /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>A DataTable with the queried values</returns>
         /// <exception cref="UnexpectedNumberOfRowsAffected">
         /// If the number of selected rows is different from N
         /// </exception>
-        public DataTable WithReturnSelectingExactlyNRows(string sql, int n, params object[] parameters)
+        public DataTable SelectExactly(int n, string sql, params object[] parameters)
         {
-            return WithReturnSelectingNRows(sql, n, false, DictionaryMaker.Make(parameters));
+            return WithReturn(n, sql, false, DictionaryMaker.Make(parameters));
         }
 
         /// <summary>
@@ -71,8 +71,8 @@
         /// Throws UnexpectedNumberOfRowsSelected if the number of selected rows is different from N.
         /// It uses DbDataAdapter.Fill underneath.
         /// </summary>
-        /// <param name="sql">Query to run</param>
         /// <param name="n">Number of selected rows to ensure</param>
+        /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>A DataTable with the queried values</returns>
         /// <exception cref="UnexpectedNumberOfRowsAffected">
@@ -84,10 +84,10 @@
         /// <exception cref="PropertyNotFoundException">
         /// A column of the DataTable doesn't match any in the given class
         /// </exception>
-        public IEnumerable<T> WithReturnSelectingExactlyNRows<T>(string sql, int n, params object[] parameters)
+        public IEnumerable<T> SelectExactly<T>(int n, string sql, params object[] parameters)
             where T : new()
         {
-            return WithReturnSelectingNRows(sql, n, false, DictionaryMaker.Make(parameters)).ToObject<T>();
+            return WithReturn(n, sql, false, DictionaryMaker.Make(parameters)).ToObject<T>();
         }
     }
 }

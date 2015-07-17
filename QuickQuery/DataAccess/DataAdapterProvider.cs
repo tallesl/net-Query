@@ -7,9 +7,9 @@
     {
         private readonly DbProviderFactory _factory;
 
-        internal DataAdapterProvider(ConnectionStringSettings cs)
+        internal DataAdapterProvider(DbProviderFactory factory)
         {
-            _factory = DbProviderFactories.GetFactory(cs.ProviderName);
+            _factory = factory;
         }
 
         internal DbDataAdapter Provide()

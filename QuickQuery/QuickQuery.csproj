@@ -50,6 +50,9 @@
     <DocumentationFile>bin\Release\QuickQuery.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ConnectionStringReader">
+      <HintPath>..\packages\ConnectionStringReader.1.0.0\lib\ConnectionStringReader.dll</HintPath>
+    </Reference>
     <Reference Include="DataTableToObject">
       <HintPath>..\packages\DataTableToObject.1.0.2\lib\DataTableToObject.dll</HintPath>
     </Reference>
@@ -62,12 +65,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\DataTableFiller.cs" />
-    <Compile Include="Exceptions\Configuration\EmptyConnectionStringException.cs" />
-    <Compile Include="Exceptions\Configuration\EmptyProviderNameException.cs" />
     <Compile Include="Exceptions\Formatting\ParameterNameNotString.cs" />
     <Compile Include="Exceptions\Querying\UnexpectedNumberOfRowsSelected.cs" />
     <Compile Include="Exceptions\Querying\UnexpectedNumberOfRowsAffected.cs" />
-    <Compile Include="Exceptions\Configuration\NoSuchConnectionStringException.cs" />
     <Compile Include="Exceptions\QuickQueryException.cs" />
     <Compile Include="DataAccess\DataAdapterProvider.cs" />
     <Compile Include="DataAccess\ParameterSetter.cs" />
@@ -76,20 +76,16 @@
     <Compile Include="Exceptions\Formatting\OddParametersException.cs" />
     <Compile Include="Formatting\DictionaryMaker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QuickQuery.cs" />
-    <Compile Include="WithoutReturn\WithoutReturnAffectingNRows.cs" />
-    <Compile Include="WithoutReturn\WithoutReturnAffectingNRowsOrLess.cs" />
-    <Compile Include="WithoutReturn\WithoutReturnAffectingExactlyNRows.cs" />
-    <Compile Include="WithoutReturn\WithoutReturnAffectingOneRowOrLess.cs" />
-    <Compile Include="WithoutReturn\WithoutReturnAffectingExactlyOneRow.cs" />
-    <Compile Include="WithoutReturn\WithoutReturn.cs" />
-    <Compile Include="WithReturn\WithReturnSelectingExactlyOneRow.cs" />
-    <Compile Include="WithReturn\WithReturnSelectingNRows.cs" />
-    <Compile Include="WithReturn\WithReturnSelectingNRowsOrLess.cs" />
-    <Compile Include="WithReturn\WithReturnSelectingExactlyNRows.cs" />
-    <Compile Include="WithReturn\WithReturnSelectingOneRowOrLess.cs" />
-    <Compile Include="WithReturn\WithReturn.cs" />
-    <Compile Include="WithReturn\SingleValue.cs" />
+    <Compile Include="Api\Constructors.cs" />
+    <Compile Include="Api\Private\WithoutReturn.cs" />
+    <Compile Include="Api\Public\WithoutReturn\ChangeNoMoreThan.cs" />
+    <Compile Include="Api\Public\WithoutReturn\ChangeExactly.cs" />
+    <Compile Include="Api\Public\WithoutReturn\NoReturn.cs" />
+    <Compile Include="Api\Private\WithReturn.cs" />
+    <Compile Include="Api\Public\WithReturn\SelectNoMoreThan.cs" />
+    <Compile Include="Api\Public\WithReturn\SelectExactly.cs" />
+    <Compile Include="Api\Public\WithReturn\Select.cs" />
+    <Compile Include="Api\Public\WithReturn\SelectSingle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

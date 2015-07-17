@@ -7,8 +7,16 @@
 
     public partial class QuickQuery
     {
-        private void WithoutReturnAffectingNRows(
-            string sql, int n, bool acceptsLess, IDictionary<string, object> parameters)
+        private void WithoutReturn(string sql, IDictionary<string, object> parameters)
+        {
+            using (var connection = _connectionProvider.Provide())
+            using (var command = connection.GetCommandWithParametersSet(sql, parameters))
+            {
+                command.ExecuteNonQuery();
+            }
+        }
+
+        private void WithoutReturn(int n, string sql, bool acceptsLess, IDictionary<string, object> parameters)
         {
             using (var connection = _connectionProvider.Provide())
             using (var transaction = new TransactionScope())

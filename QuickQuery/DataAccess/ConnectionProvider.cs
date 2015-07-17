@@ -9,10 +9,10 @@
 
         private readonly DbProviderFactory _factory;
 
-        internal ConnectionProvider(ConnectionStringSettings cs)
+        internal ConnectionProvider(DbProviderFactory providerFactory, string connectionString)
         {
-            _cs = cs.ConnectionString;
-            _factory = DbProviderFactories.GetFactory(cs.ProviderName);
+            _cs = connectionString;
+            _factory = providerFactory;
         }
 
         internal DbConnection Provide()

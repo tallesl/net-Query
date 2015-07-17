@@ -10,15 +10,15 @@
         /// Throws UnexpectedNumberOfRowsAffected if the number of affected rows is different from N.
         /// It uses DbCommand.ExecuteNonQuery underneath.
         /// </summary>
-        /// <param name="sql">Query to run</param>
         /// <param name="n">Number of affected rows to ensure</param>
+        /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <exception cref="UnexpectedNumberOfRowsAffected">
         /// If the number of affected rows is different from N
         /// </exception>
-        public void WithoutReturnAffectingExactlyNRows(string sql, int n, object parameters)
+        public void ChangeExactly(int n, string sql, object parameters)
         {
-            WithoutReturnAffectingNRows(sql, n, false, DictionaryMaker.Make(parameters));
+            WithoutReturn(n, sql, false, DictionaryMaker.Make(parameters));
         }
 
         /// <summary>
@@ -26,15 +26,15 @@
         /// Throws UnexpectedNumberOfRowsAffected if the number of affected rows is different from N.
         /// It uses DbCommand.ExecuteNonQuery underneath.
         /// </summary>
-        /// <param name="sql">Query to run</param>
         /// <param name="n">Number of affected rows to ensure</param>
+        /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <exception cref="UnexpectedNumberOfRowsAffected">
         /// If the number of affected rows is different from N
         /// </exception>
-        public void WithoutReturnAffectingExactlyNRows(string sql, int n, params object[] parameters)
+        public void ChangeExactly(int n, string sql, params object[] parameters)
         {
-            WithoutReturnAffectingNRows(sql, n, false, DictionaryMaker.Make(parameters));
+            WithoutReturn(n, sql, false, DictionaryMaker.Make(parameters));
         }
     }
 }

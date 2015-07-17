@@ -2,7 +2,7 @@
 {
     using DataTableToObject;
     using DataTableToObject.Exceptions;
-    using QckQuery.DataAccess;
+    using QckQuery.Exceptions.Querying;
     using QckQuery.Formatting;
     using System.Collections.Generic;
     using System.Data;
@@ -11,77 +11,83 @@
     {
         /// <summary>
         /// Runs the given query and returns the queried values.
+        /// Throws UnexpectedNumberOfRowsSelected if the number of selected rows is greater than N.
         /// It uses DbDataAdapter.Fill underneath.
         /// </summary>
+        /// <param name="n">Number of selected rows to ensure</param>
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>A DataTable with the queried values</returns>
-        public DataTable WithReturn(string sql, object parameters)
+        /// <exception cref="UnexpectedNumberOfRowsSelected">
+        /// If the number of selected rows is greater than N
+        /// </exception>
+        public DataTable SelectNoMoreThan(int n, string sql, object parameters)
         {
-            return WithReturn(sql, DictionaryMaker.Make(parameters));
+            return WithReturn(n, sql, true, DictionaryMaker.Make(parameters));
         }
 
         /// <summary>
         /// Runs the given query and returns the queried values.
+        /// Throws UnexpectedNumberOfRowsSelected if the number of selected rows is greater than N.
         /// It uses DbDataAdapter.Fill underneath.
         /// </summary>
+        /// <param name="n">Number of selected rows to ensure</param>
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>A DataTable with the queried values</returns>
+        /// <exception cref="UnexpectedNumberOfRowsSelected">
+        /// If the number of selected rows is greater than N
+        /// </exception>
         /// <exception cref="MismatchedTypesException">
         /// The corresponding type in the given class is different than the one found in the DataTable
         /// </exception>
         /// <exception cref="PropertyNotFoundException">
         /// A column of the DataTable doesn't match any in the given class
         /// </exception>
+        public IEnumerable<T> SelectNoMoreThan<T>(int n, string sql, object parameters) where T : new()
+        {
+            return WithReturn(n, sql, true, DictionaryMaker.Make(parameters)).ToObject<T>();
+        }
+
+        /// <summary>
+        /// Runs the given query and returns the queried values.
+        /// Throws UnexpectedNumberOfRowsSelected if the number of selected rows is greater than N.
+        /// It uses DbDataAdapter.Fill underneath.
+        /// </summary>
+        /// <param name="n">Number of selected rows to ensure</param>
+        /// <param name="sql">Query to run</param>
+        /// <param name="parameters">Parameters names and values pairs</param>
+        /// <returns>A DataTable with the queried values</returns>
+        /// <exception cref="UnexpectedNumberOfRowsSelected">
+        /// If the number of selected rows is greater than N
+        /// </exception>
+        public DataTable SelectNoMoreThan(int n, string sql, params object[] parameters)
+        {
+            return WithReturn(n, sql, true, DictionaryMaker.Make(parameters));
+        }
+
+        /// <summary>
+        /// Runs the given query and returns the queried values.
+        /// Throws UnexpectedNumberOfRowsSelected if the number of selected rows is greater than N.
+        /// It uses DbDataAdapter.Fill underneath.
+        /// </summary>
+        /// <param name="n">Number of selected rows to ensure</param>
+        /// <param name="sql">Query to run</param>
+        /// <param name="parameters">Parameters names and values pairs</param>
+        /// <returns>A DataTable with the queried values</returns>
+        /// <exception cref="UnexpectedNumberOfRowsSelected">
+        /// If the number of selected rows is greater than N
+        /// </exception>
         /// <exception cref="MismatchedTypesException">
         /// The corresponding type in the given class is different than the one found in the DataTable
         /// </exception>
         /// <exception cref="PropertyNotFoundException">
         /// A column of the DataTable doesn't match any in the given class
         /// </exception>
-        public IEnumerable<T> WithReturn<T>(string sql, object parameters) where T : new()
+        public IEnumerable<T> WithReturnSelectingNRowsOrLess<T>(int n, string sql, params object[] parameters)
+            where T : new()
         {
-            return WithReturn(sql, DictionaryMaker.Make(parameters)).ToObject<T>();
-        }
-
-        /// <summary>
-        /// Runs the given query and returns the queried values.
-        /// It uses DbDataAdapter.Fill underneath.
-        /// </summary>
-        /// <param name="sql">Query to run</param>
-        /// <param name="parameters">Parameters names and values pairs</param>
-        /// <returns>A DataTable with the queried values</returns>
-        public DataTable WithReturn(string sql, params object[] parameters)
-        {
-            return WithReturn(sql, DictionaryMaker.Make(parameters));
-        }
-
-        /// <summary>
-        /// Runs the given query and returns the queried values.
-        /// It uses DbDataAdapter.Fill underneath.
-        /// </summary>
-        /// <param name="sql">Query to run</param>
-        /// <param name="parameters">Parameters names and values pairs</param>
-        /// <returns>A DataTable with the queried values</returns>
-        /// <exception cref="MismatchedTypesException">
-        /// The corresponding type in the given class is different than the one found in the DataTable
-        /// </exception>
-        /// <exception cref="PropertyNotFoundException">
-        /// A column of the DataTable doesn't match any in the given class
-        /// </exception>
-        public IEnumerable<T> WithReturn<T>(string sql, params object[] parameters) where T : new()
-        {
-            return WithReturn(sql, DictionaryMaker.Make(parameters)).ToObject<T>();
-        }
-
-        private DataTable WithReturn(string sql, IDictionary<string, object> parameters)
-        {
-            using (var connection = _connectionProvider.Provide())
-            using (var command = connection.GetCommandWithParametersSet(sql, parameters))
-            {
-                return _dataTableFiller.Fill(command);
-            }
+            return WithReturn(n, sql, true, DictionaryMaker.Make(parameters)).ToObject<T>();
         }
     }
 }

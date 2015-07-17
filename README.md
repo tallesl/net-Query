@@ -17,68 +17,65 @@ A simplistic ADO.NET wrapper.
 var qckQuery = new QuickQuery("YourConnectionStringName");
 ```
 
-The constructor uses [ConfigurationManager.ConnectionStrings][ConfigurationManager.ConnectionStrings] underneath. May throw [NoSuchConnectionStringException][NoSuchConnectionStringException] or [EmptyConnectionStringException][EmptyConnectionStringException].
+The constructor uses [ConfigurationManager.ConnectionStrings] underneath. May throw [NoSuchConnectionStringException], [EmptyConnectionStringException] or even [EmptyProviderNameException].
 
 [ConfigurationManager.ConnectionStrings]: http://msdn.microsoft.com/library/system.configuration.configurationmanager.connectionstrings.aspx
 
 [NoSuchConnectionStringException]: QuickQuery/Exception/NoSuchConnectionStringException.cs
 [EmptyConnectionStringException]:  QuickQuery/Exception/EmptyConnectionStringException.cs
+[EmptyProviderNameException]:      QuickQuery/Exception/EmptyProviderNameException.cs
 
 ## Querying without return
 
 ```cs
-qckQuery.WithoutReturn("DELETE FROM Users WHERE Name LIKE @NameToDelete", "NameToDelete", "John");
+qckQuery.NoReturn("DELETE FROM Users WHERE Name LIKE @NameToDelete", "NameToDelete", "John");
 ```
 
 You can also make sure how many rows will be affected with:
 
-* `WithoutReturnAffectingExactlyOneRow(string sql, params string[] parameters)`;
-* `WithoutReturnAffectingOneRowOrLess(string sql, params string[] parameters)`;
-* `WithoutReturnAffectingExactlyNRows(string sql, int n, params string[] parameters)`;
-* `WithoutReturnAffectingNRowsOrLess(string sql, int n, params string[] parameters)`.
+* `ChangeExactly(int n, string sql, params string[] parameters)`;
+* `ChangeNoMoreThan(int n, string sql, params string[] parameters)`.
 
 `UnexpectedNumberOfRowsAffected` is throw and the transaction is rolled back if the amount of affected rows is different from the expected.
 
-`WithoutReturn` uses [SqlCommand.ExecuteNonQuery][SqlCommand.ExecuteNonQuery] underneath.
+It uses [SqlCommand.ExecuteNonQuery][SqlCommand.ExecuteNonQuery] underneath.
 
 [SqlCommand.ExecuteNonQuery]: http://msdn.microsoft.com/library/system.data.sqlclient.sqlcommand.executenonquery.aspx
 
 ## Querying with return
 
 ```cs
-int userCount = qckQuery.SingleValue<int>("SELECT COUNT(0) FROM Users");
-DataTable user1337 = qckQuery.WithReturn("SELECT * FROM Users WHERE Id = @UserId", "UserId", 1337);
+int userCount = qckQuery.SelectSingle<int>("SELECT COUNT(0) FROM Users");
+DataTable user1337 = qckQuery.Select("SELECT * FROM Users WHERE Id = @UserId", "UserId", 1337);
 ```
 
 You can also make sure how many rows will be selected with:
 
-* `WithReturnSelectingExactlyOneRow(string sql, params string[] parameters)`;
-* `WithReturnSelectingOneRowOrLess(string sql, params string[] parameters)`;
-* `WithReturnSelectingExactlyNRows(string sql, int n, params string[] parameters)`;
-* `WithReturnSelectingNRowsOrLess(string sql, int n, params string[] parameters)`.
+* `SelectExactly(int n, string sql, params string[] parameters)`;
+* `SelectNoMoreThan(int n, string sql, params string[] parameters)`.
 
 `UnexpectedNumberOfRowsSelected` is throw if the amount of selected rows is different from the expected.
 
-`SingleValue` uses [SqlCommand.ExecuteScalar][SqlCommand.ExecuteScalar] and `WithReturn` uses [DbDataAdapter.Fill][DbDataAdapter.Fill] underneath.
+`SelectSingle` uses [SqlCommand.ExecuteScalar] while the others uses [DbDataAdapter.Fill] underneath.
 
 [SqlCommand.ExecuteScalar]: http://msdn.microsoft.com/library/system.data.sqlclient.sqlcommand.executescalar.aspx
 [DbDataAdapter.Fill]:       http://msdn.microsoft.com/library/system.data.common.dbdataadapter.fill.aspx
 
 ## `IN` clauses
 
-It automatically prepares collections ([IEnumerable][IEnumerable]) for [`IN`][IN] clauses ([taking that burden off you][so]).
+It automatically prepares collections ([IEnumerable]) for [`IN`][IN] clauses ([taking that burden off you][so]).
 
 So this:
 
 ```cs
 var ids = new List<int> { 1, 123, 44 };
-qckQuery.WithoutReturn("SELECT * FROM Users WHERE Id = (@Ids)", "Ids", ids);
+qckQuery.NoReturn("DELETE FROM Users WHERE Id = (@Ids)", "Ids", ids);
 ```
 
 Becomes this:
 
 ```sql
-SELECT * FROM Users WHERE Id = (@Ids0, @Ids1, @Ids2)
+DELETE FROM Users WHERE Id = (@Ids0, @Ids1, @Ids2)
 ```
 
 Note that to do this the library concatenates SQL on its own.
@@ -94,7 +91,7 @@ Note that to do this the library concatenates SQL on its own.
 You can pass a type T to any of the library methods instead of parsing the DataTable on your own:
 
 ```cs
-IEnumerable<User> users = qckQuery.WithReturn<User>("SELECT * FROM Users");
+IEnumerable<User> users = qckQuery.Select<User>("SELECT * FROM Users");
 ```
 
 Note that the types and properties names should match between the DataTable and the type T.

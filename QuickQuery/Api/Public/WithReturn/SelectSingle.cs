@@ -15,9 +15,9 @@
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>The first column of the first row queried</returns>
-        public T SingleValue<T>(string sql, object parameters)
+        public T SelectSingle<T>(string sql, object parameters)
         {
-            return SingleValue<T>(sql, DictionaryMaker.Make(parameters));
+            return WithReturn<T>(sql, DictionaryMaker.Make(parameters));
         }
 
         /// <summary>
@@ -29,18 +29,9 @@
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>The first column of the first row queried</returns>
-        public T SingleValue<T>(string sql, params object[] parameters)
+        public T SelectSingle<T>(string sql, params object[] parameters)
         {
-            return SingleValue<T>(sql, DictionaryMaker.Make(parameters));
-        }
-
-        private T SingleValue<T>(string sql, IDictionary<string, object> parameters)
-        {
-            using (var connection = _connectionProvider.Provide())
-            using (var command = connection.GetCommandWithParametersSet(sql, parameters))
-            {
-                return (T)command.ExecuteScalar();
-            }
+            return WithReturn<T>(sql, DictionaryMaker.Make(parameters));
         }
     }
 }
