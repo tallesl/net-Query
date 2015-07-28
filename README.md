@@ -3,13 +3,13 @@
 [![][build-img]][build]
 [![][nuget-img]][nuget]
 
+A simplistic ADO.NET wrapper.
+
 [build]:     https://ci.appveyor.com/project/TallesL/QuickQuery
 [build-img]: https://ci.appveyor.com/api/projects/status/github/tallesl/QuickQuery
 
 [nuget]:     http://badge.fury.io/nu/QuickQuery
 [nuget-img]: https://badge.fury.io/nu/QuickQuery.png
-
-A simplistic ADO.NET wrapper.
 
 ## Instantiating
 
@@ -21,9 +21,9 @@ The constructor uses [ConfigurationManager.ConnectionStrings] underneath. May th
 
 [ConfigurationManager.ConnectionStrings]: http://msdn.microsoft.com/library/system.configuration.configurationmanager.connectionstrings.aspx
 
-[NoSuchConnectionStringException]: QuickQuery/Exception/NoSuchConnectionStringException.cs
-[EmptyConnectionStringException]:  QuickQuery/Exception/EmptyConnectionStringException.cs
-[EmptyProviderNameException]:      QuickQuery/Exception/EmptyProviderNameException.cs
+[NoSuchConnectionStringException]: https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/NoSuchConnectionStringException.cs
+[EmptyConnectionStringException]:  https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/EmptyConnectionStringException.cs
+[EmptyProviderNameException]:      https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/EmptyProviderNameException.cs
 
 ## Querying without return
 
@@ -31,45 +31,61 @@ The constructor uses [ConfigurationManager.ConnectionStrings] underneath. May th
 qckQuery.NoReturn("DELETE FROM Users WHERE Name LIKE @NameToDelete", "NameToDelete", "John");
 ```
 
+or
+
+```cs
+qckQuery.NoReturn("DELETE FROM Users WHERE Name LIKE @NameToDelete", new { NameToDelete = "John" });
+```
+
 You can also make sure how many rows will be affected with:
 
-* `ChangeExactly(int n, string sql, params string[] parameters)`;
-* `ChangeNoMoreThan(int n, string sql, params string[] parameters)`.
+* `ChangeExactly(n, sql, parameters)`;
+* `ChangeNoMoreThan(n, sql, parameters)`.
 
-`UnexpectedNumberOfRowsAffected` is throw and the transaction is rolled back if the amount of affected rows is different from the expected.
+[UnexpectedNumberOfRowsAffected] is thrown and the transaction is rolled back if the amount of affected rows is different from the expected.
 
-It uses [SqlCommand.ExecuteNonQuery][SqlCommand.ExecuteNonQuery] underneath.
+It uses [SqlCommand.ExecuteNonQuery] underneath.
 
-[SqlCommand.ExecuteNonQuery]: http://msdn.microsoft.com/library/system.data.sqlclient.sqlcommand.executenonquery.aspx
+[UnexpectedNumberOfRowsAffected]: QuickQuery/Exception/Querying/UnexpectedNumberOfRowsAffected.cs
+[SqlCommand.ExecuteNonQuery]:     http://msdn.microsoft.com/library/system.data.sqlclient.sqlcommand.executenonquery.aspx
 
 ## Querying with return
 
 ```cs
 int userCount = qckQuery.SelectSingle<int>("SELECT COUNT(0) FROM Users");
+```
+
+```cs
 DataTable user1337 = qckQuery.Select("SELECT * FROM Users WHERE Id = @UserId", "UserId", 1337);
+```
+
+or
+
+```cs
+DataTable user1337 = qckQuery.Select("SELECT * FROM Users WHERE Id = @UserId", new { UserId = 1333 });
 ```
 
 You can also make sure how many rows will be selected with:
 
-* `SelectExactly(int n, string sql, params string[] parameters)`;
-* `SelectNoMoreThan(int n, string sql, params string[] parameters)`.
+* `SelectExactly(n, sql, parameters)`;
+* `SelectNoMoreThan(n, sql, parameters)`.
 
-`UnexpectedNumberOfRowsSelected` is throw if the amount of selected rows is different from the expected.
+[UnexpectedNumberOfRowsSelected] is thrown if the amount of selected rows is different from the expected.
 
 `SelectSingle` uses [SqlCommand.ExecuteScalar] while the others uses [DbDataAdapter.Fill] underneath.
 
-[SqlCommand.ExecuteScalar]: http://msdn.microsoft.com/library/system.data.sqlclient.sqlcommand.executescalar.aspx
-[DbDataAdapter.Fill]:       http://msdn.microsoft.com/library/system.data.common.dbdataadapter.fill.aspx
+[UnexpectedNumberOfRowsSelected]: QuickQuery/Exception/Querying/UnexpectedNumberOfRowsSelected.cs
+[SqlCommand.ExecuteScalar]:       http://msdn.microsoft.com/library/system.data.sqlclient.sqlcommand.executescalar.aspx
+[DbDataAdapter.Fill]:             http://msdn.microsoft.com/library/system.data.common.dbdataadapter.fill.aspx
 
-## `IN` clauses
+## IN clauses
 
-It automatically prepares collections ([IEnumerable]) for [`IN`][IN] clauses ([taking that burden off you][so]).
+It automatically prepares collections ([IEnumerable]) for [IN] clauses ([taking that burden off you][so]).
 
 So this:
 
 ```cs
-var ids = new List<int> { 1, 123, 44 };
-qckQuery.NoReturn("DELETE FROM Users WHERE Id = (@Ids)", "Ids", ids);
+qckQuery.NoReturn("DELETE FROM Users WHERE Id = (@Ids)", "Ids", new[] { 1, 123, 44 });
 ```
 
 Becomes this:
@@ -79,12 +95,12 @@ DELETE FROM Users WHERE Id = (@Ids0, @Ids1, @Ids2)
 ```
 
 Note that to do this the library concatenates SQL on its own.
-**This gives opening for [SQL injection][injection], never use this with user input.**
+**This gives opening for [SQL injection], never use this with unsanitized user input.**
 
 [IN]:          https://msdn.microsoft.com/library/ms177682.aspx
 [IEnumerable]: https://msdn.microsoft.com/library/system.collections.ienumerable.aspx
 [so]:          http://stackoverflow.com/q/337704/1316620
-[injection]:   https://en.wikipedia.org/wiki/SQL_injection
+[SQL injection]:   https://en.wikipedia.org/wiki/SQL_injection
 
 ## Automatically parsing the DataTable
 
@@ -94,4 +110,4 @@ You can pass a type T to any of the library methods instead of parsing the DataT
 IEnumerable<User> users = qckQuery.Select<User>("SELECT * FROM Users");
 ```
 
-Note that the types and properties names should match between the DataTable and the type T.
+The types and properties names should match between the DataTable and the type T.
