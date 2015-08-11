@@ -53,8 +53,9 @@
     <Reference Include="ConnectionStringReader">
       <HintPath>..\packages\ConnectionStringReader.1.0.0\lib\ConnectionStringReader.dll</HintPath>
     </Reference>
-    <Reference Include="DataTableToObject">
-      <HintPath>..\packages\DataTableToObject.1.0.2\lib\DataTableToObject.dll</HintPath>
+    <Reference Include="DataTableToObject, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataTableToObject.1.1.0\lib\DataTableToObject.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
