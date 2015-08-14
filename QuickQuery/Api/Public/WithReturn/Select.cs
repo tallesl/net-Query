@@ -14,7 +14,7 @@
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>A DataTable with the queried values</returns>
-        public DataTable Select(string sql, object parameters)
+        public DataTable Select(string sql, object parameters = null)
         {
             return WithReturn(sql, parameters);
         }
@@ -32,7 +32,7 @@
         /// <exception cref="PropertyNotFoundException">
         /// A column of the DataTable doesn't match any in the given class
         /// </exception>
-        public IEnumerable<T> Select<T>(string sql, object parameters) where T : new()
+        public IEnumerable<T> Select<T>(string sql, object parameters = null) where T : new()
         {
             return Select(sql, parameters).ToObject<T>();
         }

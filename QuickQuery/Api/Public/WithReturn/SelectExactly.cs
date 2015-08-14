@@ -2,6 +2,7 @@
 {
     using DataTableToObject;
     using DataTableToObject.Exceptions;
+    using QckQuery.Exceptions;
     using System.Collections.Generic;
     using System.Data;
 
@@ -19,7 +20,7 @@
         /// <exception cref="UnexpectedNumberOfRowsAffected">
         /// If the number of selected rows is different from N
         /// </exception>
-        public DataTable SelectExactly(int n, string sql, object parameters)
+        public DataTable SelectExactly(int n, string sql, object parameters = null)
         {
             return WithReturn(n, sql, false, parameters);
         }
@@ -42,7 +43,7 @@
         /// <exception cref="PropertyNotFoundException">
         /// A column of the DataTable doesn't match any in the given class
         /// </exception>
-        public IEnumerable<T> SelectExactly<T>(int n, string sql, object parameters) where T : new()
+        public IEnumerable<T> SelectExactly<T>(int n, string sql, object parameters = null) where T : new()
         {
             return SelectExactly(n, sql, parameters).ToObject<T>();
         }

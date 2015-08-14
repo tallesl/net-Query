@@ -14,7 +14,7 @@
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>The first column of the first row queried</returns>
-        public T SelectSingle<T>(string sql, object parameters)
+        public T SelectSingle<T>(string sql, object parameters = null)
         {
             return WithReturn<T>(sql, parameters);
         }

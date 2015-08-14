@@ -15,7 +15,7 @@
         /// <exception cref="UnexpectedNumberOfRowsAffected">
         /// If the number of affected rows is greater than N
         /// </exception>
-        public void ChangeNoMoreThan(int n, string sql, object parameters)
+        public void ChangeNoMoreThan(int n, string sql, object parameters = null)
         {
             WithoutReturn(n, sql, true, parameters);
         }

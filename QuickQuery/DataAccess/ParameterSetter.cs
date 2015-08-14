@@ -26,15 +26,18 @@
 
         private static void SetParameters(DbCommand command, object parameters)
         {
-            foreach (var kvp in PropertiesHasher.Make(parameters))
+            if (parameters != null)
             {
-                var name = kvp.Key;
-                var value = kvp.Value;
+                foreach (var kvp in PropertiesHasher.Make(parameters))
+                {
+                    var name = kvp.Key;
+                    var value = kvp.Value;
 
-                if (value is IEnumerable && !(value is string))
-                    SetCollectionParameter(command, name, (IEnumerable)value);
-                else
-                    SetSingleParameter(command, name, value);
+                    if (value is IEnumerable && !(value is string))
+                        SetCollectionParameter(command, name, (IEnumerable)value);
+                    else
+                        SetSingleParameter(command, name, value);
+                }
             }
         }
 
