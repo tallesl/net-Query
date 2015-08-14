@@ -28,12 +28,6 @@ The constructor uses [ConfigurationManager.ConnectionStrings] underneath. May th
 ## Querying without return
 
 ```cs
-qckQuery.NoReturn("DELETE FROM Users WHERE Name LIKE @NameToDelete", "NameToDelete", "John");
-```
-
-or
-
-```cs
 qckQuery.NoReturn("DELETE FROM Users WHERE Name LIKE @NameToDelete", new { NameToDelete = "John" });
 ```
 
@@ -52,17 +46,9 @@ It uses [SqlCommand.ExecuteNonQuery] underneath.
 ## Querying with return
 
 ```cs
-int userCount = qckQuery.SelectSingle<int>("SELECT COUNT(0) FROM Users");
-```
-
-```cs
-DataTable user1337 = qckQuery.Select("SELECT * FROM Users WHERE Id = @UserId", "UserId", 1337);
-```
-
-or
-
-```cs
-DataTable user1337 = qckQuery.Select("SELECT * FROM Users WHERE Id = @UserId", new { UserId = 1333 });
+int usrCount = qckQuery.SelectSingle<int>("SELECT COUNT(0) FROM Users");
+DataTable dt = qckQuery.Select("SELECT * FROM Users WHERE Id = @UserId", new { UserId = 1 });
+User usr1337 = qckQuery.Select<User>("SELECT * FROM Users WHERE Id = @UserId", new { UserId = 1337 });
 ```
 
 You can also make sure how many rows will be selected with:
@@ -85,7 +71,7 @@ It automatically prepares collections ([IEnumerable]) for [IN] clauses ([taking 
 So this:
 
 ```cs
-qckQuery.NoReturn("DELETE FROM Users WHERE Id = (@Ids)", "Ids", new[] { 1, 123, 44 });
+qckQuery.NoReturn("DELETE FROM Users WHERE Id = (@Ids)", new { Ids = new[] { 1, 123, 44 } });
 ```
 
 Becomes this:
@@ -97,17 +83,7 @@ DELETE FROM Users WHERE Id = (@Ids0, @Ids1, @Ids2)
 Note that to do this the library concatenates SQL on its own.
 **This gives opening for [SQL injection], never use this with unsanitized user input.**
 
-[IN]:          https://msdn.microsoft.com/library/ms177682.aspx
-[IEnumerable]: https://msdn.microsoft.com/library/system.collections.ienumerable.aspx
-[so]:          http://stackoverflow.com/q/337704/1316620
-[SQL injection]:   https://en.wikipedia.org/wiki/SQL_injection
-
-## Automatically parsing the DataTable
-
-You can pass a type T to any of the library methods instead of parsing the DataTable on your own:
-
-```cs
-IEnumerable<User> users = qckQuery.Select<User>("SELECT * FROM Users");
-```
-
-The types and properties names should match between the DataTable and the type T.
+[IN]:            https://msdn.microsoft.com/library/ms177682.aspx
+[IEnumerable]:   https://msdn.microsoft.com/library/system.collections.ienumerable.aspx
+[so]:            http://stackoverflow.com/q/337704/1316620
+[SQL injection]: https://en.wikipedia.org/wiki/SQL_injection
