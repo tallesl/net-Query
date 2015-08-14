@@ -2,8 +2,6 @@
 {
     using DataTableToObject;
     using DataTableToObject.Exceptions;
-    using QckQuery.Exceptions.Querying;
-    using QckQuery.Formatting;
     using System.Collections.Generic;
     using System.Data;
 
@@ -23,7 +21,7 @@
         /// </exception>
         public DataTable SelectNoMoreThan(int n, string sql, object parameters)
         {
-            return WithReturn(n, sql, true, DictionaryMaker.Make(parameters));
+            return WithReturn(n, sql, true, parameters);
         }
 
         /// <summary>

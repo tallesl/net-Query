@@ -1,6 +1,6 @@
 ﻿namespace QckQuery.DataAccess
 {
-    using QckQuery.Formatting;
+    using PropertiesHash;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -26,7 +26,7 @@
 
         private static void SetParameters(DbCommand command, object parameters)
         {
-            foreach (var kvp in DictionaryMaker.Make(parameters))
+            foreach (var kvp in PropertiesHasher.Make(parameters))
             {
                 var name = kvp.Key;
                 var value = kvp.Value;

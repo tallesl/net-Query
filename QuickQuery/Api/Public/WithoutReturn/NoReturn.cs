@@ -1,9 +1,5 @@
 ﻿namespace QckQuery
 {
-    using QckQuery.DataAccess;
-    using QckQuery.Formatting;
-    using System.Collections.Generic;
-
     public partial class QuickQuery
     {
         /// <summary>
@@ -14,7 +10,7 @@
         /// <param name="parameters">Parameters names and values pairs</param>
         public void NoReturn(string sql, object parameters)
         {
-            WithoutReturn(sql, DictionaryMaker.Make(parameters));
+            WithoutReturn(sql, parameters);
         }
     }
 }

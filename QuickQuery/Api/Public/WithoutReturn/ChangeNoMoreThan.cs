@@ -1,7 +1,6 @@
 ﻿namespace QckQuery
 {
-    using QckQuery.Exceptions.Querying;
-    using QckQuery.Formatting;
+    using QckQuery.Exceptions;
 
     public partial class QuickQuery
     {
@@ -18,7 +17,7 @@
         /// </exception>
         public void ChangeNoMoreThan(int n, string sql, object parameters)
         {
-            WithoutReturn(n, sql, true, DictionaryMaker.Make(parameters));
+            WithoutReturn(n, sql, true, parameters);
         }
     }
 }

@@ -2,7 +2,6 @@
 {
     using DataTableToObject;
     using DataTableToObject.Exceptions;
-    using QckQuery.Formatting;
     using System.Collections.Generic;
     using System.Data;
 
@@ -17,7 +16,7 @@
         /// <returns>A DataTable with the queried values</returns>
         public DataTable Select(string sql, object parameters)
         {
-            return WithReturn(sql, DictionaryMaker.Make(parameters));
+            return WithReturn(sql, parameters);
         }
 
         /// <summary>

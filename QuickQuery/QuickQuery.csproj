@@ -57,6 +57,14 @@
       <HintPath>..\packages\DataTableToObject.1.1.0\lib\DataTableToObject.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DbCommandFormatter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DbCommandFormatter.1.0.0\lib\DbCommandFormatter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PropertiesHash, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PropertiesHash.1.0.0\lib\PropertiesHash.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -66,14 +74,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\DataTableFiller.cs" />
-    <Compile Include="Exceptions\Querying\UnexpectedNumberOfRowsSelected.cs" />
-    <Compile Include="Exceptions\Querying\UnexpectedNumberOfRowsAffected.cs" />
+    <Compile Include="Exceptions\UnexpectedNumberOfRowsSelected.cs" />
+    <Compile Include="Exceptions\UnexpectedNumberOfRowsAffected.cs" />
     <Compile Include="Exceptions\QuickQueryException.cs" />
     <Compile Include="DataAccess\DataAdapterProvider.cs" />
     <Compile Include="DataAccess\ParameterSetter.cs" />
     <Compile Include="DataAccess\ConnectionProvider.cs" />
-    <Compile Include="Formatting\SqlFormatter.cs" />
-    <Compile Include="Formatting\DictionaryMaker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Api\Constructors.cs" />
     <Compile Include="Api\Private\WithoutReturn.cs" />

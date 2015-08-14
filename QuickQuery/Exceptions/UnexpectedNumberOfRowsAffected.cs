@@ -1,6 +1,6 @@
-﻿namespace QckQuery.Exceptions.Querying
+﻿namespace QckQuery.Exceptions
 {
-    using QckQuery.Formatting;
+    using DbCommandFormatting;
     using System;
     using System.Data.Common;
 
@@ -12,6 +12,6 @@
     {
         internal UnexpectedNumberOfRowsAffected(DbCommand command, int n)
             : base(string.Format("The following query was rolled back because it affected {0} rows: {1}.",
-                n, SqlFormatter.Format(command))) { }
+                n, DbCommandFormatter.Format(command))) { }
     }
 }

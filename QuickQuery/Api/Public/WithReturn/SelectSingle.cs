@@ -1,7 +1,6 @@
 ﻿namespace QckQuery
 {
     using QckQuery.DataAccess;
-    using QckQuery.Formatting;
     using System.Collections.Generic;
 
     public partial class QuickQuery
@@ -17,7 +16,7 @@
         /// <returns>The first column of the first row queried</returns>
         public T SelectSingle<T>(string sql, object parameters)
         {
-            return WithReturn<T>(sql, DictionaryMaker.Make(parameters));
+            return WithReturn<T>(sql, parameters);
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace QckQuery.Exceptions.Querying
+﻿namespace QckQuery.Exceptions
 {
-    using QckQuery.Formatting;
+    using DbCommandFormatting;
     using System;
     using System.Data.Common;
 
@@ -12,6 +12,6 @@
     {
         internal UnexpectedNumberOfRowsSelected(DbCommand command, int n)
             : base(string.Format("The following query selected an unexpected number of rows ({0}): {1}.",
-                n, SqlFormatter.Format(command))) { }
+                n, DbCommandFormatter.Format(command))) { }
     }
 }
