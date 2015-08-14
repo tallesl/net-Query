@@ -1,5 +1,6 @@
 ﻿namespace QckQuery.DataAccess
 {
+    using QckQuery.Formatting;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -10,7 +11,7 @@
     {
         [SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
         internal static DbCommand GetCommandWithParametersSet(
-            this DbConnection connection, string sql, IDictionary<string, object> parameters)
+            this DbConnection connection, string sql, object parameters)
         {
             var command = connection.CreateCommand();
 
@@ -23,21 +24,17 @@
             return command;
         }
 
-        private static void SetParameters(DbCommand command, IDictionary<string, object> parameters)
+        private static void SetParameters(DbCommand command, object parameters)
         {
-            foreach (var kvp in parameters)
+            foreach (var kvp in DictionaryMaker.Make(parameters))
             {
                 var name = kvp.Key;
                 var value = kvp.Value;
 
                 if (value is IEnumerable && !(value is string))
-                {
                     SetCollectionParameter(command, name, (IEnumerable)value);
-                }
                 else
-                {
                     SetSingleParameter(command, name, value);
-                }
             }
         }
 
