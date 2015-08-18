@@ -61,8 +61,8 @@
       <HintPath>..\packages\DbCommandFormatter.1.0.0\lib\DbCommandFormatter.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PropertiesHash, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PropertiesHash.1.0.0\lib\PropertiesHash.dll</HintPath>
+    <Reference Include="PropertiesHash, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PropertiesHash.1.1.0\lib\PropertiesHash.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
