@@ -57,8 +57,8 @@
       <HintPath>..\packages\DataTableToObject.1.1.1\lib\DataTableToObject.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DbCommandFormatter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DbCommandFormatter.1.0.0\lib\DbCommandFormatter.dll</HintPath>
+    <Reference Include="DbCommandFormatter, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DbCommandFormatter.1.0.1\lib\DbCommandFormatter.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PropertiesHash, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
