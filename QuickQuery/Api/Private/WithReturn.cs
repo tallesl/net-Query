@@ -30,9 +30,9 @@
             using (var command = connection.GetCommandWithParametersSet(sql, parameters))
             {
                 var dataTable = _dataTableFiller.Fill(command);
-                var rows = dataTable.Rows.Count;
-                if (rows > n || (!acceptsLess && rows != n)) return dataTable;
-                else throw new UnexpectedNumberOfRowsSelected(command, rows);
+                var selected = dataTable.Rows.Count;
+                if (selected == n || (acceptsLess && selected < n)) return dataTable;
+                else throw new UnexpectedNumberOfRowsSelected(command, selected);
             }
         }
     }
