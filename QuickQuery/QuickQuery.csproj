@@ -53,10 +53,6 @@
     <Reference Include="ConnectionStringReader">
       <HintPath>..\packages\ConnectionStringReader.1.0.0\lib\ConnectionStringReader.dll</HintPath>
     </Reference>
-    <Reference Include="DataTableToObject, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DataTableToObject.1.2.0\lib\DataTableToObject.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="DbCommandFormatter, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DbCommandFormatter.1.0.1\lib\DbCommandFormatter.dll</HintPath>
       <Private>True</Private>
@@ -75,6 +71,10 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.XML" />
+    <Reference Include="ToObject, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ToObject.2.0.0\lib\ToObject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\DataTableFiller.cs" />

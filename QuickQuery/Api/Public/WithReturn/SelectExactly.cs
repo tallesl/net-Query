@@ -1,7 +1,7 @@
 ﻿namespace QckQuery
 {
-    using DataTableToObject;
-    using DataTableToObject.Exceptions;
+    using ToObject;
+    using ToObject.Exceptions;
     using QckQuery.Exceptions;
     using System.Collections.Generic;
     using System.Data;
