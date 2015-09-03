@@ -11,6 +11,11 @@
     /// </summary>
     public partial class QuickQuery
     {
+        /// <summary>
+        /// Flag indicating if it's to throw if a selected property is not found in the given type.
+        /// </summary>
+        public readonly bool Safe;
+
         private ConnectionProvider _connectionProvider;
 
         private DataAdapterProvider _dataAdapterProvider;
@@ -21,21 +26,29 @@
         /// Ctor.
         /// </summary>
         /// <param name="connectionStringName">Connection string name to be read from the .config file</param>
-        public QuickQuery(string connectionStringName)
+        /// <param name="safe">
+        /// Flag indicating if it's to throw if a selected property is not found in the given type. Defaults to False.
+        /// </param>
+        public QuickQuery(string connectionStringName, bool safe = false)
         {
             var cs = ConnectionStringReader.Read(connectionStringName);
             InitializeMembers(cs);
+            Safe = safe;
         }
 
         /// <summary>
         /// Ctor.
         /// </summary>
         /// <param name="cs">Connection string settings</param>
-        public QuickQuery(ConnectionStringSettings cs)
+        /// <param name="safe">
+        /// Flag indicating if it's to throw is a selected property is not found in the given type. Defaults to False.
+        /// </param>
+        public QuickQuery(ConnectionStringSettings cs, bool safe = false)
         {
             if (cs == null) throw new ArgumentNullException("connectionString");
             ConnectionStringReader.Check(cs);
             InitializeMembers(cs);
+            Safe = safe;
         }
 
         private void InitializeMembers(ConnectionStringSettings cs)
