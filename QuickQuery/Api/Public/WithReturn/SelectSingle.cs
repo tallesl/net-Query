@@ -1,8 +1,5 @@
 ﻿namespace QckQuery
 {
-    using QckQuery.DataAccess;
-    using System.Collections.Generic;
-
     public partial class QuickQuery
     {
         /// <summary>

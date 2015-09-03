@@ -77,6 +77,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\Public\WithoutReturn\ChangeExactlyOne.cs" />
+    <Compile Include="Api\Public\WithoutReturn\ChangeNoMoreThanOne.cs" />
+    <Compile Include="Api\Public\WithReturn\SelectExactlyOne.cs" />
+    <Compile Include="Api\Public\WithReturn\SelectNoMoreThanOne.cs" />
     <Compile Include="DataAccess\DataTableFiller.cs" />
     <Compile Include="Exceptions\UnexpectedNumberOfRowsSelected.cs" />
     <Compile Include="Exceptions\UnexpectedNumberOfRowsAffected.cs" />

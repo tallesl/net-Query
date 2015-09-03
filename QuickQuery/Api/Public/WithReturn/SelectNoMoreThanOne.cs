@@ -1,42 +1,48 @@
 ﻿namespace QckQuery
 {
-    using System.Collections.Generic;
+    using QckQuery.Exceptions;
     using System.Data;
-    using ToObject;
+    using System.Linq;
     using ToObject.Exceptions;
 
     public partial class QuickQuery
     {
         /// <summary>
         /// Runs the given query and returns the queried values.
+        /// Throws UnexpectedNumberOfRowsSelected if more than one row is selected.
         /// It uses DbDataAdapter.Fill underneath.
         /// </summary>
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>A DataTable with the queried values</returns>
-        public DataTable Select(string sql, object parameters = null)
+        /// <exception cref="UnexpectedNumberOfRowsSelected">
+        /// If more than one row is selected
+        /// </exception>
+        public DataTable SelectNoMoreThanOne(string sql, object parameters = null)
         {
-            return WithReturn(sql, parameters);
+            return SelectNoMoreThan(1, sql, parameters);
         }
 
         /// <summary>
         /// Runs the given query and returns the queried values.
+        /// Throws UnexpectedNumberOfRowsSelected if more than one row is selected.
         /// It uses DbDataAdapter.Fill underneath.
         /// </summary>
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
-        /// <returns>The queried objects</returns>
+        /// <returns>The querie objects</returns>
+        /// <exception cref="UnexpectedNumberOfRowsSelected">
+        /// If more than one row is selected
+        /// </exception>
         /// <exception cref="MismatchedTypesException">
         /// The corresponding type in the given class is different than the one found in the DataTable
         /// </exception>
         /// <exception cref="PropertyNotFoundException">
         /// A column of the DataTable doesn't match any in the given class
         /// </exception>
-        public IEnumerable<T> Select<T>(string sql, object parameters = null) where T : new()
+        public T SelectNoMoreThanOne<T>(string sql, object parameters = null) where T : new()
         {
-            return Safe ?
-                Select(sql, parameters).ToObjectSafe<T>() :
-                Select(sql, parameters).ToObject<T>();
+            return SelectNoMoreThan<T>(1, sql, parameters).SingleOrDefault();
         }
     }
 }
