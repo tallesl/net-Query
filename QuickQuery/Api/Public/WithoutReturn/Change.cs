@@ -8,7 +8,7 @@
         /// </summary>
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
-        public void NoReturn(string sql, object parameters = null)
+        public void Change(string sql, object parameters = null)
         {
             WithoutReturn(sql, parameters);
         }

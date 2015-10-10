@@ -96,7 +96,7 @@
     <Compile Include="Api\Private\WithoutReturn.cs" />
     <Compile Include="Api\Public\WithoutReturn\ChangeNoMoreThan.cs" />
     <Compile Include="Api\Public\WithoutReturn\ChangeExactly.cs" />
-    <Compile Include="Api\Public\WithoutReturn\NoReturn.cs" />
+    <Compile Include="Api\Public\WithoutReturn\Change.cs" />
     <Compile Include="Api\Private\WithReturn.cs" />
     <Compile Include="Api\Public\WithReturn\SelectNoMoreThan.cs" />
     <Compile Include="Api\Public\WithReturn\SelectExactly.cs" />

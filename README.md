@@ -28,7 +28,7 @@ The constructor uses [ConfigurationManager.ConnectionStrings] underneath. May th
 ## Querying without return
 
 ```cs
-qckQuery.NoReturn("DELETE FROM Users WHERE Name LIKE @NameToDelete", new { NameToDelete = "John" });
+qckQuery.Change("DELETE FROM Users WHERE Name LIKE @NameToDelete", new { NameToDelete = "John" });
 ```
 
 You can also make sure how many rows will be affected with:
@@ -71,7 +71,7 @@ It automatically prepares collections ([IEnumerable]) for [IN] clauses ([taking 
 So this:
 
 ```cs
-qckQuery.NoReturn("DELETE FROM Users WHERE Id = (@Ids)", new { Ids = new[] { 1, 123, 44 } });
+qckQuery.Change("DELETE FROM Users WHERE Id = (@Ids)", new { Ids = new[] { 1, 123, 44 } });
 ```
 
 Becomes this:
