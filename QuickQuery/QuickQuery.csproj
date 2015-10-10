@@ -57,6 +57,10 @@
       <HintPath>..\packages\DbCommandFormatter.1.0.1\lib\DbCommandFormatter.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DbParameterSetter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DbParameterSetter.1.0.0\lib\DbParameterSetter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NameTree, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NameTree.1.1.0\lib\NameTree.dll</HintPath>
       <Private>True</Private>
@@ -86,7 +90,6 @@
     <Compile Include="Exceptions\UnexpectedNumberOfRowsAffected.cs" />
     <Compile Include="Exceptions\QuickQueryException.cs" />
     <Compile Include="DataAccess\DataAdapterProvider.cs" />
-    <Compile Include="DataAccess\ParameterSetter.cs" />
     <Compile Include="DataAccess\ConnectionProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Api\Constructors.cs" />
