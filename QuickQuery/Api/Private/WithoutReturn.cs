@@ -10,7 +10,7 @@
         private void WithoutReturn(string sql, object parameters)
         {
             using (var connection = _connectionProvider.Provide())
-            using (var command = connection.GetCommand(sql, parameters))
+            using (var command = connection.GetCommand(sql, parameters, EnumAsString))
             {
                 command.ExecuteNonQuery();
             }
@@ -20,11 +20,14 @@
         {
             using (var connection = _connectionProvider.Provide())
             using (var transaction = new TransactionScope())
-            using (var command = connection.GetCommand(sql, parameters))
+            using (var command = connection.GetCommand(sql, parameters, EnumAsString))
             {
                 var affected = command.ExecuteNonQuery();
-                if (affected == n || (acceptsLess && affected < n)) transaction.Complete();
-                else throw new UnexpectedNumberOfRowsAffected(command, affected);
+
+                if (affected == n || (acceptsLess && affected < n))
+                    transaction.Complete();
+                else
+                    throw new UnexpectedNumberOfRowsAffected(command, affected);
             }
         }
     }
