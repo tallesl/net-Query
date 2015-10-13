@@ -1,42 +1,57 @@
 ﻿namespace QckQuery
 {
-    using QckQuery.DataAccess;
+    using DbParameterSetting;
     using QckQuery.Exceptions;
     using System.Data;
-    using DbParameterSetting;
 
     public partial class QuickQuery
     {
         private T WithReturn<T>(string sql, object parameters)
         {
-            using (var connection = _connectionProvider.Provide())
-            using (var command = connection.GetCommand(sql, parameters, EnumAsString))
+            using (var command = OpenConnection.GetCommand(sql, parameters, EnumAsString))
             {
-                return (T)command.ExecuteScalar();
+                try
+                {
+                    // No need to open a transaction, only to use an open one if exists
+                    // That's why _currentTransaction and not OpenTransaction (unlike the on writes)
+                    command.Transaction = _currentTransaction;
+
+                    var t = (T)command.ExecuteScalar();
+                    CloseIfNeeded();
+                    return t;
+                }
+                catch
+                {
+                    CloseRegardless(true);
+                    throw;
+                }
             }
         }
 
-        private DataTable WithReturn(string sql, object parameters)
+        private DataTable WithReturn(string sql, object parameters, int? n = null, bool acceptsLess = false)
         {
-            using (var connection = _connectionProvider.Provide())
-            using (var command = connection.GetCommand(sql, parameters, EnumAsString))
+            using (var command = OpenConnection.GetCommand(sql, parameters, EnumAsString))
             {
-                return _dataTableFiller.Fill(command);
-            }
-        }
+                try
+                {
+                    // No need to open a transaction, only to use an open one if exists
+                    // That's why _currentTransaction and not OpenTransaction (unlike the on writes)
+                    command.Transaction = _currentTransaction;
 
-        private DataTable WithReturn(int n, string sql, bool acceptsLess, object parameters)
-        {
-            using (var connection = _connectionProvider.Provide())
-            using (var command = connection.GetCommand(sql, parameters, EnumAsString))
-            {
-                var dataTable = _dataTableFiller.Fill(command);
-                var selected = dataTable.Rows.Count;
+                    var dt = _dataTableFiller.Fill(command);
+                    var selected = dt.Rows.Count;
 
-                if (selected == n || (acceptsLess && selected < n))
-                    return dataTable;
-                else
-                    throw new UnexpectedNumberOfRowsSelected(command, selected);
+                    if (n.HasValue && (selected > n || (!acceptsLess && selected != n)))
+                        throw new UnexpectedNumberOfRowsSelected(command, selected);
+
+                    CloseIfNeeded();
+                    return dt;
+                }
+                catch
+                {
+                    CloseRegardless(true);
+                    throw;
+                }
             }
         }
     }

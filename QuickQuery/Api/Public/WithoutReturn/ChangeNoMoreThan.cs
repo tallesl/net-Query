@@ -17,7 +17,7 @@
         /// </exception>
         public void ChangeNoMoreThan(int n, string sql, object parameters = null)
         {
-            WithoutReturn(n, sql, true, parameters);
+            WithoutReturn(sql, parameters, n, true);
         }
     }
 }

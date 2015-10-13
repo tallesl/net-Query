@@ -92,7 +92,7 @@
     <Compile Include="DataAccess\DataAdapterProvider.cs" />
     <Compile Include="DataAccess\ConnectionProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Api\Constructors.cs" />
+    <Compile Include="Api\QuickQuery.cs" />
     <Compile Include="Api\Private\WithoutReturn.cs" />
     <Compile Include="Api\Public\WithoutReturn\ChangeNoMoreThan.cs" />
     <Compile Include="Api\Public\WithoutReturn\ChangeExactly.cs" />

@@ -22,7 +22,7 @@
         /// </exception>
         public DataTable SelectNoMoreThan(int n, string sql, object parameters = null)
         {
-            return WithReturn(n, sql, true, parameters);
+            return WithReturn(sql, parameters, n, true);
         }
 
         /// <summary>

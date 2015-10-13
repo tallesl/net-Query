@@ -17,7 +17,7 @@
         /// </exception>
         public void ChangeExactly(int n, string sql, object parameters = null)
         {
-            WithoutReturn(n, sql, false, parameters);
+            WithoutReturn(sql, parameters, n);
         }
     }
 }

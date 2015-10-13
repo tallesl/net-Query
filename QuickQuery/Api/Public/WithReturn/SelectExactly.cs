@@ -22,7 +22,7 @@
         /// </exception>
         public DataTable SelectExactly(int n, string sql, object parameters = null)
         {
-            return WithReturn(n, sql, false, parameters);
+            return WithReturn(sql, parameters, n);
         }
 
         /// <summary>

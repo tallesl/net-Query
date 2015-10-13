@@ -1,33 +1,30 @@
 ﻿namespace QckQuery
 {
-    using QckQuery.DataAccess;
-    using QckQuery.Exceptions;
-    using System.Transactions;
     using DbParameterSetting;
+    using QckQuery.Exceptions;
 
     public partial class QuickQuery
     {
-        private void WithoutReturn(string sql, object parameters)
+        private void WithoutReturn(string sql, object parameters, int? n = null, bool acceptsLess = false)
         {
-            using (var connection = _connectionProvider.Provide())
-            using (var command = connection.GetCommand(sql, parameters, EnumAsString))
+            using (var command = OpenConnection.GetCommand(sql, parameters, EnumAsString))
             {
-                command.ExecuteNonQuery();
-            }
-        }
+                try
+                {
+                    command.Transaction = OpenTransaction;
 
-        private void WithoutReturn(int n, string sql, bool acceptsLess, object parameters)
-        {
-            using (var connection = _connectionProvider.Provide())
-            using (var transaction = new TransactionScope())
-            using (var command = connection.GetCommand(sql, parameters, EnumAsString))
-            {
-                var affected = command.ExecuteNonQuery();
+                    var affected = command.ExecuteNonQuery();
 
-                if (affected == n || (acceptsLess && affected < n))
-                    transaction.Complete();
-                else
-                    throw new UnexpectedNumberOfRowsAffected(command, affected);
+                    if (n.HasValue && (affected > n || (!acceptsLess && affected != n)))
+                        throw new UnexpectedNumberOfRowsAffected(command, affected);
+
+                    CloseIfNeeded();
+                }
+                catch
+                {
+                    CloseRegardless(true);
+                    throw;
+                }
             }
         }
     }
