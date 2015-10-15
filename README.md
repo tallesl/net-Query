@@ -71,13 +71,13 @@ It automatically prepares collections ([IEnumerable]) for [IN] clauses ([taking 
 So this:
 
 ```cs
-qckQuery.Change("DELETE FROM Users WHERE Id = (@Ids)", new { Ids = new[] { 1, 123, 44 } });
+qckQuery.Change("DELETE FROM Users WHERE Id IN (@Ids)", new { Ids = new[] { 1, 123, 44 } });
 ```
 
 Becomes this:
 
 ```sql
-DELETE FROM Users WHERE Id = (@Ids0, @Ids1, @Ids2)
+DELETE FROM Users WHERE Id IN (@Ids0, @Ids1, @Ids2)
 ```
 
 Note that to do this the library concatenates SQL on its own.
