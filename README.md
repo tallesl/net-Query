@@ -1,10 +1,10 @@
 <p align="center">
-    <a href="#quickquery">
+    <a href="#query">
         <img alt="logo" src="Logo/200x200.png">
     </a>
 </p>
 
-# QuickQuery
+# Query
 
 [![][build-img]][build]
 [![][nuget-img]][nuget]
@@ -14,7 +14,7 @@ A simplistic ADO.NET wrapper.
 ## Instantiating
 
 ```cs
-var query = new QuickQuery("YourConnectionStringName");
+var query = new Query("YourConnectionStringName");
 ```
 
 May throw [NoSuchConnectionStringException], [EmptyConnectionStringException] or [EmptyProviderNameException].
@@ -74,7 +74,7 @@ Note that to do this the library concatenates SQL on its own.
 
 ## Configuration
 
-There's a `QuickQueryConfiguration` with the following options:
+There's a `QueryConfiguration` with the following options:
 
 * `EnumAsString`: Treat enum values as strings (rather than as integers).
 * `ManualClosing`: Connection/transaction closing should be done manually (see below).
@@ -82,10 +82,12 @@ There's a `QuickQueryConfiguration` with the following options:
 
 ## Connections and Transactions
 
-If `ManualClosing` is set to `False` (which is the default), the library opens a connection (and a transaction for
-writes) and closes for every operation.
+If `ManualClosing` is set to `False`, the library opens a connection (and a transaction for writes) and closes for every
+operation.
 
 ```cs
+var query = new Query("YourConnectionStringName"); // false is the default for ManualClosing
+
 // Opens and closes a connection and a transaction
 query.Change("INSERT INTO Foo VALUES ('Bar')");
 
@@ -99,7 +101,7 @@ consecutive command.
 The open connection and eventual open transaction are closed/committed when you call `Close()` (hence *manual closing*).
 
 ```cs
-query.ManualClosing = true;
+var query = new Query("YourConnectionStringName", new QueryConfiguration { ManualClosing = true });
 
 // Opens a connection and a transaction
 query.Change("INSERT INTO Foo VALUES ('Bar')");
@@ -119,18 +121,18 @@ query.Close();
 If you let `ManualClosing` to `False` you can safely share the object between threads, else state comes to play and you
 shouldn't use it across different threads.
 
-QuickQuery should be lightweight enough to be instantiated as needed during the lifetime of your application (such as
-one per request).
+Query should be lightweight enough to be instantiated as needed during the lifetime of your application (such as one per
+request).
 
-[build]:                                  https://ci.appveyor.com/project/TallesL/QuickQuery
-[build-img]:                              https://ci.appveyor.com/api/projects/status/github/tallesl/QuickQuery
-[nuget]:                                  http://badge.fury.io/nu/QuickQuery
-[nuget-img]:                              https://badge.fury.io/nu/QuickQuery.png
+[build]:                                  https://ci.appveyor.com/project/TallesL/Query
+[build-img]:                              https://ci.appveyor.com/api/projects/status/github/tallesl/Query
+[nuget]:                                  http://badge.fury.io/nu/Query
+[nuget-img]:                              https://badge.fury.io/nu/Query.png
 [NoSuchConnectionStringException]:        https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/NoSuchConnectionStringException.cs
 [EmptyConnectionStringException]:         https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/EmptyConnectionStringException.cs
 [EmptyProviderNameException]:             https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/EmptyProviderNameException.cs
-[UnexpectedNumberOfRowsAffected]:         QuickQuery/Exception/Querying/UnexpectedNumberOfRowsAffected.cs
-[UnexpectedNumberOfRowsSelected]:         QuickQuery/Exception/Querying/UnexpectedNumberOfRowsSelected.cs
+[UnexpectedNumberOfRowsAffected]:         Query/Exception/Querying/UnexpectedNumberOfRowsAffected.cs
+[UnexpectedNumberOfRowsSelected]:         Query/Exception/Querying/UnexpectedNumberOfRowsSelected.cs
 [ConfigurationManager.ConnectionStrings]: https://msdn.microsoft.com/library/System.Configuration.ConfigurationManager.ConnectionStrings
 [SqlCommand.ExecuteNonQuery]:             https://msdn.microsoft.com/library/System.Data.SqlClient.SqlCommand.ExecuteNonQuery
 [DbDataAdapter.Fill]:                     https://msdn.microsoft.com/library/System.Data.Common.DbDataAdapter.Fill
