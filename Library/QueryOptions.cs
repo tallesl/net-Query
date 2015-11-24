@@ -8,35 +8,18 @@
         /// <summary>
         /// Flag indicating if enum values should be treated as strings (ToString).
         /// </summary>
-        public readonly bool EnumAsString;
+        public bool EnumAsString { get; set; }
 
         /// <summary>
         /// Flag indicating if closing the connection/transaction should be done manually by the library consumer.
         /// If False it automatically opens/closes on each API call.
         /// </summary>
-        public readonly bool ManualClosing;
+        public bool ManualClosing { get; set; }
 
         /// <summary>
         /// Flag indicating if it's to throw if a selected property is not found in the given type.
         /// </summary>
-        public readonly bool Safe;
-
-        /// <summary>
-        /// Ctor.
-        /// </summary>
-        /// <param name="enumAsString">Flag indicating if enum values should be treated as strings (ToString)</param>
-        /// <param name="manualClosing">
-        /// Flag indicating if closing the connection/transaction should be done manually by the library consumer
-        /// </param>
-        /// <param name="safe">
-        /// Flag indicating if it's to throw if a selected property is not found in the given type
-        /// </param>
-        public QueryOptions(bool enumAsString, bool manualClosing, bool safe)
-        {
-            EnumAsString = enumAsString;
-            ManualClosing = manualClosing;
-            Safe = safe;
-        }
+        public bool Safe { get; set; }
 
         #region Equalidade
 
