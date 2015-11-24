@@ -23,41 +23,43 @@
 
         private object _connectionLock = new object();
 
+        private readonly QuickQueryConfiguration _configuration;
+
         /// <summary>
         /// Ctor.
         /// </summary>
         /// <param name="connectionStringName">Connection string name to be read from the .config file</param>
-        public QuickQuery(string connectionStringName)
+        public QuickQuery(string connectionStringName) : this(connectionStringName, new QuickQueryConfiguration()) { }
+
+        /// <summary>
+        /// Ctor.
+        /// </summary>
+        /// <param name="connectionStringName">Connection string name to be read from the .config file</param>
+        /// <param name="configuration">Configuration options</param>
+        public QuickQuery(string connectionStringName, QuickQueryConfiguration configuration)
         {
+            _configuration = configuration;
             var cs = ConnectionStringReader.Read(connectionStringName);
             InitializeMembers(cs);
         }
 
         /// <summary>
-        /// Flag indicating if enum values should be treated as strings (ToString).
+        /// Ctor.
         /// </summary>
-        public bool EnumAsString { get; set; }
-
-        /// <summary>
-        /// Flag indicating if closing the connection/transaction should be done manually by the library consumer.
-        /// If False it automatically opens/closes on each API call.
-        /// </summary>
-        public bool ManualClosing { get; set; }
-
-        /// <summary>
-        /// Flag indicating if it's to throw if a selected property is not found in the given type.
-        /// </summary>
-        public bool Safe { get; set; }
+        /// <param name="cs">Connection string settings</param>
+        public QuickQuery(ConnectionStringSettings cs) : this(cs, new QuickQueryConfiguration()) { }
 
         /// <summary>
         /// Ctor.
         /// </summary>
         /// <param name="cs">Connection string settings</param>
-        public QuickQuery(ConnectionStringSettings cs)
+        /// <param name="configuration">Configuration options</param>
+        public QuickQuery(ConnectionStringSettings cs, QuickQueryConfiguration configuration)
         {
             if (cs == null)
                 throw new ArgumentNullException("connectionString");
 
+            _configuration = configuration;
             ConnectionStringReader.Check(cs);
             InitializeMembers(cs);
         }
@@ -104,13 +106,13 @@
         /// </summary>
         public void Close()
         {
-            if (ManualClosing)
+            if (_configuration.ManualClosing)
                 CloseRegardless();
         }
 
         private void CloseIfNeeded()
         {
-            if (!ManualClosing)
+            if (!_configuration.ManualClosing)
                 CloseRegardless();
         }
 

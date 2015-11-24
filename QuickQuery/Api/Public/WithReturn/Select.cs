@@ -34,7 +34,7 @@
         /// </exception>
         public IEnumerable<T> Select<T>(string sql, object parameters = null) where T : new()
         {
-            return Safe ?
+            return _configuration.Safe ?
                 Select(sql, parameters).ToObjectSafe<T>() :
                 Select(sql, parameters).ToObject<T>();
         }

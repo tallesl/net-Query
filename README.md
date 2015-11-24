@@ -64,6 +64,14 @@ You can also make sure how many rows will be selected with:
 [SqlCommand.ExecuteScalar]:       http://msdn.microsoft.com/library/system.data.sqlclient.sqlcommand.executescalar.aspx
 [DbDataAdapter.Fill]:             http://msdn.microsoft.com/library/system.data.common.dbdataadapter.fill.aspx
 
+## Configuration
+
+There's a `QuickQueryConfiguration` with the following options:
+
+* `EnumAsString`: Treat enum values as strings (rather than as integers).
+* `ManualClosing`: Connection/transaction closing should be done manually (see below).
+* `Safe`: Throw if a selected property is not found in the given type.
+
 ## IN clauses
 
 It automatically prepares collections ([IEnumerable]) for [IN] clauses ([taking that burden off you][so]).

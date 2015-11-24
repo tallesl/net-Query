@@ -45,7 +45,7 @@
         /// </exception>
         public IEnumerable<T> SelectNoMoreThan<T>(int n, string sql, object parameters = null) where T : new()
         {
-            return Safe ?
+            return _configuration.Safe ?
                 SelectNoMoreThan(n, sql, parameters).ToObjectSafe<T>() :
                 SelectNoMoreThan(n, sql, parameters).ToObject<T>();
         }
