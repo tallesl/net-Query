@@ -143,8 +143,8 @@ request).
 [NoSuchConnectionStringException]:         https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/NoSuchConnectionStringException.cs
 [EmptyConnectionStringException]:          https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/EmptyConnectionStringException.cs
 [EmptyProviderNameException]:              https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/EmptyProviderNameException.cs
-[UnexpectedNumberOfRowsAffectedException]: Query/Exception/Querying/UnexpectedNumberOfRowsAffectedException.cs
-[UnexpectedNumberOfRowsSelectedException]: Query/Exception/Querying/UnexpectedNumberOfRowsSelectedException.cs
+[UnexpectedNumberOfRowsAffectedException]: Library/Public/Exceptions/UnexpectedNumberOfRowsAffectedException.cs
+[UnexpectedNumberOfRowsSelectedException]: Library/Public/Exceptions/UnexpectedNumberOfRowsSelectedException.cs
 [ConfigurationManager.ConnectionStrings]:  https://msdn.microsoft.com/library/System.Configuration.ConfigurationManager.ConnectionStrings
 [SqlCommand.ExecuteNonQuery]:              https://msdn.microsoft.com/library/System.Data.SqlClient.SqlCommand.ExecuteNonQuery
 [DbDataAdapter.Fill]:                      https://msdn.microsoft.com/library/System.Data.Common.DbDataAdapter.Fill
