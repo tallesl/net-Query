@@ -1,5 +1,7 @@
 ﻿namespace QueryLibrary
 {
+    using System.Diagnostics.CodeAnalysis;
+
     /// <summary>
     /// Query options.
     /// </summary>
@@ -29,6 +31,7 @@
         /// <param name="o1">A instance to compare</param>
         /// <param name="o2">Another instance to compare</param>
         /// <returns>True if they are equal, False otherwise</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "o")]
         public static bool operator ==(QueryOptions o1, QueryOptions o2)
         {
             return o1.EnumAsString == o2.EnumAsString &&
@@ -42,6 +45,7 @@
         /// <param name="o1">A instance to compare</param>
         /// <param name="o2">Another instance to compare</param>
         /// <returns>True if they are not equal, False otherwise</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "o")]
         public static bool operator !=(QueryOptions o1, QueryOptions o2)
         {
             return !(o1 == o2);

@@ -1,6 +1,7 @@
 ﻿namespace QueryLibrary
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     public sealed partial class Query
     {
@@ -15,6 +16,7 @@
         /// <exception cref="UnexpectedNumberOfRowsAffectedException">
         /// If the number of affected rows is greater than N
         /// </exception>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "n")]
         public void ChangeNoMoreThan(int n, string sql, object parameters = null)
         {
             if (_disposed)

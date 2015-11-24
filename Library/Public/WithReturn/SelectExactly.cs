@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Diagnostics.CodeAnalysis;
     using ToObject;
     using ToObject.Exceptions;
 
@@ -20,6 +21,7 @@
         /// <exception cref="UnexpectedNumberOfRowsAffectedException">
         /// If the number of selected rows is different from N
         /// </exception>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "n")]
         public DataTable SelectExactly(int n, string sql, object parameters = null)
         {
             if (_disposed)
@@ -46,6 +48,7 @@
         /// <exception cref="PropertyNotFoundException">
         /// A column of the DataTable doesn't match any in the given class
         /// </exception>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "n")]
         public IEnumerable<T> SelectExactly<T>(int n, string sql, object parameters = null) where T : new()
         {
             if (_disposed)
