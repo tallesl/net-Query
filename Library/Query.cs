@@ -144,6 +144,10 @@
             }
         }
 
+        /// <summary>
+        /// Disposes any open underlying connection or transaction.
+        /// Only need when ManualClosing is set to True.
+        /// </summary>
         public void Dispose()
         {
             if (_disposed)
