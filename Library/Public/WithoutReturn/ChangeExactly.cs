@@ -1,6 +1,5 @@
 ﻿namespace QueryLibrary
 {
-    using QueryLibrary.Exceptions;
     using System;
 
     public sealed partial class Query

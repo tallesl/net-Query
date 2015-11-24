@@ -1,4 +1,4 @@
-﻿namespace QueryLibrary.Exceptions
+﻿namespace QueryLibrary
 {
     using DbCommandFormatting;
     using System;

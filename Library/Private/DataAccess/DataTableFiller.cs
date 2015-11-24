@@ -1,4 +1,4 @@
-﻿namespace QueryLibrary.DataAccess
+﻿namespace QueryLibrary
 {
     using System.Data;
     using System.Data.Common;

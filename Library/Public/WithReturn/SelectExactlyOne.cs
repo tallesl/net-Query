@@ -1,6 +1,5 @@
 ﻿namespace QueryLibrary
 {
-    using QueryLibrary.Exceptions;
     using System;
     using System.Data;
     using System.Linq;
