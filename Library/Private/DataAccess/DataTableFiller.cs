@@ -2,6 +2,7 @@
 {
     using System.Data;
     using System.Data.Common;
+    using System.Globalization;
 
     internal class DataTableFiller
     {
@@ -17,6 +18,7 @@
             using (var adapter = _dataAdapterProvider.Provide())
             {
                 var dataTable = new DataTable();
+                dataTable.Locale = CultureInfo.CurrentCulture;
                 adapter.SelectCommand = command;
                 adapter.Fill(dataTable);
                 return dataTable;
