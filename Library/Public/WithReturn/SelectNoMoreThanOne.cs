@@ -16,7 +16,7 @@
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>A DataTable with the queried values</returns>
-        /// <exception cref="UnexpectedNumberOfRowsSelected">
+        /// <exception cref="UnexpectedNumberOfRowsSelectedException">
         /// If more than one row is selected
         /// </exception>
         public DataTable SelectNoMoreThanOne(string sql, object parameters = null)
@@ -35,7 +35,7 @@
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>The querie objects</returns>
-        /// <exception cref="UnexpectedNumberOfRowsSelected">
+        /// <exception cref="UnexpectedNumberOfRowsSelectedException">
         /// If more than one row is selected
         /// </exception>
         /// <exception cref="MismatchedTypesException">

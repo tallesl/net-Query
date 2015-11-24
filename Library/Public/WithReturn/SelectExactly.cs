@@ -18,7 +18,7 @@
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>A DataTable with the queried values</returns>
-        /// <exception cref="UnexpectedNumberOfRowsAffected">
+        /// <exception cref="UnexpectedNumberOfRowsAffectedException">
         /// If the number of selected rows is different from N
         /// </exception>
         public DataTable SelectExactly(int n, string sql, object parameters = null)
@@ -38,7 +38,7 @@
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>The queried objects</returns>
-        /// <exception cref="UnexpectedNumberOfRowsAffected">
+        /// <exception cref="UnexpectedNumberOfRowsAffectedException">
         /// If the number of selected rows is different from N
         /// </exception>
         /// <exception cref="MismatchedTypesException">

@@ -42,7 +42,7 @@
                     var selected = dt.Rows.Count;
 
                     if (n.HasValue && (selected > n || (!acceptsLess && selected != n)))
-                        throw new UnexpectedNumberOfRowsSelected(command, selected);
+                        throw new UnexpectedNumberOfRowsSelectedException(command, selected);
 
                     CloseIfNeeded();
                     return dt;

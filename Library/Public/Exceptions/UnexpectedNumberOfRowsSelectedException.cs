@@ -9,9 +9,9 @@
     /// Exception thrown when a query selects an unexpected number of rows.
     /// </summary>
     [Serializable]
-    public class UnexpectedNumberOfRowsSelected : QueryException
+    public class UnexpectedNumberOfRowsSelectedException : QueryException
     {
-        internal UnexpectedNumberOfRowsSelected(DbCommand command, int n)
+        internal UnexpectedNumberOfRowsSelectedException(DbCommand command, int n)
             : base(string.Format(
                 CultureInfo.CurrentCulture,
                 "The following query selected an unexpected number of rows ({0}): {1}.",

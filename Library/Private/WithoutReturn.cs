@@ -16,7 +16,7 @@
                     var affected = command.ExecuteNonQuery();
 
                     if (n.HasValue && (affected > n || (!acceptsLess && affected != n)))
-                        throw new UnexpectedNumberOfRowsAffected(command, affected);
+                        throw new UnexpectedNumberOfRowsAffectedException(command, affected);
 
                     CloseIfNeeded();
                 }

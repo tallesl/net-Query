@@ -16,7 +16,7 @@
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>A DataTable with the queried values</returns>
-        /// <exception cref="UnexpectedNumberOfRowsAffected">
+        /// <exception cref="UnexpectedNumberOfRowsAffectedException">
         /// If more than one or none row is selected
         /// </exception>
         public DataTable SelectExactlyOne(string sql, object parameters = null)
@@ -35,7 +35,7 @@
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>The queried object</returns>
-        /// <exception cref="UnexpectedNumberOfRowsAffected">
+        /// <exception cref="UnexpectedNumberOfRowsAffectedException">
         /// If more than one or none row is selected
         /// </exception>
         /// <exception cref="MismatchedTypesException">

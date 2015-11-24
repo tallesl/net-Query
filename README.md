@@ -30,7 +30,7 @@ You can also make sure how many rows will be affected with:
 * `ChangeExactly(n, sql, parameters)`;
 * `ChangeNoMoreThan(n, sql, parameters)`.
 
-[UnexpectedNumberOfRowsAffected] is thrown and the transaction is rolled back if the amount of affected rows is
+[UnexpectedNumberOfRowsAffectedException] is thrown and the transaction is rolled back if the amount of affected rows is
 different from the expected.
 
 ## Retrieving data
@@ -46,7 +46,7 @@ You can also make sure how many rows will be selected with:
 * `SelectExactly(n, sql, parameters)`;
 * `SelectNoMoreThan(n, sql, parameters)`.
 
-[UnexpectedNumberOfRowsSelected] is thrown if the amount of selected rows is different from the expected.
+[UnexpectedNumberOfRowsSelectedException] is thrown if the amount of selected rows is different from the expected.
 
 ## Underneath
 
@@ -136,21 +136,21 @@ shouldn't use it across different threads.
 Query should be lightweight enough to be instantiated as needed during the lifetime of your application (such as one per
 request).
 
-[build]:                                  https://ci.appveyor.com/project/TallesL/Query
-[build-img]:                              https://ci.appveyor.com/api/projects/status/github/tallesl/Query
-[nuget]:                                  http://badge.fury.io/nu/Query
-[nuget-img]:                              https://badge.fury.io/nu/Query.png
-[NoSuchConnectionStringException]:        https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/NoSuchConnectionStringException.cs
-[EmptyConnectionStringException]:         https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/EmptyConnectionStringException.cs
-[EmptyProviderNameException]:             https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/EmptyProviderNameException.cs
-[UnexpectedNumberOfRowsAffected]:         Query/Exception/Querying/UnexpectedNumberOfRowsAffected.cs
-[UnexpectedNumberOfRowsSelected]:         Query/Exception/Querying/UnexpectedNumberOfRowsSelected.cs
-[ConfigurationManager.ConnectionStrings]: https://msdn.microsoft.com/library/System.Configuration.ConfigurationManager.ConnectionStrings
-[SqlCommand.ExecuteNonQuery]:             https://msdn.microsoft.com/library/System.Data.SqlClient.SqlCommand.ExecuteNonQuery
-[DbDataAdapter.Fill]:                     https://msdn.microsoft.com/library/System.Data.Common.DbDataAdapter.Fill
-[SqlCommand.ExecuteScalar]:               https://msdn.microsoft.com/library/System.Data.SqlClient.SqlCommand.ExecuteScalar
-[IN]:                                     https://msdn.microsoft.com/library/ms177682
-[IEnumerable]:                            https://msdn.microsoft.com/library/System.Collections.IEnumerable
-[so]:                                     http://stackoverflow.com/q/337704/1316620
-[SQL injection]:                          https://en.wikipedia.org/wiki/SQL_injection
-[Dispose]:                                https://msdn.microsoft.com/library/System.IDisposable.Dispose
+[build]:                                   https://ci.appveyor.com/project/TallesL/Query
+[build-img]:                               https://ci.appveyor.com/api/projects/status/github/tallesl/Query
+[nuget]:                                   http://badge.fury.io/nu/Query
+[nuget-img]:                               https://badge.fury.io/nu/Query.png
+[NoSuchConnectionStringException]:         https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/NoSuchConnectionStringException.cs
+[EmptyConnectionStringException]:          https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/EmptyConnectionStringException.cs
+[EmptyProviderNameException]:              https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/EmptyProviderNameException.cs
+[UnexpectedNumberOfRowsAffectedException]: Query/Exception/Querying/UnexpectedNumberOfRowsAffectedException.cs
+[UnexpectedNumberOfRowsSelectedException]: Query/Exception/Querying/UnexpectedNumberOfRowsSelectedException.cs
+[ConfigurationManager.ConnectionStrings]:  https://msdn.microsoft.com/library/System.Configuration.ConfigurationManager.ConnectionStrings
+[SqlCommand.ExecuteNonQuery]:              https://msdn.microsoft.com/library/System.Data.SqlClient.SqlCommand.ExecuteNonQuery
+[DbDataAdapter.Fill]:                      https://msdn.microsoft.com/library/System.Data.Common.DbDataAdapter.Fill
+[SqlCommand.ExecuteScalar]:                https://msdn.microsoft.com/library/System.Data.SqlClient.SqlCommand.ExecuteScalar
+[IN]:                                      https://msdn.microsoft.com/library/ms177682
+[IEnumerable]:                             https://msdn.microsoft.com/library/System.Collections.IEnumerable
+[so]:                                      http://stackoverflow.com/q/337704/1316620
+[SQL injection]:                           https://en.wikipedia.org/wiki/SQL_injection
+[Dispose]:                                 https://msdn.microsoft.com/library/System.IDisposable.Dispose

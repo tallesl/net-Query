@@ -18,7 +18,7 @@
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>A DataTable with the queried values</returns>
-        /// <exception cref="UnexpectedNumberOfRowsSelected">
+        /// <exception cref="UnexpectedNumberOfRowsSelectedException">
         /// If the number of selected rows is greater than N
         /// </exception>
         public DataTable SelectNoMoreThan(int n, string sql, object parameters = null)
@@ -38,7 +38,7 @@
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>The queried objects</returns>
-        /// <exception cref="UnexpectedNumberOfRowsSelected">
+        /// <exception cref="UnexpectedNumberOfRowsSelectedException">
         /// If the number of selected rows is greater than N
         /// </exception>
         /// <exception cref="MismatchedTypesException">

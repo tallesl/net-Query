@@ -9,9 +9,9 @@
     /// Exception thrown when a query affects an unexpected number of rows.
     /// </summary>
     [Serializable]
-    public class UnexpectedNumberOfRowsAffected : QueryException
+    public class UnexpectedNumberOfRowsAffectedException : QueryException
     {
-        internal UnexpectedNumberOfRowsAffected(DbCommand command, int n)
+        internal UnexpectedNumberOfRowsAffectedException(DbCommand command, int n)
             : base(string.Format(
                 CultureInfo.CurrentCulture,
                 "The following query was rolled back because it affected {0} rows: {1}.",

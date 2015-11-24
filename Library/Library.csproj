@@ -93,8 +93,8 @@
     <Compile Include="Public\WithReturn\SelectNoMoreThanOne.cs" />
     <Compile Include="QueryOptions.cs" />
     <Compile Include="Private\DataAccess\DataTableFiller.cs" />
-    <Compile Include="Public\Exceptions\UnexpectedNumberOfRowsSelected.cs" />
-    <Compile Include="Public\Exceptions\UnexpectedNumberOfRowsAffected.cs" />
+    <Compile Include="Public\Exceptions\UnexpectedNumberOfRowsSelectedException.cs" />
+    <Compile Include="Public\Exceptions\UnexpectedNumberOfRowsAffectedException.cs" />
     <Compile Include="Public\Exceptions\QueryException.cs" />
     <Compile Include="Private\DataAccess\DataAdapterProvider.cs" />
     <Compile Include="Private\DataAccess\ConnectionProvider.cs" />

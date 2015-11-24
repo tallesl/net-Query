@@ -12,7 +12,7 @@
         /// </summary>
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
-        /// <exception cref="UnexpectedNumberOfRowsAffected">
+        /// <exception cref="UnexpectedNumberOfRowsAffectedException">
         /// If more than one or none row is affected
         /// </exception>
         public void ChangeExactlyOne(string sql, object parameters = null)
