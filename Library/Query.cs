@@ -58,7 +58,7 @@
         public Query(ConnectionStringSettings cs, QueryOptions options)
         {
             if (cs == null)
-                throw new ArgumentNullException("connectionString");
+                throw new ArgumentNullException("cs");
 
             _options = options;
             ConnectionStringReader.Check(cs);
