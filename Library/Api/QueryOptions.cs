@@ -1,9 +1,9 @@
 ﻿namespace QueryLibrary
 {
     /// <summary>
-    /// Query configuration options.
+    /// Query options.
     /// </summary>
-    public struct QueryConfiguration
+    public struct QueryOptions
     {
         /// <summary>
         /// Flag indicating if enum values should be treated as strings (ToString).
@@ -31,7 +31,7 @@
         /// <param name="safe">
         /// Flag indicating if it's to throw if a selected property is not found in the given type
         /// </param>
-        public QueryConfiguration(bool enumAsString, bool manualClosing, bool safe)
+        public QueryOptions(bool enumAsString, bool manualClosing, bool safe)
         {
             EnumAsString = enumAsString;
             ManualClosing = manualClosing;
@@ -40,24 +40,24 @@
 
         #region Equalidade
 
-        public static bool operator ==(QueryConfiguration c1, QueryConfiguration c2)
+        public static bool operator ==(QueryOptions o1, QueryOptions o2)
         {
-            return c1.EnumAsString == c2.EnumAsString &&
-                c1.ManualClosing == c2.ManualClosing &&
-                c1.Safe == c2.Safe;
+            return o1.EnumAsString == o2.EnumAsString &&
+                o1.ManualClosing == o2.ManualClosing &&
+                o1.Safe == o2.Safe;
         }
 
-        public static bool operator !=(QueryConfiguration c1, QueryConfiguration c2)
+        public static bool operator !=(QueryOptions o1, QueryOptions o2)
         {
-            return !(c1 == c2);
+            return !(o1 == o2);
         }
 
         public override bool Equals(object obj)
         {
-            if (!(obj is QueryConfiguration))
+            if (!(obj is QueryOptions))
                 return false;
 
-            return this == (QueryConfiguration)obj;
+            return this == (QueryOptions)obj;
         }
 
         public override int GetHashCode()

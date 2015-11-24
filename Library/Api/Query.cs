@@ -23,22 +23,22 @@
 
         private object _connectionLock = new object();
 
-        private readonly QueryConfiguration _configuration;
+        private readonly QueryOptions _options;
 
         /// <summary>
         /// Ctor.
         /// </summary>
         /// <param name="connectionStringName">Connection string name to be read from the .config file</param>
-        public Query(string connectionStringName) : this(connectionStringName, new QueryConfiguration()) { }
+        public Query(string connectionStringName) : this(connectionStringName, new QueryOptions()) { }
 
         /// <summary>
         /// Ctor.
         /// </summary>
         /// <param name="connectionStringName">Connection string name to be read from the .config file</param>
-        /// <param name="configuration">Configuration options</param>
-        public Query(string connectionStringName, QueryConfiguration configuration)
+        /// <param name="options">Configuration options</param>
+        public Query(string connectionStringName, QueryOptions options)
         {
-            _configuration = configuration;
+            _options = options;
             var cs = ConnectionStringReader.Read(connectionStringName);
             InitializeMembers(cs);
         }
@@ -47,19 +47,19 @@
         /// Ctor.
         /// </summary>
         /// <param name="cs">Connection string settings</param>
-        public Query(ConnectionStringSettings cs) : this(cs, new QueryConfiguration()) { }
+        public Query(ConnectionStringSettings cs) : this(cs, new QueryOptions()) { }
 
         /// <summary>
         /// Ctor.
         /// </summary>
         /// <param name="cs">Connection string settings</param>
-        /// <param name="configuration">Configuration options</param>
-        public Query(ConnectionStringSettings cs, QueryConfiguration configuration)
+        /// <param name="options">Configuration options</param>
+        public Query(ConnectionStringSettings cs, QueryOptions options)
         {
             if (cs == null)
                 throw new ArgumentNullException("connectionString");
 
-            _configuration = configuration;
+            _options = options;
             ConnectionStringReader.Check(cs);
             InitializeMembers(cs);
         }
@@ -106,13 +106,13 @@
         /// </summary>
         public void Close()
         {
-            if (_configuration.ManualClosing)
+            if (_options.ManualClosing)
                 CloseRegardless();
         }
 
         private void CloseIfNeeded()
         {
-            if (!_configuration.ManualClosing)
+            if (!_options.ManualClosing)
                 CloseRegardless();
         }
 

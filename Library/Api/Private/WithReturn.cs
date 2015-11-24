@@ -8,7 +8,7 @@
     {
         private T WithReturn<T>(string sql, object parameters)
         {
-            using (var command = OpenConnection.GetCommand(sql, parameters, _configuration.EnumAsString))
+            using (var command = OpenConnection.GetCommand(sql, parameters, _options.EnumAsString))
             {
                 try
                 {
@@ -30,7 +30,7 @@
 
         private DataTable WithReturn(string sql, object parameters, int? n = null, bool acceptsLess = false)
         {
-            using (var command = OpenConnection.GetCommand(sql, parameters, _configuration.EnumAsString))
+            using (var command = OpenConnection.GetCommand(sql, parameters, _options.EnumAsString))
             {
                 try
                 {

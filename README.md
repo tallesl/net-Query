@@ -72,9 +72,9 @@ DELETE FROM Users WHERE Id IN (@Ids0, @Ids1, @Ids2)
 Note that to do this the library concatenates SQL on its own.
 **This gives opening for [SQL injection], never use this feature with unsanitized user input.**
 
-## Configuration
+## Options
 
-There's a `QueryConfiguration` with the following options:
+There's a `QueryOptions` with the following flags:
 
 * `EnumAsString`: Treat enum values as strings (rather than as integers).
 * `ManualClosing`: Connection/transaction closing should be done manually (see below).
@@ -96,7 +96,7 @@ query.Change("INSERT INTO Foo VALUES ('Bar')");
 query.Select("some syntax error");
 ```
 
-If you set `ManualClosing` to `True` it automatically opens the connection and transaction and reuses it for each
+If `ManualClosing` is set to `True`, it automatically opens the connection and transaction and reuses it for each
 consecutive command.
 The open connection and eventual open transaction are closed/committed when you call `Close()` (hence *manual closing*).
 

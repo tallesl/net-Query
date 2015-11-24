@@ -45,7 +45,7 @@
         /// </exception>
         public IEnumerable<T> SelectExactly<T>(int n, string sql, object parameters = null) where T : new()
         {
-            return _configuration.Safe ?
+            return _options.Safe ?
                 SelectExactly(n, sql, parameters).ToObjectSafe<T>() :
                 SelectExactly(n, sql, parameters).ToObject<T>();
         }
