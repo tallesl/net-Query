@@ -81,28 +81,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\Public\WithoutReturn\ChangeExactlyOne.cs" />
-    <Compile Include="Api\Public\WithoutReturn\ChangeNoMoreThanOne.cs" />
-    <Compile Include="Api\Public\WithReturn\SelectExactlyOne.cs" />
-    <Compile Include="Api\Public\WithReturn\SelectNoMoreThanOne.cs" />
-    <Compile Include="Api\QueryOptions.cs" />
-    <Compile Include="DataAccess\DataTableFiller.cs" />
-    <Compile Include="Exceptions\UnexpectedNumberOfRowsSelected.cs" />
-    <Compile Include="Exceptions\UnexpectedNumberOfRowsAffected.cs" />
-    <Compile Include="Exceptions\QueryException.cs" />
-    <Compile Include="DataAccess\DataAdapterProvider.cs" />
-    <Compile Include="DataAccess\ConnectionProvider.cs" />
+    <Compile Include="Public\WithoutReturn\ChangeExactlyOne.cs" />
+    <Compile Include="Public\WithoutReturn\ChangeNoMoreThanOne.cs" />
+    <Compile Include="Public\WithReturn\SelectExactlyOne.cs" />
+    <Compile Include="Public\WithReturn\SelectNoMoreThanOne.cs" />
+    <Compile Include="QueryOptions.cs" />
+    <Compile Include="Private\DataAccess\DataTableFiller.cs" />
+    <Compile Include="Public\Exceptions\UnexpectedNumberOfRowsSelected.cs" />
+    <Compile Include="Public\Exceptions\UnexpectedNumberOfRowsAffected.cs" />
+    <Compile Include="Public\Exceptions\QueryException.cs" />
+    <Compile Include="Private\DataAccess\DataAdapterProvider.cs" />
+    <Compile Include="Private\DataAccess\ConnectionProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Api\Query.cs" />
-    <Compile Include="Api\Private\WithoutReturn.cs" />
-    <Compile Include="Api\Public\WithoutReturn\ChangeNoMoreThan.cs" />
-    <Compile Include="Api\Public\WithoutReturn\ChangeExactly.cs" />
-    <Compile Include="Api\Public\WithoutReturn\Change.cs" />
-    <Compile Include="Api\Private\WithReturn.cs" />
-    <Compile Include="Api\Public\WithReturn\SelectNoMoreThan.cs" />
-    <Compile Include="Api\Public\WithReturn\SelectExactly.cs" />
-    <Compile Include="Api\Public\WithReturn\Select.cs" />
-    <Compile Include="Api\Public\WithReturn\SelectSingle.cs" />
+    <Compile Include="Query.cs" />
+    <Compile Include="Private\WithoutReturn.cs" />
+    <Compile Include="Public\WithoutReturn\ChangeNoMoreThan.cs" />
+    <Compile Include="Public\WithoutReturn\ChangeExactly.cs" />
+    <Compile Include="Public\WithoutReturn\Change.cs" />
+    <Compile Include="Private\WithReturn.cs" />
+    <Compile Include="Public\WithReturn\SelectNoMoreThan.cs" />
+    <Compile Include="Public\WithReturn\SelectExactly.cs" />
+    <Compile Include="Public\WithReturn\Select.cs" />
+    <Compile Include="Public\WithReturn\SelectSingle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
