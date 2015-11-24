@@ -84,6 +84,7 @@ There's a `QueryOptions` with the following flags:
 
 If `ManualClosing` is set to `False`, the library opens a connection (and a transaction for writes) and closes for every
 operation.
+There's no need to call [Dispose].
 
 ```cs
 var query = new Query("YourConnectionStringName"); // false is the default for ManualClosing
@@ -116,6 +117,17 @@ query.Select("some syntax error");
 query.Close();
 ```
 
+If you don't plan to reuse the object you may shield its usage with `using`:
+
+```cs
+// This is equivalent to the example above
+using (var query = new Query("YourConnectionStringName", new QueryConfiguration { ManualClosing = true }))
+{
+    query.Change("INSERT INTO Foo VALUES ('Bar')");
+    query.Select("some syntax error");
+}
+```
+
 ## Thread safety
 
 If you let `ManualClosing` to `False` you can safely share the object between threads, else state comes to play and you
@@ -141,3 +153,4 @@ request).
 [IEnumerable]:                            https://msdn.microsoft.com/library/System.Collections.IEnumerable
 [so]:                                     http://stackoverflow.com/q/337704/1316620
 [SQL injection]:                          https://en.wikipedia.org/wiki/SQL_injection
+[Dispose]:                                https://msdn.microsoft.com/library/System.IDisposable.Dispose
