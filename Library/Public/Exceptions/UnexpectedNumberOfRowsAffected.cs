@@ -3,6 +3,7 @@
     using DbCommandFormatting;
     using System;
     using System.Data.Common;
+    using System.Globalization;
 
     /// <summary>
     /// Exception thrown when a query affects an unexpected number of rows.
@@ -11,7 +12,9 @@
     public class UnexpectedNumberOfRowsAffected : QueryException
     {
         internal UnexpectedNumberOfRowsAffected(DbCommand command, int n)
-            : base(string.Format("The following query was rolled back because it affected {0} rows: {1}.",
+            : base(string.Format(
+                CultureInfo.CurrentCulture,
+                "The following query was rolled back because it affected {0} rows: {1}.",
                 n, DbCommandFormatter.Format(command))) { }
     }
 }
