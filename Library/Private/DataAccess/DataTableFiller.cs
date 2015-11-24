@@ -2,6 +2,7 @@
 {
     using System.Data;
     using System.Data.Common;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
 
     internal class DataTableFiller
@@ -13,6 +14,7 @@
             _dataAdapterProvider = dataAdapterProvider;
         }
 
+        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "http://stackoverflow.com/a/18869167/1316620")]
         internal DataTable Fill(DbCommand command)
         {
             using (var adapter = _dataAdapterProvider.Provide())
