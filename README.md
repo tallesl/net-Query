@@ -1,3 +1,9 @@
+<p align="center">
+    <a href="#quickquery">
+        <img alt="logo" src="Logo/200x200.png">
+    </a>
+</p>
+
 # QuickQuery
 
 [![][build-img]][build]
