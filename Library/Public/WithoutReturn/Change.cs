@@ -2,7 +2,7 @@
 {
     using System;
 
-    public partial class Query
+    public sealed partial class Query
     {
         /// <summary>
         /// Runs the given query giving no return.

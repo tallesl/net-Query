@@ -4,7 +4,7 @@
     using QueryLibrary.Exceptions;
     using System.Data;
 
-    public partial class Query
+    public sealed partial class Query
     {
         private T WithReturn<T>(string sql, object parameters)
         {

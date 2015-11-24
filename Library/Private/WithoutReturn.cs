@@ -3,7 +3,7 @@
     using DbParameterSetting;
     using QueryLibrary.Exceptions;
 
-    public partial class Query
+    public sealed partial class Query
     {
         private void WithoutReturn(string sql, object parameters, int? n = null, bool acceptsLess = false)
         {

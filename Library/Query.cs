@@ -9,7 +9,7 @@
     /// <summary>
     /// A simplistic ADO.NET wrapper.
     /// </summary>
-    public partial class Query : IDisposable
+    public sealed partial class Query : IDisposable
     {
         private readonly QueryOptions _options;
 

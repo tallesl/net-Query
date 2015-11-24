@@ -2,7 +2,7 @@
 {
     using System;
 
-    public partial class Query
+    public sealed partial class Query
     {
         /// <summary>
         /// Runs the given query and returns the queried value.
