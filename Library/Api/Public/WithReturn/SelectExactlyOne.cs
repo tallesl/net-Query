@@ -1,6 +1,7 @@
 ﻿namespace QueryLibrary
 {
     using QueryLibrary.Exceptions;
+    using System;
     using System.Data;
     using System.Linq;
     using ToObject.Exceptions;
@@ -20,6 +21,9 @@
         /// </exception>
         public DataTable SelectExactlyOne(string sql, object parameters = null)
         {
+            if (_disposed)
+                throw new ObjectDisposedException(GetType().FullName);
+
             return SelectExactly(1, sql, parameters);
         }
 
@@ -42,6 +46,9 @@
         /// </exception>
         public T SelectExactlyOne<T>(string sql, object parameters = null) where T : new()
         {
+            if (_disposed)
+                throw new ObjectDisposedException(GetType().FullName);
+
             return SelectExactly<T>(1, sql, parameters).Single();
         }
     }

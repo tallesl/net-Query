@@ -1,5 +1,6 @@
 ﻿namespace QueryLibrary
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using ToObject;
@@ -16,6 +17,9 @@
         /// <returns>A DataTable with the queried values</returns>
         public DataTable Select(string sql, object parameters = null)
         {
+            if (_disposed)
+                throw new ObjectDisposedException(GetType().FullName);
+
             return WithReturn(sql, parameters);
         }
 
@@ -34,6 +38,9 @@
         /// </exception>
         public IEnumerable<T> Select<T>(string sql, object parameters = null) where T : new()
         {
+            if (_disposed)
+                throw new ObjectDisposedException(GetType().FullName);
+
             return _options.Safe ?
                 Select(sql, parameters).ToObjectSafe<T>() :
                 Select(sql, parameters).ToObject<T>();

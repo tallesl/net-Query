@@ -1,5 +1,7 @@
 ﻿namespace QueryLibrary
 {
+    using System;
+
     public partial class Query
     {
         /// <summary>
@@ -10,6 +12,9 @@
         /// <param name="parameters">Parameters names and values pairs</param>
         public void Change(string sql, object parameters = null)
         {
+            if (_disposed)
+                throw new ObjectDisposedException(GetType().FullName);
+
             WithoutReturn(sql, parameters);
         }
     }

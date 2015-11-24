@@ -1,6 +1,7 @@
 ﻿namespace QueryLibrary
 {
     using QueryLibrary.Exceptions;
+    using System;
     using System.Data;
     using System.Linq;
     using ToObject.Exceptions;
@@ -20,6 +21,9 @@
         /// </exception>
         public DataTable SelectNoMoreThanOne(string sql, object parameters = null)
         {
+            if (_disposed)
+                throw new ObjectDisposedException(GetType().FullName);
+
             return SelectNoMoreThan(1, sql, parameters);
         }
 
@@ -42,6 +46,9 @@
         /// </exception>
         public T SelectNoMoreThanOne<T>(string sql, object parameters = null) where T : new()
         {
+            if (_disposed)
+                throw new ObjectDisposedException(GetType().FullName);
+
             return SelectNoMoreThan<T>(1, sql, parameters).SingleOrDefault();
         }
     }

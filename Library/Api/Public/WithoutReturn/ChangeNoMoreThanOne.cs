@@ -1,6 +1,7 @@
 ﻿namespace QueryLibrary
 {
     using QueryLibrary.Exceptions;
+    using System;
 
     public partial class Query
     {
@@ -16,6 +17,9 @@
         /// </exception>
         public void ChangeNoMoreThanOne(string sql, object parameters = null)
         {
+            if (_disposed)
+                throw new ObjectDisposedException(GetType().FullName);
+
             ChangeNoMoreThan(1, sql, parameters);
         }
     }

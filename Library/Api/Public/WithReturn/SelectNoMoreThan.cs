@@ -1,6 +1,7 @@
 ﻿namespace QueryLibrary
 {
     using QueryLibrary.Exceptions;
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using ToObject;
@@ -22,6 +23,9 @@
         /// </exception>
         public DataTable SelectNoMoreThan(int n, string sql, object parameters = null)
         {
+            if (_disposed)
+                throw new ObjectDisposedException(GetType().FullName);
+
             return WithReturn(sql, parameters, n, true);
         }
 
@@ -45,6 +49,9 @@
         /// </exception>
         public IEnumerable<T> SelectNoMoreThan<T>(int n, string sql, object parameters = null) where T : new()
         {
+            if (_disposed)
+                throw new ObjectDisposedException(GetType().FullName);
+
             return _options.Safe ?
                 SelectNoMoreThan(n, sql, parameters).ToObjectSafe<T>() :
                 SelectNoMoreThan(n, sql, parameters).ToObject<T>();

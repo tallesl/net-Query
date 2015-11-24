@@ -9,8 +9,10 @@
     /// <summary>
     /// A simplistic ADO.NET wrapper.
     /// </summary>
-    public partial class Query
+    public partial class Query : IDisposable
     {
+        private readonly QueryOptions _options;
+
         private ConnectionProvider _connectionProvider;
 
         private DataAdapterProvider _dataAdapterProvider;
@@ -23,7 +25,7 @@
 
         private object _connectionLock = new object();
 
-        private readonly QueryOptions _options;
+        private bool _disposed = false;
 
         /// <summary>
         /// Ctor.
@@ -106,6 +108,9 @@
         /// </summary>
         public void Close()
         {
+            if (_disposed)
+                throw new ObjectDisposedException(GetType().FullName);
+
             if (_options.ManualClosing)
                 CloseRegardless();
         }
@@ -137,6 +142,15 @@
                 _currentConnection.Dispose();
                 _currentConnection = null;
             }
+        }
+
+        public void Dispose()
+        {
+            if (_disposed)
+                return;
+
+            CloseRegardless();
+            _disposed = true;
         }
     }
 }

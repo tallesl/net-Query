@@ -1,5 +1,7 @@
 ﻿namespace QueryLibrary
 {
+    using System;
+
     public partial class Query
     {
         /// <summary>
@@ -13,6 +15,9 @@
         /// <returns>The first column of the first row queried</returns>
         public T SelectSingle<T>(string sql, object parameters = null)
         {
+            if (_disposed)
+                throw new ObjectDisposedException(GetType().FullName);
+
             return WithReturn<T>(sql, parameters);
         }
     }
