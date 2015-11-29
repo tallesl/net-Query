@@ -136,8 +136,8 @@ shouldn't use it across different threads.
 Query should be lightweight enough to be instantiated as needed during the lifetime of your application (such as one per
 request).
 
-[build]:                                   https://ci.appveyor.com/project/TallesL/Query
-[build-img]:                               https://ci.appveyor.com/api/projects/status/github/tallesl/Query
+[build]:                                   https://ci.appveyor.com/project/TallesL/net-Query
+[build-img]:                               https://ci.appveyor.com/api/projects/status/github/tallesl/net-Query
 [nuget]:                                   http://badge.fury.io/nu/Query
 [nuget-img]:                               https://badge.fury.io/nu/Query.png
 [NoSuchConnectionStringException]:         https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/NoSuchConnectionStringException.cs
