@@ -7,7 +7,7 @@
 # Query
 
 [![][build-img]][build]
-[![][nuget-img]][nuget]
+[![][version-img]][version]
 
 A simplistic ADO.NET wrapper.
 
@@ -138,8 +138,8 @@ request).
 
 [build]:                                   https://ci.appveyor.com/project/TallesL/net-Query
 [build-img]:                               https://ci.appveyor.com/api/projects/status/github/tallesl/net-Query
-[nuget]:                                   http://badge.fury.io/nu/Query
-[nuget-img]:                               https://badge.fury.io/nu/Query.png
+[version]:                                 https://nuget.org/packages/Query
+[version-img]:                             https://badge.fury.io/nu/Query.png
 [NoSuchConnectionStringException]:         https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/NoSuchConnectionStringException.cs
 [EmptyConnectionStringException]:          https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/EmptyConnectionStringException.cs
 [EmptyProviderNameException]:              https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/EmptyProviderNameException.cs
