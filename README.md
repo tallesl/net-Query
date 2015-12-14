@@ -130,11 +130,7 @@ using (var query = new Query("YourConnectionStringName", new QueryConfiguration 
 
 ## Thread safety
 
-If you let `ManualClosing` to `False` you can safely share the object between threads, else state comes to play and you
-shouldn't use it across different threads.
-
-Query should be lightweight enough to be instantiated as needed during the lifetime of your application (such as one per
-request).
+Query isn't thread safe, but it should be lightweight enough to be instantiated as needed during the lifetime of your application (such as one per request).
 
 [build]:                                   https://ci.appveyor.com/project/TallesL/net-Query
 [build-img]:                               https://ci.appveyor.com/api/projects/status/github/tallesl/net-Query
