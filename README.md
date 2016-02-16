@@ -1,15 +1,20 @@
 <p align="center">
     <a href="#query">
-        <img alt="logo" src="Logo/200x200.png">
+        <img alt="logo" src="Assets/logo-200x200.png">
     </a>
 </p>
 
 # Query
 
 [![][build-img]][build]
-[![][version-img]][version]
+[![][nuget-img]][nuget]
 
 A simplistic ADO.NET wrapper.
+
+[build]:     https://ci.appveyor.com/project/TallesL/net-Query
+[build-img]: https://ci.appveyor.com/api/projects/status/github/tallesl/net-Query?svg=true
+[nuget]:     https://www.nuget.org/packages/Query/
+[nuget-img]: https://badge.fury.io/nu/Query.svg
 
 ## Instantiating
 
@@ -18,6 +23,10 @@ var query = new Query("YourConnectionStringName");
 ```
 
 May throw [NoSuchConnectionStringException], [EmptyConnectionStringException] or [EmptyProviderNameException].
+
+[NoSuchConnectionStringException]: https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/NoSuchConnectionStringException.cs
+[EmptyConnectionStringException]:  https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/EmptyConnectionStringException.cs
+[EmptyProviderNameException]:      https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/EmptyProviderNameException.cs
 
 ## Modifying data
 
@@ -32,6 +41,8 @@ You can also make sure how many rows will be affected with:
 
 [UnexpectedNumberOfRowsAffectedException] is thrown and the transaction is rolled back if the amount of affected rows is
 different from the expected.
+
+[UnexpectedNumberOfRowsAffectedException]: Library/Public/Exceptions/UnexpectedNumberOfRowsAffectedException.cs
 
 ## Retrieving data
 
@@ -48,14 +59,21 @@ You can also make sure how many rows will be selected with:
 
 [UnexpectedNumberOfRowsSelectedException] is thrown if the amount of selected rows is different from the expected.
 
+[UnexpectedNumberOfRowsSelectedException]: Library/Public/Exceptions/UnexpectedNumberOfRowsSelectedException.cs
+
 ## Underneath
 
 The constructor uses [ConfigurationManager.ConnectionStrings], `Change` uses [SqlCommand.ExecuteNonQuery], `Select` uses
 [DbDataAdapter.Fill]&nbsp;(except `SelectSingle` that uses [SqlCommand.ExecuteScalar]).
 
+[ConfigurationManager.ConnectionStrings]: https://msdn.microsoft.com/library/System.Configuration.ConfigurationManager.ConnectionStrings
+[SqlCommand.ExecuteNonQuery]:             https://msdn.microsoft.com/library/System.Data.SqlClient.SqlCommand.ExecuteNonQuery
+[DbDataAdapter.Fill]:                     https://msdn.microsoft.com/library/System.Data.Common.DbDataAdapter.Fill
+[SqlCommand.ExecuteScalar]:               https://msdn.microsoft.com/library/System.Data.SqlClient.SqlCommand.ExecuteScalar
+
 ## IN clauses
 
-It automatically prepares collections ([IEnumerable]) for [IN] clauses ([taking that burden off you][so]).
+It automatically prepares collections ([IEnumerable]) for [IN] clauses ([taking that burden off you]).
 
 So this:
 
@@ -71,6 +89,11 @@ DELETE FROM Users WHERE Id IN (@Ids0, @Ids1, @Ids2)
 
 Note that to do this the library concatenates SQL on its own.
 **This gives opening for [SQL injection], never use this feature with unsanitized user input.**
+
+[IN]:                         https://msdn.microsoft.com/library/ms177682
+[IEnumerable]:                https://msdn.microsoft.com/library/System.Collections.IEnumerable
+[taking that burden off you]: http://stackoverflow.com/q/337704/1316620
+[SQL injection]:              https://en.wikipedia.org/wiki/SQL_injection
 
 ## Options
 
@@ -128,25 +151,9 @@ using (var query = new Query("YourConnectionStringName", new QueryConfiguration 
 }
 ```
 
+[Dispose]: https://msdn.microsoft.com/library/System.IDisposable.Dispose
+
 ## Thread safety
 
-Query isn't thread safe, but it should be lightweight enough to be instantiated as needed during the lifetime of your application (such as one per request).
-
-[build]:                                   https://ci.appveyor.com/project/TallesL/net-Query
-[build-img]:                               https://ci.appveyor.com/api/projects/status/github/tallesl/net-Query
-[version]:                                 https://nuget.org/packages/Query
-[version-img]:                             https://badge.fury.io/nu/Query.png
-[NoSuchConnectionStringException]:         https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/NoSuchConnectionStringException.cs
-[EmptyConnectionStringException]:          https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/EmptyConnectionStringException.cs
-[EmptyProviderNameException]:              https://github.com/tallesl/ConnectionStringReader/tree/master/ConnectionStringReader/Exceptions/EmptyProviderNameException.cs
-[UnexpectedNumberOfRowsAffectedException]: Library/Public/Exceptions/UnexpectedNumberOfRowsAffectedException.cs
-[UnexpectedNumberOfRowsSelectedException]: Library/Public/Exceptions/UnexpectedNumberOfRowsSelectedException.cs
-[ConfigurationManager.ConnectionStrings]:  https://msdn.microsoft.com/library/System.Configuration.ConfigurationManager.ConnectionStrings
-[SqlCommand.ExecuteNonQuery]:              https://msdn.microsoft.com/library/System.Data.SqlClient.SqlCommand.ExecuteNonQuery
-[DbDataAdapter.Fill]:                      https://msdn.microsoft.com/library/System.Data.Common.DbDataAdapter.Fill
-[SqlCommand.ExecuteScalar]:                https://msdn.microsoft.com/library/System.Data.SqlClient.SqlCommand.ExecuteScalar
-[IN]:                                      https://msdn.microsoft.com/library/ms177682
-[IEnumerable]:                             https://msdn.microsoft.com/library/System.Collections.IEnumerable
-[so]:                                      http://stackoverflow.com/q/337704/1316620
-[SQL injection]:                           https://en.wikipedia.org/wiki/SQL_injection
-[Dispose]:                                 https://msdn.microsoft.com/library/System.IDisposable.Dispose
+Query isn't thread safe, but it should be lightweight enough to be instantiated as needed during the lifetime of your
+application (such as one per request).
