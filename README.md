@@ -61,7 +61,7 @@ You can also make sure how many rows will be selected with:
 
 [UnexpectedNumberOfRowsSelectedException]: Library/Public/Exceptions/UnexpectedNumberOfRowsSelectedException.cs
 
-## Underneath
+## Behind the covers
 
 The constructor uses [ConfigurationManager.ConnectionStrings], `Change` uses [SqlCommand.ExecuteNonQuery], `Select` uses
 [DbDataAdapter.Fill]&nbsp;(except `SelectSingle` that uses [SqlCommand.ExecuteScalar]).
@@ -122,7 +122,7 @@ query.Select("some syntax error");
 
 If `ManualClosing` is set to `True`, it automatically opens the connection and transaction and reuses it for each
 consecutive command.
-The open connection and eventual open transaction are closed/committed when you call `Close()` (hence *manual closing*).
+The open connection and eventual open transaction are closed/committed when you call `Close()` (hence "manual closing").
 
 ```cs
 var query = new Query("YourConnectionStringName", new QueryConfiguration { ManualClosing = true });
