@@ -1,6 +1,5 @@
 ﻿namespace QueryLibrary
 {
-    using DbCommandFormatting;
     using System;
     using System.Data.Common;
     using System.Globalization;
@@ -15,6 +14,6 @@
             : base(string.Format(
                 CultureInfo.CurrentCulture,
                 "The following query was rolled back because it affected {0} rows: {1}.",
-                n, DbCommandFormatter.Format(command))) { }
+                n, CommandFormatter.Format(command))) { }
     }
 }

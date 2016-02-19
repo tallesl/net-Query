@@ -1,6 +1,5 @@
 ﻿namespace QueryLibrary
 {
-    using DbParameterSetting;
 
     public sealed partial class Query
     {
