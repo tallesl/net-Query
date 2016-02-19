@@ -3,7 +3,7 @@
     using System;
     using System.Data;
     using System.Linq;
-    using ToObject.Exceptions;
+    using ObjectLibrary;
 
     public sealed partial class Query
     {

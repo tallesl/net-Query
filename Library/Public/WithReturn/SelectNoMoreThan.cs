@@ -4,8 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using ToObject;
-    using ToObject.Exceptions;
+    using ObjectLibrary;
 
     public sealed partial class Query
     {

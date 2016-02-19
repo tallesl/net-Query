@@ -56,8 +56,9 @@
     <CodeAnalysisRuleSet>..\Rules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ConnectionStringReader">
-      <HintPath>..\packages\ConnectionStringReader.1.0.0\lib\ConnectionStringReader.dll</HintPath>
+    <Reference Include="ConnectionString, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ConnectionString.2.0.0\lib\ConnectionString.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="DbCommandFormatter, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DbCommandFormatter.1.0.1\lib\DbCommandFormatter.dll</HintPath>
@@ -67,8 +68,8 @@
       <HintPath>..\packages\DbParameterSetter.1.0.0\lib\DbParameterSetter.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NameTree, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NameTree.1.1.0\lib\NameTree.dll</HintPath>
+    <Reference Include="Object, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Object.3.0.0\lib\Object.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PropertiesHash, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -81,10 +82,6 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.XML" />
-    <Reference Include="ToObject, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ToObject.2.0.2\lib\ToObject.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Public\WithoutReturn\ChangeExactlyOne.cs" />

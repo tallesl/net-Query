@@ -1,6 +1,6 @@
 ﻿namespace QueryLibrary
 {
-    using ConnectionStringReading;
+    using ConnectionStringLibrary;
     using System;
     using System.Configuration;
     using System.Data.Common;
