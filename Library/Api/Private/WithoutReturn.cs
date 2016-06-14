@@ -5,7 +5,7 @@
     {
         private void WithoutReturn(string sql, object parameters, int? n = null, bool acceptsLess = false)
         {
-            using (var command = OpenConnection.GetCommand(sql, parameters, _options.EnumAsString))
+            using (var command = OpenConnection.GetCommand(sql, parameters, _options))
             {
                 try
                 {

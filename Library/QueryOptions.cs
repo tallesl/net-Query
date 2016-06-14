@@ -8,6 +8,11 @@
     public struct QueryOptions
     {
         /// <summary>
+        /// Flag indicating if arrays should be expanded to IN clauses.
+        /// </summary>
+        public bool ArrayAsInClause { get; set; }
+
+        /// <summary>
         /// Flag indicating if enum values should be treated as strings (ToString).
         /// </summary>
         public bool EnumAsString { get; set; }
@@ -23,7 +28,7 @@
         /// </summary>
         public bool Safe { get; set; }
 
-        #region Equalidade
+        #region Equality
 
         /// <summary>
         /// Determines whether the given instances are equal.

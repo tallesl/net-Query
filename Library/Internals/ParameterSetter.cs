@@ -4,7 +4,6 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Data;
     using System.Data.Common;
     using System.Diagnostics.CodeAnalysis;
 
@@ -12,7 +11,7 @@
     {
         [SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
         internal static DbCommand GetCommand(
-            this DbConnection connection, string sql, object parameters, bool enumAsString = false)
+            this DbConnection connection, string sql, object parameters, QueryOptions options)
         {
             var command = connection.CreateCommand();
 
@@ -29,10 +28,10 @@
                     var value = kvp.Value;
                     var enumerable = value as IEnumerable;
 
-                    if (enumerable == null || value is string)
-                        SetSingleParameter(command, name, value, enumAsString);
+                    if (!options.ArrayAsInClause || enumerable == null || value is string)
+                        SetSingleParameter(command, name, value, options.EnumAsString);
                     else
-                        SetCollectionParameter(command, name, enumerable, enumAsString);
+                        SetCollectionParameter(command, name, enumerable, options.EnumAsString);
                 }
             }
 

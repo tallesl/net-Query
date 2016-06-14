@@ -99,9 +99,12 @@ Note that to do this the library concatenates SQL on its own.
 
 There's a `QueryOptions` with the following flags:
 
+* `ArrayAsInClause`: Arrays are expanded to IN clauses.
 * `EnumAsString`: Treat enum values as strings (rather than as integers).
 * `ManualClosing`: Connection/transaction closing should be done manually (see below).
 * `Safe`: Throw if a selected property is not found in the given type.
+
+They all default to `False`.
 
 ## Connections and Transactions
 
