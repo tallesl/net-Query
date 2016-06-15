@@ -6,7 +6,7 @@
     {
         private T WithReturn<T>(string sql, object parameters)
         {
-            using (var command = OpenConnection.GetCommand(sql, parameters, _options))
+            using (var command = _parameterSetter.GetCommand(OpenConnection, sql, parameters))
             {
                 try
                 {
@@ -28,7 +28,7 @@
 
         private DataTable WithReturn(string sql, object parameters, int? n = null, bool acceptsLess = false)
         {
-            using (var command = OpenConnection.GetCommand(sql, parameters, _options))
+            using (var command = _parameterSetter.GetCommand(OpenConnection, sql, parameters))
             {
                 try
                 {

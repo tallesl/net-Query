@@ -18,6 +18,8 @@
 
         private DataTableFiller _dataTableFiller;
 
+        private ParameterSetter _parameterSetter;
+
         private DbConnection _currentConnection = null;
 
         private DbTransaction _currentTransaction = null;
@@ -71,6 +73,7 @@
             _connectionProvider = new ConnectionProvider(providerFactory, cs.ConnectionString);
             _dataAdapterProvider = new DataAdapterProvider(providerFactory);
             _dataTableFiller = new DataTableFiller(_dataAdapterProvider);
+            _parameterSetter = new ParameterSetter(_options);
         }
 
         private DbConnection OpenConnection

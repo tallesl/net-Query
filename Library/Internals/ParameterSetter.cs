@@ -7,11 +7,17 @@
     using System.Data.Common;
     using System.Diagnostics.CodeAnalysis;
 
-    internal static class ParameterSetter
+    internal class ParameterSetter
     {
+        private readonly QueryOptions _options;
+
+        internal ParameterSetter(QueryOptions options)
+        {
+            _options = options;
+        }
+
         [SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
-        internal static DbCommand GetCommand(
-            this DbConnection connection, string sql, object parameters, QueryOptions options)
+        internal DbCommand GetCommand(DbConnection connection, string sql, object parameters)
         {
             var command = connection.CreateCommand();
 
@@ -22,35 +28,36 @@
 
             if (parameters != null)
             {
-                foreach (var kvp in DictionaryMaker.Make(parameters))
+                foreach (var kvp in DictionaryMaker.MakeWithType(parameters))
                 {
                     var name = kvp.Key;
-                    var value = kvp.Value;
+                    var type = kvp.Value.Item1;
+                    var value = kvp.Value.Item2;
                     var enumerable = value as IEnumerable;
 
-                    if (!options.ArrayAsInClause || enumerable == null || value is string)
-                        SetSingleParameter(command, name, value, options.EnumAsString);
+                    if (!_options.ArrayAsInClause || enumerable == null || value is string)
+                        SetSingleParameter(command, name, type, value);
                     else
-                        SetCollectionParameter(command, name, enumerable, options.EnumAsString);
+                        SetCollectionParameter(command, name, enumerable);
                 }
             }
 
             return command;
         }
 
-        private static void SetSingleParameter(DbCommand command, string name, object value, bool enumAsString)
+        private void SetSingleParameter(DbCommand command, string name, Type type, object value)
         {
             var parameter = command.CreateParameter();
 
             parameter.ParameterName = name;
-            parameter.Value = (enumAsString && value is Enum) ? value.ToString() : (value ?? DBNull.Value);
+            parameter.DbType = type.ToDbType();
+            parameter.Value = (_options.EnumAsString && value is Enum) ? value.ToString() : (value ?? DBNull.Value);
 
             command.Parameters.Add(parameter);
         }
 
         [SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
-        private static void SetCollectionParameter(
-            DbCommand command, string name, IEnumerable collection, bool enumAsString)
+        private void SetCollectionParameter(DbCommand command, string name, IEnumerable collection)
         {
             var parameters = new List<string>();
             var j = 0;
@@ -58,7 +65,7 @@
             foreach (var el in collection)
             {
                 var currentName = name + j++;
-                SetSingleParameter(command, currentName, el, enumAsString);
+                SetSingleParameter(command, currentName, el.GetType(), el);
                 parameters.Add("@" + currentName);
             }
 

@@ -60,8 +60,8 @@
       <HintPath>..\packages\ConnectionString.2.0.0\lib\ConnectionString.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Dictionary, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dictionary.2.0.0\lib\Dictionary.dll</HintPath>
+    <Reference Include="Dictionary, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dictionary.2.1.0\lib\Dictionary.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Object, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -81,6 +81,7 @@
     <Compile Include="Api\Public\WithReturn\SelectExactlyOne.cs" />
     <Compile Include="Api\Public\WithReturn\SelectNoMoreThanOne.cs" />
     <Compile Include="Internals\CommandFormatter.cs" />
+    <Compile Include="Internals\DbTypeConverter.cs" />
     <Compile Include="Internals\ParameterSetter.cs" />
     <Compile Include="QueryOptions.cs" />
     <Compile Include="Internals\DataTableFiller.cs" />
