@@ -7,6 +7,8 @@
     {
         internal static DbType ToDbType(this Type type)
         {
+            type = Nullable.GetUnderlyingType(type) ?? type;
+
             if (type == typeof(Guid))
                 return DbType.Guid;
 
