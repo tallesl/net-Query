@@ -9,11 +9,14 @@
         {
             type = Nullable.GetUnderlyingType(type) ?? type;
 
+            if (type.GetElementType() == typeof(byte))
+                return DbType.Binary;
+
             if (type == typeof(Guid))
                 return DbType.Guid;
 
-            if (type.GetElementType() == typeof(byte))
-                return DbType.Binary;
+            if (type == typeof(TimeSpan))
+                return DbType.Time;
 
             switch (Type.GetTypeCode(type))
             {

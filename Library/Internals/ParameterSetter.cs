@@ -4,7 +4,9 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Data;
     using System.Data.Common;
+    using System.Data.SqlClient;
     using System.Diagnostics.CodeAnalysis;
 
     internal class ParameterSetter
@@ -52,6 +54,13 @@
             parameter.ParameterName = name;
             parameter.DbType = type.ToDbType();
             parameter.Value = (_options.EnumAsString && value is Enum) ? value.ToString() : (value ?? DBNull.Value);
+
+            // For some reason System.Data.DbType.Time is
+            // "A type representing a SQL Server DateTime value. If you want to use a SQL Server time value, use Time."
+            // https://msdn.microsoft.com/library/System.Data.DbType
+            var sqlParameter = parameter as SqlParameter;
+            if (sqlParameter != null && type == typeof(TimeSpan))
+                sqlParameter.SqlDbType = SqlDbType.Time;
 
             command.Parameters.Add(parameter);
         }
