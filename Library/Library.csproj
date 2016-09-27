@@ -64,8 +64,8 @@
       <HintPath>..\packages\Dictionary.2.1.0\lib\Dictionary.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Object, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Object.3.0.0\lib\Object.dll</HintPath>
+    <Reference Include="Object, Version=3.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Object.3.3.1\lib\Object.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
