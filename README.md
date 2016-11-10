@@ -71,9 +71,21 @@ The constructor uses [ConfigurationManager.ConnectionStrings], `Change` uses [Sq
 [DbDataAdapter.Fill]:                     https://msdn.microsoft.com/library/System.Data.Common.DbDataAdapter.Fill
 [SqlCommand.ExecuteScalar]:               https://msdn.microsoft.com/library/System.Data.SqlClient.SqlCommand.ExecuteScalar
 
+## Options
+
+There's a `QueryOptions` with the following flags:
+
+* `ArrayAsInClause`: Arrays are expanded to IN clauses.
+* `EnumAsString`: Treat enum values as strings (rather than as integers).
+* `ManualClosing`: Connection/transaction closing should be done manually (see below).
+* `Safe`: Throw if a selected property is not found in the given type.
+
+They all default to `False`.
+
 ## IN clauses
 
-It automatically prepares collections ([IEnumerable]) for [IN] clauses ([taking that burden off you]).
+If `ArrayAsInClause` is set to `True`, the library automatically prepares collections ([IEnumerable]) for [IN] clauses
+([taking that burden off you]).
 
 So this:
 
@@ -94,17 +106,6 @@ Note that to do this the library concatenates SQL on its own.
 [IEnumerable]:                https://msdn.microsoft.com/library/System.Collections.IEnumerable
 [taking that burden off you]: http://stackoverflow.com/q/337704/1316620
 [SQL injection]:              https://en.wikipedia.org/wiki/SQL_injection
-
-## Options
-
-There's a `QueryOptions` with the following flags:
-
-* `ArrayAsInClause`: Arrays are expanded to IN clauses.
-* `EnumAsString`: Treat enum values as strings (rather than as integers).
-* `ManualClosing`: Connection/transaction closing should be done manually (see below).
-* `Safe`: Throw if a selected property is not found in the given type.
-
-They all default to `False`.
 
 ## Connections and Transactions
 
