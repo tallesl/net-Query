@@ -26,7 +26,7 @@
             if (_disposed)
                 throw new ObjectDisposedException(GetType().FullName);
 
-            return WithReturn(sql, parameters, n, true);
+            return WithReturn(sql, parameters, CountValidationEnum.NoMoreThan, n);
         }
 
         /// <summary>

@@ -37,6 +37,7 @@ query.Change("DELETE FROM Users WHERE Name LIKE @NameToDelete", new { NameToDele
 You can also make sure how many rows will be affected with:
 
 * `ChangeExactly(n, sql, parameters)`;
+* `ChangeNoLessThan(n, sql, parameters)`;
 * `ChangeNoMoreThan(n, sql, parameters)`.
 
 [UnexpectedNumberOfRowsAffectedException] is thrown and the transaction is rolled back if the amount of affected rows is
@@ -55,6 +56,7 @@ User usr = query.Select<User>("SELECT * FROM Users WHERE Id = @UserId", new { Us
 You can also make sure how many rows will be selected with:
 
 * `SelectExactly(n, sql, parameters)`;
+* `SelectNoLessThan(n, sql, parameters)`;
 * `SelectNoMoreThan(n, sql, parameters)`.
 
 [UnexpectedNumberOfRowsSelectedException] is thrown if the amount of selected rows is different from the expected.

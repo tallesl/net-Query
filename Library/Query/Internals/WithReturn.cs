@@ -26,7 +26,7 @@
             }
         }
 
-        private DataTable WithReturn(string sql, object parameters, int? n = null, bool acceptsLess = false)
+        private DataTable WithReturn(string sql, object parameters, CountValidationEnum countValidation, int n)
         {
             using (var command = _parameterSetter.GetCommand(OpenConnection, sql, parameters))
             {
@@ -39,8 +39,23 @@
                     var dt = _dataTableFiller.Fill(command);
                     var selected = dt.Rows.Count;
 
-                    if (n.HasValue && (selected > n || (!acceptsLess && selected != n)))
-                        throw new UnexpectedNumberOfRowsSelectedException(command, selected);
+                    switch (countValidation)
+                    {
+                        case CountValidationEnum.Exactly:
+                            if (selected != n)
+                                throw new UnexpectedNumberOfRowsSelectedException(command, selected);
+                            break;
+
+                        case CountValidationEnum.NoLessThan:
+                            if (selected < n)
+                                throw new UnexpectedNumberOfRowsSelectedException(command, selected);
+                            break;
+
+                        case CountValidationEnum.NoMoreThan:
+                            if (selected > n)
+                                throw new UnexpectedNumberOfRowsSelectedException(command, selected);
+                            break;
+                    }
 
                     CloseIfNeeded();
                     return dt;

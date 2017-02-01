@@ -22,7 +22,7 @@
             if (_disposed)
                 throw new ObjectDisposedException(GetType().FullName);
 
-            WithoutReturn(sql, parameters, n);
+            WithoutReturn(sql, parameters, CountValidationEnum.Exactly, n);
         }
     }
 }

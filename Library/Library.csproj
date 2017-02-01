@@ -76,9 +76,14 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Query\Internals\CountValidationEnum.cs" />
     <Compile Include="Query\WithoutReturn\ChangeExactlyOne.cs" />
+    <Compile Include="Query\WithoutReturn\ChangeNoLessThan.cs" />
+    <Compile Include="Query\WithoutReturn\ChangeNoLessThanOne.cs" />
     <Compile Include="Query\WithoutReturn\ChangeNoMoreThanOne.cs" />
     <Compile Include="Query\WithReturn\SelectExactlyOne.cs" />
+    <Compile Include="Query\WithReturn\SelectNoLessThan.cs" />
+    <Compile Include="Query\WithReturn\SelectNoLessThanOne.cs" />
     <Compile Include="Query\WithReturn\SelectNoMoreThanOne.cs" />
     <Compile Include="Query\Internals\CommandFormatter.cs" />
     <Compile Include="Query\Internals\DbTypeConverter.cs" />

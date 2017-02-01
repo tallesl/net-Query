@@ -15,7 +15,7 @@
             if (_disposed)
                 throw new ObjectDisposedException(GetType().FullName);
 
-            WithoutReturn(sql, parameters);
+            WithoutReturn(sql, parameters, CountValidationEnum.None, 0);
         }
     }
 }

@@ -19,7 +19,7 @@
             if (_disposed)
                 throw new ObjectDisposedException(GetType().FullName);
 
-            return WithReturn(sql, parameters);
+            return WithReturn(sql, parameters, CountValidationEnum.None, 0);
         }
 
         /// <summary>

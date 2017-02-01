@@ -1,45 +1,41 @@
 ﻿namespace QueryLibrary
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using ObjectLibrary;
 
     public sealed partial class Query
     {
         /// <summary>
         /// Runs the given query and returns the queried values.
-        /// Throws UnexpectedNumberOfRowsSelected if the number of selected rows is different from N.
+        /// Throws UnexpectedNumberOfRowsSelected if less than one row is selected.
         /// It uses DbDataAdapter.Fill underneath.
         /// </summary>
-        /// <param name="n">Number of selected rows to ensure</param>
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>A DataTable with the queried values</returns>
-        /// <exception cref="UnexpectedNumberOfRowsAffectedException">
-        /// If the number of selected rows is different from N
+        /// <exception cref="UnexpectedNumberOfRowsSelectedException">
+        /// If less than one row is selected
         /// </exception>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "n")]
-        public DataTable SelectExactly(int n, string sql, object parameters = null)
+        public DataTable SelectNoLessThanOne(string sql, object parameters = null)
         {
             if (_disposed)
                 throw new ObjectDisposedException(GetType().FullName);
 
-            return WithReturn(sql, parameters, CountValidationEnum.Exactly, n);
+            return SelectNoLessThan(1, sql, parameters);
         }
 
         /// <summary>
         /// Runs the given query and returns the queried values.
-        /// Throws UnexpectedNumberOfRowsSelected if the number of selected rows is different from N.
+        /// Throws UnexpectedNumberOfRowsSelected if less than one row is selected.
         /// It uses DbDataAdapter.Fill underneath.
         /// </summary>
-        /// <param name="n">Number of selected rows to ensure</param>
         /// <param name="sql">Query to run</param>
         /// <param name="parameters">Parameters names and values pairs</param>
         /// <returns>The queried objects</returns>
-        /// <exception cref="UnexpectedNumberOfRowsAffectedException">
-        /// If the number of selected rows is different from N
+        /// <exception cref="UnexpectedNumberOfRowsSelectedException">
+        /// If less than one row is selected
         /// </exception>
         /// <exception cref="MismatchedTypesException">
         /// The corresponding type in the given class is different than the one found in the DataTable
@@ -47,15 +43,12 @@
         /// <exception cref="PropertyNotFoundException">
         /// A column of the DataTable doesn't match any in the given class
         /// </exception>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "n")]
-        public IEnumerable<T> SelectExactly<T>(int n, string sql, object parameters = null) where T : new()
+        public T SelectNoLessThanOne<T>(string sql, object parameters = null) where T : new()
         {
             if (_disposed)
                 throw new ObjectDisposedException(GetType().FullName);
 
-            return _options.Safe ?
-                SelectExactly(n, sql, parameters).ToObjectSafe<T>() :
-                SelectExactly(n, sql, parameters).ToObject<T>();
+            return SelectNoLessThan<T>(1, sql, parameters).SingleOrDefault();
         }
     }
 }
