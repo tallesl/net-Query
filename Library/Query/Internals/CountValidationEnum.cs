@@ -1,6 +1,6 @@
 ﻿namespace QueryLibrary
 {
-    public enum CountValidationEnum
+    internal enum CountValidationEnum
     {
         None,
         Exactly,
