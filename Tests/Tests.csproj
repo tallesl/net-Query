@@ -63,6 +63,7 @@
     <Compile Include="Classes\Game.cs" />
     <Compile Include="Classes\Console.cs" />
     <Compile Include="Tests\BaseTests.cs" />
+    <Compile Include="Tests\Change\Rollback.cs" />
     <Compile Include="Tests\Change\Insert.cs" />
     <Compile Include="Tests\Change\ExactlyN.cs" />
     <Compile Include="Tests\Change\NoLessThanN.cs" />
