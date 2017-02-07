@@ -1,6 +1,7 @@
-﻿using System.Globalization;
-namespace QueryLibrary
+﻿namespace QueryLibrary
 {
+    using System.Globalization;
+
     internal class Join
     {
         internal JoinType Type { get; set; }
@@ -16,22 +17,22 @@ namespace QueryLibrary
                 switch (Type)
                 {
                     case JoinType.Inner:
-                        return "INNER JOIN ";
+                        return "INNER JOIN";
 
                     case JoinType.LeftOuterJoin:
-                        return "LEFT OUTER JOIN ";
+                        return "LEFT OUTER JOIN";
 
                     case JoinType.RightOuterJoin:
-                        return "RIGHT OUTER JOIN ";
+                        return "RIGHT OUTER JOIN";
 
                     case JoinType.FullOuterJoin:
-                        return "FULL OUTER JOIN ";
+                        return "FULL OUTER JOIN";
 
                     case JoinType.CrossJoin:
-                        return "CROSS JOIN ";
+                        return "CROSS JOIN";
 
                     default:
-                        return "JOIN ";
+                        return "JOIN";
                 }
             }
         }

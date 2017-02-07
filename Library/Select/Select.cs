@@ -8,7 +8,8 @@
     /// <summary>
     /// Class that aids building a SELECT clause.
     /// </summary>
-    [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", Justification = "Harder for consumers in other languages but easy to remember for consumers of this language.")]
+    [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords",
+        Justification = "Harder for consumers in other languages but easy to remember for consumers of this language.")]
     public class Select
     {
         internal List<string> _columns;
@@ -325,7 +326,7 @@
             if (_joins != null)
             {
                 foreach (var join in _joins)
-                    sql.Append(string.Format(CultureInfo.InvariantCulture, " {0} ", join));
+                    sql.Append(string.Format(CultureInfo.InvariantCulture, " {0}", join));
             }
 
             if (_where != null)
