@@ -18,6 +18,9 @@
         /// <param name="condition">Condition to set in this instance</param>
         public Condition(string condition)
         {
+            if (condition == null)
+                throw new ArgumentNullException("condition");
+
             _tokens.Add(condition);
         }
 
@@ -40,6 +43,9 @@
         /// <returns>This instance, so you can use it in a fluent fashion</returns>
         public Condition And(string condition)
         {
+            if (condition == null)
+                throw new ArgumentNullException("condition");
+
             _tokens.Add("AND");
             _tokens.Add(condition);
             return this;
@@ -65,6 +71,9 @@
         /// <returns>This instance, so you can use it in a fluent fashion</returns>
         public Condition Or(string condition)
         {
+            if (condition == null)
+                throw new ArgumentNullException("condition");
+
             _tokens.Add("OR");
             _tokens.Add(condition);
             return this;

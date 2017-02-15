@@ -1,5 +1,6 @@
 ﻿namespace QueryLibrary
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
@@ -32,6 +33,9 @@
         /// <param name="columns">Columns to be selected</param>
         public Select(params string[] columns)
         {
+            if (columns == null)
+                throw new ArgumentNullException("columns");
+
             if (_columns == null)
                 _columns = new List<string>(columns);
             else
@@ -45,6 +49,9 @@
         /// <returns></returns>
         public Select From(string table)
         {
+            if (table == null)
+                throw new ArgumentNullException("table");
+
             if (_from != null)
                 throw new SelectBuildingException("FROM clause already set.");
 
@@ -71,6 +78,12 @@
         /// <returns>This instance, so you can use it in a fluent fashion</returns>
         public Select Join(string table, Condition on)
         {
+            if (table == null)
+                throw new ArgumentNullException("table");
+
+            if (on == null)
+                throw new ArgumentNullException("on");
+
             _joins = new List<Join> { new Join { Table = table, On = on, } };
             return this;
         }
@@ -94,6 +107,12 @@
         /// <returns>This instance, so you can use it in a fluent fashion</returns>
         public Select LeftOuterJoin(string table, Condition on)
         {
+            if (table == null)
+                throw new ArgumentNullException("table");
+
+            if (on == null)
+                throw new ArgumentNullException("on");
+
             _joins = new List<Join> { new Join { Type = JoinType.LeftOuterJoin, Table = table, On = on, } };
             return this;
         }
@@ -117,6 +136,12 @@
         /// <returns>This instance, so you can use it in a fluent fashion</returns>
         public Select RightOuterJoin(string table, Condition on)
         {
+            if (table == null)
+                throw new ArgumentNullException("table");
+
+            if (on == null)
+                throw new ArgumentNullException("on");
+
             _joins = new List<Join> { new Join { Type = JoinType.RightOuterJoin, Table = table, On = on, } };
             return this;
         }
@@ -140,6 +165,12 @@
         /// <returns>This instance, so you can use it in a fluent fashion</returns>
         public Select FullOuterJoin(string table, Condition on)
         {
+            if (table == null)
+                throw new ArgumentNullException("table");
+
+            if (on == null)
+                throw new ArgumentNullException("on");
+
             _joins = new List<Join> { new Join { Type = JoinType.FullOuterJoin, Table = table, On = on, } };
             return this;
         }
@@ -151,6 +182,9 @@
         /// <returns>This instance, so you can use it in a fluent fashion</returns>
         public Select CrossJoin(string table)
         {
+            if (table == null)
+                throw new ArgumentNullException("table");
+
             _joins = new List<Join> { new Join { Type = JoinType.CrossJoin, Table = table, } };
             return this;
         }
@@ -162,6 +196,9 @@
         /// <returns>This instance, so you can use it in a fluent fashion</returns>
         public Select Where(string condition)
         {
+            if (condition == null)
+                throw new ArgumentNullException("condition");
+
             if (_where != null)
                 throw new SelectBuildingException("WHERE clause already set.");
 
@@ -178,6 +215,9 @@
         /// <exception cref="SelectBuildingException">WHERE clause is already set</exception>
         public Select Where(Condition condition)
         {
+            if (condition == null)
+                throw new ArgumentNullException("condition");
+
             if (_where != null)
                 throw new SelectBuildingException("WHERE clause is already set.");
 
@@ -193,6 +233,9 @@
         /// <returns>This instance, so you can use it in a fluent fashion</returns>
         public Select WhereAnd(string condition)
         {
+            if (condition == null)
+                throw new ArgumentNullException("condition");
+
             if (_where == null)
                 return Where(condition);
 
@@ -208,6 +251,9 @@
         /// <returns>This instance, so you can use it in a fluent fashion</returns>
         public Select WhereAnd(Condition condition)
         {
+            if (condition == null)
+                throw new ArgumentNullException("condition");
+
             if (_where == null)
                 return Where(condition);
 
@@ -223,6 +269,9 @@
         /// <returns>This instance, so you can use it in a fluent fashion</returns>
         public Select WhereOr(string condition)
         {
+            if (condition == null)
+                throw new ArgumentNullException("condition");
+
             if (_where == null)
                 return Where(condition);
 
@@ -238,6 +287,9 @@
         /// <returns>This instance, so you can use it in a fluent fashion</returns>
         public Select WhereOr(Condition condition)
         {
+            if (condition == null)
+                throw new ArgumentNullException("condition");
+
             if (_where == null)
                 return Where(condition);
 
@@ -252,6 +304,9 @@
         /// <returns>This instance, so you can use it in a fluent fashion</returns>
         public Select GroupBy(params string[] columns)
         {
+            if (columns == null)
+                throw new ArgumentNullException("columns");
+
             if (_groupBy == null)
                 _groupBy = new List<string>(columns);
             else
@@ -269,6 +324,9 @@
         /// <exception cref="SelectBuildingException">HAVING clause is already set</exception>
         public Select Having(string condition)
         {
+            if (condition == null)
+                throw new ArgumentNullException("condition");
+
             if (_having != null)
                 throw new SelectBuildingException("HAVING clause is already set.");
 
@@ -283,6 +341,9 @@
         /// <returns>This instance, so you can use it in a fluent fashion</returns>
         public Select OrderBy(params string[] columns)
         {
+            if (columns == null)
+                throw new ArgumentNullException("columns");
+
             if (_orderBy == null)
                 _orderBy = new List<string>(columns);
             else
