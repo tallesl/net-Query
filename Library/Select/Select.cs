@@ -67,7 +67,13 @@
         /// <returns>This instance, so you can use it in a fluent fashion</returns>
         public Select Join(string table, string on)
         {
-            return Join(table, new Condition(on));
+            if (table == null)
+                throw new ArgumentNullException("table");
+
+            if (on == null)
+                throw new ArgumentNullException("on");
+
+            return _Join(JoinType.None, table, new Condition(on));
         }
 
         /// <summary>
@@ -84,8 +90,7 @@
             if (on == null)
                 throw new ArgumentNullException("on");
 
-            _joins = new List<Join> { new Join { Table = table, On = on, } };
-            return this;
+            return _Join(JoinType.None, table, on);
         }
 
         /// <summary>
@@ -96,7 +101,13 @@
         /// <returns>This instance, so you can use it in a fluent fashion</returns>
         public Select LeftOuterJoin(string table, string on)
         {
-            return LeftOuterJoin(table, new Condition(on));
+            if (table == null)
+                throw new ArgumentNullException("table");
+
+            if (on == null)
+                throw new ArgumentNullException("on");
+
+            return _Join(JoinType.LeftOuterJoin, table, new Condition(on));
         }
 
         /// <summary>
@@ -113,8 +124,7 @@
             if (on == null)
                 throw new ArgumentNullException("on");
 
-            _joins = new List<Join> { new Join { Type = JoinType.LeftOuterJoin, Table = table, On = on, } };
-            return this;
+            return _Join(JoinType.LeftOuterJoin, table, on);
         }
 
         /// <summary>
@@ -125,7 +135,13 @@
         /// <returns>This instance, so you can use it in a fluent fashion</returns>
         public Select RightOuterJoin(string table, string on)
         {
-            return RightOuterJoin(table, new Condition(on));
+            if (table == null)
+                throw new ArgumentNullException("table");
+
+            if (on == null)
+                throw new ArgumentNullException("on");
+
+            return _Join(JoinType.RightOuterJoin, table, new Condition(on));
         }
 
         /// <summary>
@@ -142,8 +158,7 @@
             if (on == null)
                 throw new ArgumentNullException("on");
 
-            _joins = new List<Join> { new Join { Type = JoinType.RightOuterJoin, Table = table, On = on, } };
-            return this;
+            return _Join(JoinType.RightOuterJoin, table, on);
         }
 
         /// <summary>
@@ -154,7 +169,13 @@
         /// <returns>This instance, so you can use it in a fluent fashion</returns>
         public Select FullOuterJoin(string table, string on)
         {
-            return FullOuterJoin(table, new Condition(on));
+            if (table == null)
+                throw new ArgumentNullException("table");
+
+            if (on == null)
+                throw new ArgumentNullException("on");
+
+            return _Join(JoinType.FullOuterJoin, table, new Condition(on));
         }
 
         /// <summary>
@@ -171,8 +192,7 @@
             if (on == null)
                 throw new ArgumentNullException("on");
 
-            _joins = new List<Join> { new Join { Type = JoinType.FullOuterJoin, Table = table, On = on, } };
-            return this;
+            return _Join(JoinType.FullOuterJoin, table, on);
         }
 
         /// <summary>
@@ -185,8 +205,7 @@
             if (table == null)
                 throw new ArgumentNullException("table");
 
-            _joins = new List<Join> { new Join { Type = JoinType.CrossJoin, Table = table, } };
-            return this;
+            return _Join(JoinType.CrossJoin, table, null);
         }
 
         /// <summary>
@@ -415,6 +434,18 @@
             }
 
             return sql.ToString();
+        }
+
+        private Select _Join(JoinType type, string table, Condition on)
+        {
+            var join = new Join { Type = type, Table = table, On = on, };
+
+            if (_joins == null)
+                _joins = new List<Join> { join };
+            else
+                _joins.Add(join);
+
+            return this;
         }
     }
 }
