@@ -11,6 +11,16 @@
 
 A simplistic ADO.NET wrapper.
 
+* [Instantiating](#instantiating)
+* [Modifying data](#modifying-data)
+* [Retrieving data](#retrieving-data)
+* [Behind the covers](#behind-the-covers)
+* [Options](#options)
+* [IN clauses](#in-clauses)
+* [Connections and Transactions](#connections-and-transactions)
+* [Thread safety](#thread-safety)
+* [Building `SELECT` clauses](#building-select-clauses)
+
 [build]:     https://ci.appveyor.com/project/TallesL/net-Query
 [build-img]: https://ci.appveyor.com/api/projects/status/github/tallesl/net-Query?svg=true
 [nuget]:     https://www.nuget.org/packages/Query/
@@ -163,3 +173,140 @@ using (var query = new Query("YourConnectionStringName", new QueryConfiguration 
 
 Query isn't thread safe, but it should be lightweight enough to be instantiated as needed during the lifetime of your
 application (such as one per request).
+
+## Building `SELECT` clauses
+
+Running handmade SQL queries instead of battling an ORM to find out what it's generating is one of the reasons to use a
+so called *micro ORM*.
+
+It's all fun and games until you have to build a more complex query, one that can take multiple forms accordingly to
+some set of parameters.
+Those are usually `SELECT` queries in which the `WHERE` clause can take different combinations of parameters (or even be
+abscent).
+
+To aid in such scenarios, there is a built-in `Select` type.
+You can instantiate one yourself with `new Select("ColumnA", "ColumnB", "ColumnC", ...)` and then, on the constructed
+object, you will be able to call:
+
+* `From`
+* `Join`
+* `LeftOuterJoin`
+* `RightOuterJoin`
+* `FullOuterJoin`
+* `CrossJoin`
+* `Where`
+* `WhereAnd`
+* `WhereOr`
+* `GroupBy`
+* `Having`
+* `OrderBy`
+
+A `ToString` call gives you the resulting SQL (but you don't have to call it when passing as parameter, it implicitly
+casts to string).
+
+To illustrate the `Select` class being helpful, such page:
+
+![](Assets/screen.png)
+
+Could be powered by the following code:
+
+```cs
+// A class representing a role.
+public class Role
+{
+    public int Id { get; set; }
+
+    public string Name { get; set; }
+}
+
+// A class representing an user.
+// The role property here require a JOIN.
+public class User
+{
+    public int Id { get; set; }
+
+    public string Name { get; set; }
+
+    public string Email { get; set; }
+
+    public Role Role { get; set; }
+}
+
+// It's often useful to expose the Query object through a property,
+// specially when reusing the object (manual closing) or when QueryOptions is used.
+Query Query
+{
+    get
+    {
+        return new Query("MyConnectionString");
+    }
+}
+
+// It's also useful to create a property with a 'vanilla' SELECT of an entity of yours (DRY).
+Select UserSelect
+{
+    get
+    {
+        return new Select(
+            // The names of the selected columns and the class properties must match if you want
+            // the library to give you the instantiated object (and not a DataTable).
+            "User.Id",
+            "User.Name",
+            "User.Email",
+
+            // The library is also able to construct complex properties
+            // (non primitive types) as long the names and the types matches;
+            // it can work out the whole property tree, in other words, it can go more than one level deeper
+            // ("PropertyA.PropertyAB.PropertyABC.PropertyABCD...").
+            "Role.Id AS 'Role.Id'",
+            "Role.Name AS 'Role.Name'"
+        ).Join(
+            "Role",
+            "RoleId = Role.Id"
+        );
+    }
+}
+
+// A search method in which all the parameters are optional.
+IEnumerable<User> Search(string name, string email, int? role)
+{
+    // Getting a Select for the user table that we can work with.
+    // You can call ToString at any time to check its SQL.
+    var select = UserSelect;
+
+    // Using a ExpandoObject as parameters helps a lot when dealing with optional conditions.
+    dynamic parameters = new ExpandoObject();
+
+    // If there's a name a to filter.
+    if (!string.IsNullOrWhiteSpace(name))
+    {
+        // We add a WHERE clause to our Select object.
+        select.WhereAnd("User.Name LIKE %@Name%");
+
+        // We also add the used parameter to our ExpandoObject object.
+        parameters.Name = name;
+    }
+
+    // Same here
+    if (!string.IsNullOrWhiteSpace(email))
+    {
+        select.WhereAnd("User.Email LIKE %@Email%");
+        parameters.Email = email;
+    }
+
+    // Same here too
+    if (role.HasValue)
+    {
+        select.WhereAnd("User.RoleId = @RoleId");
+        parameters.Role = role;
+    }
+
+    // At this point the Select object is complete, with or without the necessary WHERE clause.
+    // Note that if we were building the SQL on our own, by concatenating strings,
+    // making this query would be much more cumbersome.
+
+    // Finally, we query for the users by handling the objects we built to Query,
+    // the Select is the query and the ExpandoObject are its parameters.
+    return Query.Select<User>(select, parameters);
+}
+```
