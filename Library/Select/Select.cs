@@ -27,6 +27,8 @@
 
         internal List<string> _orderBy;
 
+        internal bool _desc;
+
         /// <summary>
         /// Class that aids building a SELECT clause.
         /// </summary>
@@ -356,7 +358,7 @@
         /// <summary>
         /// Sets the ORDER BY clause in the SELECT being built.
         /// </summary>
-        /// <param name="columns">Columns to be grouped by</param>
+        /// <param name="columns">Columns to be ordered by</param>
         /// <returns>This instance, so you can use it in a fluent fashion</returns>
         public Select OrderBy(params string[] columns)
         {
@@ -367,6 +369,30 @@
                 _orderBy = new List<string>(columns);
             else
                 _orderBy.AddRange(columns);
+
+            _desc = false;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Sets the ORDER BY clause in the SELECT being built with DESC.
+        /// </summary>
+        /// <param name="columns">Columns to be ordered by</param>
+        /// <returns>This instance, so you can use it in a fluent fashion</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly",
+            Justification = "It's not hungarian notation, it's just short for 'descending'.")]
+        public Select OrderByDesc(params string[] columns)
+        {
+            if (columns == null)
+                throw new ArgumentNullException("columns");
+
+            if (_orderBy == null)
+                _orderBy = new List<string>(columns);
+            else
+                _orderBy.AddRange(columns);
+
+            _desc = true;
 
             return this;
         }
@@ -431,6 +457,9 @@
             {
                 sql.Append(" ORDER BY ");
                 sql.Append(string.Join(", ", _orderBy));
+
+                if (_desc)
+                    sql.Append(" DESC");
             }
 
             return sql.ToString();

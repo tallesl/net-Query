@@ -82,6 +82,7 @@
     <Compile Include="Tests\Select\Single.cs" />
     <Compile Include="Tests\Select\ExactlyOne.cs" />
     <Compile Include="Tests\Select\NoMoreThanOne.cs" />
+    <Compile Include="Tests\Select\OrderBy.cs" />
     <Compile Include="Tests\Select\WhereAndMethod.cs" />
     <Compile Include="Tests\Change\ExactlyOne.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
