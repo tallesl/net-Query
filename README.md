@@ -59,8 +59,11 @@ different from the expected.
 
 ```cs
 int count = query.SelectSingle<int>("SELECT COUNT(0) FROM Users");
-DataTable dt = query.Select("SELECT * FROM Users WHERE Id = @UserId", new { UserId = 1 });
-User usr = query.Select<User>("SELECT * FROM Users WHERE Id = @UserId", new { UserId = 1337 });
+
+DataTable dataTable = query.Select("SELECT * FROM Users");
+
+IEnumerable<User> users = query.Select<User>("SELECT * FROM Users");
+User user = query.SelectExactlyOne<User>("SELECT * FROM Users WHERE Id = @Id", new { Id = 1337 });
 ```
 
 You can also make sure how many rows will be selected with:
