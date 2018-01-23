@@ -262,11 +262,9 @@ Select UserSelect
             // it can work out the whole property tree, in other words, it can go more than one level deeper
             // ("PropertyA.PropertyAB.PropertyABC.PropertyABCD...").
             "Role.Id AS 'Role.Id'",
-            "Role.Name AS 'Role.Name'"
-        ).Join(
-            "Role",
-            "RoleId = Role.Id"
-        );
+            "Role.Name AS 'Role.Name'")
+            .From("User")
+            .Join("Role", "RoleId = Role.Id");
     }
 }
 
