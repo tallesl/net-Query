@@ -18,15 +18,16 @@
             _options = options;
         }
 
-        [SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
+        [SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities",
+            Justification = "Injection it's still possible but only if the library is misused (concatenating the SQL string on their own instead of passing parameters).")]
         internal DbCommand GetCommand(DbConnection connection, string sql, object parameters)
         {
             var command = connection.CreateCommand();
 
-            // This generates CA2100 warning.
-            // Supressing the warning because the injection it's still possible but only if the library is misused
-            // (concatenating the SQL string on their own instead of passing parameters).
             command.CommandText = sql;
+
+            if (_options.CommandTimeout.HasValue)
+                command.CommandTimeout = _options.CommandTimeout.Value;
 
             if (parameters != null)
             {

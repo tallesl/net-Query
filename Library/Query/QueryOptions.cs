@@ -9,24 +9,34 @@
     {
         /// <summary>
         /// Flag indicating if arrays should be expanded to IN clauses.
+        /// Defaults to False.
         /// </summary>
         public bool ArrayAsInClause { get; set; }
 
         /// <summary>
         /// Flag indicating if enum values should be treated as strings (ToString).
+        /// Defaults to False.
         /// </summary>
         public bool EnumAsString { get; set; }
 
         /// <summary>
-        /// Flag indicating if closing the connection/transaction should be done manually by the library consumer.
-        /// If False it automatically opens/closes on each API call.
+        /// Flag indicating if closing the connection/transaction should be done manually by the library consumer, False
+        /// to automatically open/close on each API call.
+        /// Defaults to False.
         /// </summary>
         public bool ManualClosing { get; set; }
 
         /// <summary>
         /// Flag indicating if it's to throw if a selected property is not found in the given type.
+        /// Defaults to False.
         /// </summary>
         public bool Safe { get; set; }
+
+        /// <summary>
+        /// DBCommand.CommandTimeout value to set, null to not set it.
+        /// Defaults to null.
+        /// </summary>
+        public int? CommandTimeout { get; set; }
 
         #region Equality
 
