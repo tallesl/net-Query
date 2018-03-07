@@ -144,7 +144,7 @@ consecutive command.
 The open connection and eventual open transaction are closed/committed when you call `Close()` (hence "manual closing").
 
 ```cs
-var query = new Query("YourConnectionStringName", new QueryConfiguration { ManualClosing = true });
+var query = new Query("YourConnectionStringName", new QueryOptions { ManualClosing = true });
 
 // Opens a connection and a transaction
 query.Change("INSERT INTO Foo VALUES ('Bar')");
@@ -163,7 +163,7 @@ If you don't plan to reuse the object you may shield its usage with `using`:
 
 ```cs
 // This is equivalent to the example above
-using (var query = new Query("YourConnectionStringName", new QueryConfiguration { ManualClosing = true }))
+using (var query = new Query("YourConnectionStringName", new QueryOptions { ManualClosing = true }))
 {
     query.Change("INSERT INTO Foo VALUES ('Bar')");
     query.Select("some syntax error");
