@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.3.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.3.2" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.109.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Query\Query.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+      <Content Include="SQLite/linux-x64/SQLite.Interop.dll" Condition="'$(OS)' == 'UNIX'">
+        <Link>SQLite.Interop.dll</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+
+      <Content Include="SQLite/windows-x64/SQLite.Interop.dll" Condition="'$(OS)' == 'Windows_NT'">
+        <Link>SQLite.Interop.dll</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+
+      <Content Include="SQLite/System.Data.SQLite.dll">
+        <Link>System.Data.SQLite.dll</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+  </ItemGroup>
+
+</Project>
