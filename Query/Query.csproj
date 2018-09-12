@@ -1,6 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <AssemblyTitle>Query</AssemblyTitle>
+    <AssemblyVersion>7.0.0.0</AssemblyVersion>
+    <Authors>Talles L &lt;talleslasmar@gmail.com&gt;</Authors>
+    <Description>A simplistic ADO.NET wrapper.</Description>
+    <FileVersion>7.0.0.0</FileVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageTags>query;ado;wrapper;database;sql</PackageTags>
+    <PackageVersion>7.0.0</PackageVersion>
+    <PackageIconUrl>https://raw.githubusercontent.com/tallesl/net-Query/master/Images/logo-200x200.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/tallesl/net-Query</RepositoryUrl>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
