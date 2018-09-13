@@ -30,7 +30,7 @@
                     var value = kvp.Value.Item2;
                     var enumerable = value as IEnumerable;
 
-                    if (!_options.ArrayAsInClause || enumerable == null || value is string)
+                    if (enumerable == null || value is string)
                         SetSingleParameter(command, name, type, value);
                     else
                         SetCollectionParameter(command, name, enumerable);

@@ -6,12 +6,6 @@
     public struct QueryOptions
     {
         /// <summary>
-        /// Flag indicating if arrays should be expanded to IN clauses.
-        /// Defaults to False.
-        /// </summary>
-        public bool ArrayAsInClause { get; set; }
-
-        /// <summary>
         /// Flag indicating if enum values should be treated as strings (ToString).
         /// Defaults to False.
         /// </summary>

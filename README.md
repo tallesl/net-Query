@@ -76,7 +76,6 @@ You can also make sure how many rows will be selected with:
 
 There's `QueryOptions` with the following flags:
 
-* `ArrayAsInClause`: Arrays are expanded to IN clauses;
 * `EnumAsString`: Treat enum values as strings rather than as integers;
 * `ManualClosing`: Connection/transaction closing should be done manually (see below);
 * `Safe`: Throws if a selected property is not found in the given type;
@@ -135,8 +134,9 @@ using (var query = new Query("YourConnectionStringName", new QueryOptions { Manu
 
 ## IN clauses
 
-If `ArrayAsInClause` is set to `True`, the library automatically prepares collections ([IEnumerable]) for [IN] clauses
-([taking that burden off you]).
+The library automatically prepares collections ([IEnumerable](https://msdn.microsoft.com/library/System.Collections.IEnumerable))
+for [IN](https://msdn.microsoft.com/library/ms177682) clauses
+([taking that burden off you](http://stackoverflow.com/q/337704/1316620)).
 
 This:
 
@@ -149,14 +149,6 @@ Becomes this:
 ```sql
 DELETE FROM Users WHERE Id IN (@Ids0, @Ids1, @Ids2)
 ```
-
-Note that to do this the library concatenates SQL on its own.
-**This gives opening for [SQL injection], never use this feature with unsanitized user input.**
-
-[IN]:                         https://msdn.microsoft.com/library/ms177682
-[IEnumerable]:                https://msdn.microsoft.com/library/System.Collections.IEnumerable
-[taking that burden off you]: http://stackoverflow.com/q/337704/1316620
-[SQL injection]:              https://en.wikipedia.org/wiki/SQL_injection
 
 ## SELECT clauses
 
@@ -241,7 +233,7 @@ IEnumerable<User> Search(string name, string email, int? role)
 {
     var select = UserSelect;
 
-    // using a ExpandoObject as parameters helps when dealing with optional conditions.
+    // using a ExpandoObject as parameters helps when dealing with optional conditions
     dynamic parameters = new ExpandoObject();
 
     if (!string.IsNullOrWhiteSpace(name))
