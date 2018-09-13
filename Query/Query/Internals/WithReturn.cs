@@ -36,7 +36,7 @@
                     // That's why _currentTransaction and not OpenTransaction (unlike the on writes)
                     command.Transaction = _currentTransaction;
 
-                    var dt = _dataTableFiller.Fill(command);
+                    var dt = FillDataTable(command);
                     var selected = dt.Rows.Count;
 
                     switch (countValidation)

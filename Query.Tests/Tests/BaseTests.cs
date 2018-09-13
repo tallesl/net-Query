@@ -15,7 +15,7 @@
 
         protected Query ManualQuery
         {
-            get => new Query("Data Source=Test.db", "System.Data.SQLite", new QueryOptions { ManualClosing = true });
+            get => new Query("Data Source=Test.db", "System.Data.SQLite", manualClosing: true);
         }
 
         protected Select ConsoleSelect

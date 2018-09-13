@@ -1,6 +1,8 @@
 ﻿namespace QueryLibrary
 {
     using System;
+    using System.Data.Common;
+    using System.Text;
 
     /// <summary>
     /// Query's base exception class.

@@ -50,7 +50,7 @@
             if (_disposed)
                 throw new ObjectDisposedException(GetType().FullName);
 
-            return _options.Safe ?
+            return _safe ?
                 SelectNoMoreThan(n, sql, parameters).ToObjectSafe<T>() :
                 SelectNoMoreThan(n, sql, parameters).ToObject<T>();
         }

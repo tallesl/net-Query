@@ -20,7 +20,6 @@ A simplistic ADO.NET wrapper.
 * [Modifying data](#modifying-data)
 * [Retrieving data](#retrieving-data)
 * [Behind the covers](#behind-the-covers)
-* [Options](#options)
 * [Thread safety](#thread-safety)
 * [Connections and Transactions](#connections-and-transactions)
 * [IN clauses](#in-clauses)
@@ -31,6 +30,14 @@ A simplistic ADO.NET wrapper.
 ```cs
 var query = new Query("Data Source=server; Initial Catalog=database; User ID=user; Password=password;", "System.Data.SqlClient");
 ```
+
+There's some optional arguments besides the query string and the provider name:
+
+* `enumAsString`: Treat enum values as strings rather than as integers;
+* `manualClosing`: Connection/transaction closing should be done 'manually' instead of automatically on each call (see
+["Connections and Transactions"](#connections-and-transactions));
+* `safe`: Throws if a selected property is not found in the given type;
+* `commandTimeout`: Optional [DBCommand.CommandTimeout](https://msdn.microsoft.com/library/System.Data.Common.DBCommand.CommandTimeout) value.
 
 ## Modifying data
 
@@ -70,16 +77,7 @@ You can also make sure how many rows will be selected with:
 
 `Change` uses [SqlCommand.ExecuteNonQuery](https://msdn.microsoft.com/library/System.Data.SqlClient.SqlCommand.ExecuteNonQuery),
 `Select` uses [DbDataAdapter.Fill](https://msdn.microsoft.com/library/System.Data.Common.DbDataAdapter.Fill)
-(except `SelectSingle` that uses [SqlCommand.ExecuteScalar](https://msdn.microsoft.com/library/System.Data.SqlClient.SqlCommand.ExecuteScalar)).
-
-## Options
-
-There's `QueryOptions` with the following flags:
-
-* `EnumAsString`: Treat enum values as strings rather than as integers;
-* `ManualClosing`: Connection/transaction closing should be done manually (see below);
-* `Safe`: Throws if a selected property is not found in the given type;
-* `CommandTimeout`: Optional [DBCommand.CommandTimeout](https://msdn.microsoft.com/library/System.Data.Common.DBCommand.CommandTimeout) value.
+(except `SelectSingle`, which uses [SqlCommand.ExecuteScalar](https://msdn.microsoft.com/library/System.Data.SqlClient.SqlCommand.ExecuteScalar)).
 
 ## Thread safety
 
@@ -88,11 +86,11 @@ your application (such as one per request).
 
 ## Connections and Transactions
 
-The library opens a connection (and a transaction for writes) and closes for every operation.
+The library opens a connection (and a transaction for writes) and closes it for every operation.
 There's no need to call [Dispose](https://msdn.microsoft.com/library/System.IDisposable.Dispose).
 
 ```cs
-var query = new Query("connection string", "provider name"); // false is the default for ManualClosing
+var query = new Query("connection string", "provider name"); // false is the default for manualClosing
 
 // opens and closes a connection and a transaction
 query.Change("INSERT INTO Foo VALUES ('Bar')");
@@ -102,12 +100,12 @@ query.Change("INSERT INTO Foo VALUES ('Bar')");
 query.Change("some syntax error");
 ```
 
-However, if `ManualClosing` is set to `True`, it automatically opens the connection and transaction and reuses it for
+However, if `manualClosing` is set to `True`, it automatically opens the connection and transaction and reuses it for
 each consecutive command.
 The open connection and (and transaction) are closed/committed when you call `Close()`.
 
 ```cs
-var query = new Query("connection string", "provider name", new QueryOptions { ManualClosing = true });
+var query = new Query("connection string", "provider name", manualClosing: true);
 
 // opens a connection and a transaction
 query.Change("INSERT INTO Foo VALUES ('Bar')");
@@ -125,7 +123,7 @@ If you don't plan to reuse the object elsewhere, you may shield its usage with `
 
 ```cs
 // this is equivalent to the example above
-using (var query = new Query("YourConnectionStringName", new QueryOptions { ManualClosing = true }))
+using (var query = new Query("connection string", "provider name", manualClosing: true))
 {
     query.Change("INSERT INTO Foo VALUES ('Bar')");
     query.Change("some syntax error");

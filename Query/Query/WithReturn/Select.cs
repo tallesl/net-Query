@@ -40,7 +40,7 @@
             if (_disposed)
                 throw new ObjectDisposedException(GetType().FullName);
 
-            return _options.Safe ?
+            return _safe ?
                 Select(sql, parameters).ToObjectSafe<T>() :
                 Select(sql, parameters).ToObject<T>();
         }
